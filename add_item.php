@@ -206,9 +206,52 @@ ADMIN_SECTION;
                     </form>
                     <script src="scripts/add_item-validateSeries.js"></script>
                 </div>
+                <div class="add-episode-form">
+                    <form id="form-addEpisode" method="POST" action="scripts/add_episode.php">
+                        <div class="form-group">
+                            <div class="form-item ep-id">
+                                <label>ID</label>
+                                <div class="flex flex-row v-mid">
+                                    <input id="form-seriesId" type="text" name="id" min="100000000" max="999999999" readonly="readonly" required>
+                                    <span class="mdi mdi-restart regenerate-id-button"></span>
+                                </div>
+                            </div>
+                            <div class="form-item altname">
+                                <label>Zwyczajowa nazwa</label>
+                                <input type="text" name="altname" required>
+                            </div>
+                        </div>
+                        <div class="form-group form-controls">
+                            <div class="form-item submit">
+                                <input type="submit" value="Dodaj serię">
+                            </div>
+                            <div class="form-item reset">
+                                <input type="reset" value="Resetuj">
+                            </div>
+                        </div>
+                    </form>
+                    <script src="scripts/add_item-validateEpisode.js"></script>
+                </div>
             </div>
         </div>
     </div>
+    <script>
+        $(document).ready(function() {
+            $('.add-series-button').click(function() {
+                $('.add-series-form').toggleClass('active').css('display', 'block');
+                $('.add-episode-form').removeClass('active').css('display', 'none');
+                $('.add-series-button').toggleClass('active');
+                $('.add-episode-button').removeClass('active');
+            });
+
+            $('.add-episode-button').click(function() {
+                $('.add-series-form').removeClass('active').css('display', 'none');
+                $('.add-episode-form').toggleClass('active').css('display', 'block');
+                $('.add-series-button').removeClass('active');
+                $('.add-episode-button').toggleClass('active');
+            });
+        });
+    </script>
     <script src="scripts/multiselect-dropdown.js"></script>
     <script src="scripts/dropdown.js"></script>
 </body>

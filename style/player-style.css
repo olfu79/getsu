@@ -95,6 +95,10 @@
   font-size: 2vw!important;
   margin-right: 2%;
 }
+.vjs-icon-placeholder{
+  width: 1.3vw!important;
+  height: 1.3vw!important;
+}
 .video-interactive p{
   margin-right: 2%;
 }

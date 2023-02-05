@@ -1,92 +1,99 @@
-.add-series-button{
-    width: 50%;
-    font-size: 1em;
-    padding: 1% 2%;
+.add-series-button,
+.add-episode-button {
+  width: 50%;
+  font-size: 1em;
+  padding: 1% 2%;
+  cursor: pointer;
 }
-.add-episode-button
-{
-    width: 50%;
-    font-size: 1em;
-    padding: 1% 2%;
+.add-series-form,
+.add-episode-form {
+  padding: 2%;
+  width: 100%;
+  display: block;
 }
-.add-series-form{
-    padding: 2%;
-    width: 100%;
+h3 {
+  font-size: 1.25vw;
 }
-h3{
-    font-size: 1.25vw;
+.active {
+  background-color: #161616;
 }
-.active{
-    background-color: #161616;
+.form-group {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
-.form-group{
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+.form-item {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1vh;
 }
-.form-item{
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 1vh;
+.form-item label:first-child {
+  font-size: 1vw;
+  padding-left: 1vh;
+  padding-bottom: 0.5vh;
 }
-.form-item label:first-child{
-    font-size: 1vw;
-    padding-left: 1vh;
-    padding-bottom: 0.5vh;
+.form-item input,
+.form-item select,
+.form-item textarea {
+  background-color: #303030;
+  border: 1px solid #303030;
+  color: white;
+  font-size: 1.2vw;
+  font-family: inherit;
+  padding: 1vh;
+  outline: none;
+  width: 100%;
 }
-.form-item input, .form-item select, .form-item textarea{
-    background-color: #303030;
-    border: 1px solid #303030;
-    color: white;
-    font-size: 1.2vw;
-    font-family: inherit;
-    padding: 1vh;
-    outline: none;
-    width: 100%;
+.form-item input:focus,
+.form-item select:focus,
+.form-item textarea:focus {
+  border: 1px solid #a61c1c;
 }
-.form-item input:focus, .form-item select:focus, .form-item textarea:focus
-{
-  border: 1px solid #A61C1C;
+.id {
+  width: 13%;
 }
-.id{
-    width: 13%;
+.altname {
+  width: 85%;
 }
-.altname{
-    width: 85%;
+.fullname,
+.genre,
+.desc {
+  width: 100%;
 }
-.fullname, .genre, .desc{
-    width: 100%;
+.season,
+.epcount,
+.brdtype,
+.brdstart,
+.brdend {
+  width: 19%;
 }
-.season, .epcount, .brdtype, .brdstart, .brdend{
-    width: 19%;
+.poster {
+  width: 20%;
 }
-.poster{
-    width: 20%;
+.tags {
+  width: 78%;
 }
-.tags{
-    width: 78%;
+.submit {
+  width: 90%;
 }
-.submit{
-    width: 90%;
+.reset {
+  width: 8%;
 }
-.reset{
-    width: 8%;
+.form-controls {
+  margin-top: 2vh;
 }
-.form-controls{
-    margin-top: 2vh;
+.form-item textarea {
+  resize: none;
 }
-.form-item textarea{
-    resize: none;
+.form-item input[type="submit"] {
+  background-color: #a61c1c;
 }
-.form-item input[type="submit"]{
-    background-color: #A61C1C;
+.regenerate-id-button {
+  font-size: 1.75vw !important;
+  margin-left: 3%;
 }
-.regenerate-id-button{
-    font-size: 1.75vw!important;
-    margin-left: 3%;
-}
-.error{
-    font-size: 0.75vw;
-    color:#A61C1C;
+.error {
+  font-size: 0.75vw;
+  color: #a61c1c;
 }

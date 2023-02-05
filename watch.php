@@ -144,8 +144,8 @@ include 'scripts/db_con.php';
                         }
                         //video exist, create player
                         echo <<< VIDEO_PLAYER
-                            <video id="o-video" class="video-js vjs-big-play-centered vjs-16-9" controls preload="auto" poster="episodes/$poster" data-setup="{}">
-                                <source src="episodes/$url" type="video/mp4" />
+                            <video id="o-video" class="video-js vjs-big-play-centered vjs-16-9" controls preload="auto" poster="episodes/$poster">
+                                <source src="$url" type="video/mp4" />
                                 <p class="vjs-no-js">
                                     To view this video please enable JavaScript, and consider upgrading to a
                                     web browser that
@@ -190,7 +190,6 @@ VIDEO_INTERACTIVE;
                                     event.preventDefault();
                                     $('#form-comment-id').val(element.getAttribute("data-comment-id"));
                                     $('.form-popup-bg').addClass('is-visible');
-
                                     $('.form-popup-bg').on('click', function(event) {
                                         if ($(event.target).is('.form-popup-bg') || $(event.target).is('#btnCloseForm')) {
                                             event.preventDefault();
@@ -240,7 +239,7 @@ NEXT_EP;
                     }
                     $result->free();
                     ?>
-                    <h2>Sugerowane:</h2> <!-- wybierz ten sam gatunek group by sezon link do odc 1 -->
+                    <h2>Podobne serie:</h2> <!-- wybierz ten sam gatunek group by sezon link do odc 1 -->
                     <div class="sugested-ep-box"></div>
                     <div class="sugested-ep-box"></div>
                     <div class="sugested-ep-box"></div>
@@ -280,6 +279,15 @@ NEXT_EP;
         };
         var player = videojs('o-video', options);
         player.chromecast();
+        var endIntroTime = "<?php echo $intro_end; ?>";
+        if (!isNaN(endIntroTime) && Number(endIntroTime) > 0) {
+            var myButton = player.getChild('ControlBar').addChild('button', {}, 3);
+            var myButtonDom = myButton.el();
+            myButtonDom.innerHTML = '<span class="mdi mdi-debug-step-over"></span>';
+            myButtonDom.onclick = function() {
+                player.currentTime(endIntroTime);
+            };
+        }
     </script>
     <script src="scripts/dropdown.js"></script>
 </body>
