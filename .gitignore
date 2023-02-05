@@ -1,2 +1,3 @@
 # Ignore media folder
 /episodes
+/node_modules
