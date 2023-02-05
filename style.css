@@ -1,0 +1,242 @@
+/* 
+primary: #A61C1C
+bg: #0D0D0D
+bg ale ciut jaśniej: #161616
+offline: #5d5d5f
+avtive: #04D960
+gold: #D9AA1E
+*/
+@import url('https://fonts.cdnfonts.com/css/axios-pro');
+*{
+  margin: 0;
+	padding: 0;
+  box-sizing: border-box;
+}
+html {
+	scroll-behavior: smooth;
+}
+body{
+  font-family: 'Axios Pro', sans-serif;
+  
+  background-color: #0D0D0D;
+  color: white;
+  line-height: 1.5;
+}
+.wrapper {
+  width: 100%;
+  display: flex;
+}
+.left-pane {
+  background-color: #0D0D0D;
+  width: 15%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: fixed;
+  z-index: 1000;
+}
+.logo {
+  height: 10vh;
+  display: flex;
+  justify-content: center;
+}
+.logo a img
+{
+  max-width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.navbar-left {
+  height: 80vh;
+  overflow: scroll;
+}
+.navbar-left::-webkit-scrollbar{
+  display: none;
+}
+.navbar-left a{
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 8vh;
+  width: 100%;
+  padding-left: 15%;
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.2vw;
+}
+.navbar-left a:hover {
+  background-color: #161616;
+}
+.navbar-left a.active {
+  padding-left: calc(15% - 5px); 
+  border-left: 5px solid #A61C1C;
+  color: white;
+  background-color: #161616;
+}
+a.active span{
+  color: #A61C1C!important;
+}
+.navbar-left a span, .logout a span {
+  margin-right: 10%;
+}
+
+.dropdown-container {
+  display: none;
+  background-color: #262626;
+  padding-left: 8px;
+}
+
+.logout {
+  height: 10vh;
+  z-index: 900;
+}
+.logout a {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  padding-left: 15%;
+  text-decoration: none;
+  color: white;
+  font-size: 1.2vw;
+}
+.logout a img {
+  margin-right: 20px;
+  max-width: 1.5vw;
+  height: auto;
+}
+.pane-divider{
+  width: 2px;
+  background-color: #161616;
+  position: fixed;
+  height: 100%;
+  margin-left: 15%;
+}
+.right-pane {
+  margin-left: 15%;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+.nav-top {
+  display: flex;
+  flex-direction: row;
+  background-color: #0D0D0D;
+  height: 10vh;
+  width: 100%;
+  position: fixed!important;
+  margin-left: 2px;
+  padding: 2%;
+  z-index: 999;
+}
+.nav-top-left{
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+}
+.nav-top a{
+  display: block;
+  padding: 20px;
+  cursor: pointer;
+}
+.nav-top img{
+  max-width: 1.5vw;
+  height: auto;
+}
+.mdi{
+  font-size: 1.5vw;
+  color: white;
+}
+.nav-top-right{
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  margin-right: calc(15% + 20px);
+}
+.nav-top input[type=search]
+{
+  color: white;
+  margin-left: 2%;
+  border: 1px solid #161616;
+  width: 100%;
+  padding: 1.85vh 1.85vh 1.85vh 5.55vh;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  outline: none;
+  background: url("icons/search.png") no-repeat left;
+  background-position: 1.85vh;
+  background-size: 2vh;
+}
+.nav-top input[type=search]:focus
+{
+  border: 1px solid #303030;
+}
+hr {
+  display: block;
+  border: 0;
+  width: 70%;
+  margin: 0.5vh auto;
+  border-top: 1px solid #161616;
+  height: 1px;
+}
+h1
+{
+  font-size: 1.7vw;
+}
+/* main */
+.main {
+  padding: 2%;
+  margin-top: 8vh;
+  font-size: 1em;
+  height: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+.ratio-1-1{
+  aspect-ratio: 1 / 1;
+}
+.ratio-4-3{
+  aspect-ratio: 4 / 3;
+}
+.ratio-16-9{
+  aspect-ratio: 16 / 9;
+}
+.vh25
+{
+  height: 25vh;
+}
+.vh50
+{
+  height: 50vh;
+}
+.vh75
+{
+  height: 75vh;
+}
+.vh100
+{
+  height: 100vh;
+}
+.v-mid{
+  align-items: center;
+}
+.h-mid{
+  justify-content: center;
+}
+.flex{
+  display: flex;
+}
+.flex-column{
+  flex-direction: column!important;
+}
+.flex-row{
+  flex-direction: row!important;
+}

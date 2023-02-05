@@ -1,0 +1,142 @@
+<?php
+include 'scripts/isloggedin.php';
+include 'scripts/db_con.php';
+include 'scripts/series-check.php';
+?>
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style/series.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.1.96/css/materialdesignicons.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    <script src="scripts/ptw-handler.js"></script>
+
+    <title>Onifu.pl</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="left-pane">
+            <div class="logo">
+                <a href="index.php">
+                    <img src="logo/onifu-white.png" alt="logo" draggable="false" />
+                </a>
+            </div>
+            <hr>
+            <div class="navbar-left">
+                <a class="active" href="index.php">
+                    <span class="mdi mdi-compass"></span>Strona Główna
+                </a>
+                <a href="javascript:void(0);" class="dropdown">
+                    <span class="mdi mdi-format-list-bulleted-square"></span>Lista anime
+                </a>
+                <div class="dropdown-container">
+                    <?php
+                    $query = "SELECT `id`, `alt_title` FROM `series` ORDER BY `alt_title` ASC";
+                    $result = $con->query($query);
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<a href='series.php?s=$row[id]'>$row[alt_title]</a>";
+                    }
+                    $result->free();
+                    ?>
+                </div>
+                <a href="watchlist.php">
+                    <span class="mdi mdi-playlist-play"></span>Do obejrzenia
+                </a>
+                <a href="coming_soon.php">
+                    <span class="mdi mdi-calendar-clock"></span>Nadchodzące!
+                </a>
+            </div>
+            <hr>
+            <div class="logout">
+                <a href="scripts/logout.php">
+                    <span class="mdi mdi-logout"></span>Log Out
+                </a>
+            </div>
+        </div>
+        <div class="pane-divider"></div>
+        <div class="right-pane">
+            <div class="nav-top">
+                <div class="nav-top-left">
+                    <a onclick="history.back()" class="nav-top-back"><span class="mdi mdi-chevron-left"></span></a>
+                    <a onclick="history.forward()" class="nav-top-forward"><span class="mdi mdi-chevron-right"></span></a>
+                    <input type="search" name="search" placeholder="Search...">
+                </div>
+                <div class="nav-top-right">
+                    <a href="index.php"><span class="mdi mdi-bell"></span></a>
+                    <a href="profile.php"><span class="mdi mdi-account-circle"></a>
+                </div>
+            </div>
+            <div class="main flex-row">
+                <div class="series-left-pane">
+                    <div class="slideshow-container">
+                        <?php
+                        $posters_query = "SELECT `episodes`.`poster` FROM `episodes` WHERE `episodes`.`series_id` = '$series_id'";
+                        $result = $con->query($posters_query);
+                        echo "<div class='slide'><img src='episodes/$poster'></div>";
+                        $imgCount = 1;
+                        while ($res = $result->fetch_assoc()) {
+                            echo "<div class='slide'><img src='episodes/$res[poster]'></div>";
+                            $imgCount++;
+                        }
+                        $result->free();
+                        ?>
+
+                        <a class="prev" onclick="plusSlides(-1)">❮</a>
+                        <a class="next" onclick="plusSlides(1)">❯</a>
+
+                        <div class="dot-wrapper">
+                            <?php
+                            for ($i = 0; $i < $imgCount; $i++) {
+                                echo "<span class='dot'></span>";
+                            }
+                            ?>
+                        </div>
+
+                    </div>
+                    <div class="series-data">
+                        <?php
+                        include 'scripts/ptw-status.php';
+                        echo <<< SERIES_DATA
+                        <h2>$alt_title</h2>
+                        $title<br><br>
+                        <b>Sezon:</b> $season<br>
+                        <b>Odcinków:</b> $epCount<br>
+                        <b>Gatunek:</b> $genre<br>
+                        <b>Data rozpoczęcia:</b> $brdStart<br>
+                        <b>Data zakończenia:</b> $brdEnd<br><br>
+                        <h4>Opis:</h4>
+                        <p>$desc</p>
+SERIES_DATA;
+                        ?>
+                    </div>
+                </div>
+                <div class="series-right-pane">
+                    <div class="series-ep-list">
+                        <h1>Lista odcinków:</h1>
+                        <ol>
+                            <?php
+                            $episodes_query = "SELECT `id`, `title` FROM `episodes` WHERE `series_id` = '$series_id' ORDER BY `order` ASC";
+                            $result = $con->query($episodes_query);
+                            while ($res = $result->fetch_assoc()) {
+                                echo "<a href='watch.php?v=$res[id]'><li>$res[title]</li></a><hr>";
+                            }
+                            $result->free();
+                            ?>
+                        </ol>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="scripts/slideshow.js"></script>
+    <script src="scripts/dropdown.js"></script>
+</body>
+
+</html>
