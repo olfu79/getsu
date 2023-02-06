@@ -14,7 +14,7 @@ include 'scripts/db_con.php';
     <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
     <script src="scripts/add_item-adjustSize.js"></script>
-    <script src="scripts/add_item-regenerateSeriesId.js"></script>
+    <script src="scripts/add_item-regenerateId.js"></script>
     <title>Onifu.pl</title>
 </head>
 
@@ -103,7 +103,7 @@ ADMIN_SECTION;
                                 <label>ID</label>
                                 <div class="flex flex-row v-mid">
                                     <input id="form-seriesId" type="text" name="id" min="100000000" max="999999999" readonly="readonly" required>
-                                    <span class="mdi mdi-restart regenerate-id-button"></span>
+                                    <span class="mdi mdi-restart regenerate-seriesID-button"></span>
                                 </div>
                             </div>
                             <div class="form-item altname">
@@ -209,16 +209,65 @@ ADMIN_SECTION;
                 <div class="add-episode-form">
                     <form id="form-addEpisode" method="POST" action="scripts/add_episode.php">
                         <div class="form-group">
-                            <div class="form-item ep-id">
+                            <div class="form-item id">
                                 <label>ID</label>
                                 <div class="flex flex-row v-mid">
-                                    <input id="form-seriesId" type="text" name="id" min="100000000" max="999999999" readonly="readonly" required>
-                                    <span class="mdi mdi-restart regenerate-id-button"></span>
+                                    <input id="form-episodeId" type="text" name="id" min="100000000" max="999999999" readonly="readonly" required>
+                                    <span class="mdi mdi-restart regenerate-episodeID-button"></span>
                                 </div>
                             </div>
-                            <div class="form-item altname">
-                                <label>Zwyczajowa nazwa</label>
-                                <input type="text" name="altname" required>
+                            <div class="form-item series">
+                                <label>Seria</label>
+                                <select name="series" required>
+                                    <?php
+                                    $query = "SELECT `id`, `alt_title`, `season` FROM `series` ORDER BY `alt_title` ASC";
+                                    $result = $con->query($query);
+                                    while ($row = $result->fetch_assoc()) {
+                                        echo "<option value='$row[id]'>$row[alt_title] [S{$row['season']}]</option>";
+                                    }
+                                    $result->free();
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-item ep-title">
+                                <label>Tytuł odcinka</label>
+                                <input type="text" name="title" required>
+                            </div>
+                            <div class="form-item ep-number">
+                                <label>Numer odcinka</label>
+                                <input type="number" name="number" min="0" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-item ep-url">
+                                <label>URL Filmu</label>
+                                <input type="url" name="url" required>
+                            </div>
+                            <div class="form-item ep-poster">
+                                <label>URL Miniaturki</label>
+                                <input type="url" name="poster" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-item desc">
+                                <label>Opis</label>
+                                <textarea name="desc" rows="4" maxlength="2048"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-item intro">
+                                <label>Koniec intro</label>
+                                <div class="flex flex-row v-mid">
+                                    <input id="intro-min" type="number" name="minutes" min="0">
+                                    &nbsp;<h1>:</h1>&nbsp;
+                                    <input type="number" name="seconds" min="0" max="59">
+                                </div>
+                            </div>
+                            <div class="form-item intro">
+                                <label>Publiczny</label>
+                                <input type="checkbox" name="visible" checked>
                             </div>
                         </div>
                         <div class="form-group form-controls">

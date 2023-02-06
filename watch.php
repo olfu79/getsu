@@ -228,7 +228,6 @@ VIDEO_INTERACTIVE;
                         $nextEp_poster = $res['poster'];
                         $nextEp_season = $res['season'];
                         $nextEp_num = $res['ep_number'];
-                        //echo $res['id'];
                         echo <<< NEXT_EP
                             <h2>Kolejny odcinek:</h2>
                             <a class="next-ep-box" href="watch.php?v=$nextEp_id">
@@ -239,7 +238,7 @@ NEXT_EP;
                     }
                     $result->free();
                     ?>
-                    <h2>Podobne serie:</h2> <!-- wybierz ten sam gatunek group by sezon link do odc 1 -->
+                    <h2>Podobne serie:</h2> <!-- wybierz ten sam gatunek group by sezon -->
                     <div class="sugested-ep-box"></div>
                     <div class="sugested-ep-box"></div>
                     <div class="sugested-ep-box"></div>

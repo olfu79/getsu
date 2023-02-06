@@ -41,7 +41,8 @@ $("#form-addSeries").validate({
         maxlength: 1024
       },
       poster: {
-        required: true
+        required: true,
+        url: true
       }
     },
     messages: {
@@ -73,8 +74,8 @@ $("#form-addSeries").validate({
             required: "To pole jest wymagane",
             number: "Wprowadź prawidłową liczbę",
             min: "Liczba odcinków musi być liczbą całkowitą nieujemną",
-            step: "Liczba odcinków  musi być liczbą całkowitą nieujemną",
-            digits: "Liczba odcinków  musi być liczbą całkowitą nieujemną"
+            step: "Liczba odcinków musi być liczbą całkowitą nieujemną",
+            digits: "Liczba odcinków musi być liczbą całkowitą nieujemną"
           },
           brdtype: {
             required: "To pole jest wymagane",
