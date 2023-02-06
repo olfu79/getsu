@@ -121,7 +121,7 @@ SERIES_DATA;
                         <h1>Lista odcinków:</h1>
                         <ol>
                             <?php
-                            $episodes_query = "SELECT `id`, `title` FROM `episodes` WHERE `series_id` = '$series_id' ORDER BY `order` ASC";
+                            $episodes_query = "SELECT `id`, `title` FROM `episodes` WHERE `series_id` = '$series_id' ORDER BY `ep_number` ASC";
                             $result = $con->query($episodes_query);
                             while ($res = $result->fetch_assoc()) {
                                 echo "<a href='watch.php?v=$res[id]'><li>$res[title]</li></a><hr>";

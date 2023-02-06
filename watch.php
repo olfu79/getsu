@@ -105,7 +105,6 @@ include 'scripts/db_con.php';
                             $order = $res['order'];
                             $added_date = $res['added_date'];
                             $likes = $res['likes'];
-                            $intro_start = $res['intro_start'];
                             $intro_end = $res['intro_end'];
                         }
                         $result->free();
@@ -220,7 +219,7 @@ VIDEO_INTERACTIVE;
                 </div>
                 <div class="suggested">
                     <?php
-                    $nextEp_query = "SELECT `episodes`.`id`, `episodes`.`poster`, `series`.`season`, `episodes`.`ep_number` FROM `episodes` INNER JOIN `series` ON `series`.`id` = `episodes`.`series_id` WHERE `series`.`id` = (SELECT `episodes`.`series_id` from `episodes` WHERE `episodes`.`id` = $id) AND `episodes`.`order` = (SELECT `episodes`.`order` from `episodes` WHERE `episodes`.`id` = $id) + 1;";
+                    $nextEp_query = "SELECT `episodes`.`id`, `episodes`.`poster`, `series`.`season`, `episodes`.`ep_number` FROM `episodes` INNER JOIN `series` ON `series`.`id` = `episodes`.`series_id` WHERE `series`.`id` = (SELECT `episodes`.`series_id` from `episodes` WHERE `episodes`.`id` = $id) AND `episodes`.`ep_number` = (SELECT `episodes`.`ep_number` from `episodes` WHERE `episodes`.`id` = $id) + 1;";
                     $result = $con->query($nextEp_query);
                     if ($result->num_rows > 0) {
                         $res = $result->fetch_assoc();
