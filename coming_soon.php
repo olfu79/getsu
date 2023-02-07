@@ -76,7 +76,7 @@ include 'scripts/db_con.php';
                         while ($row1 = $result1->fetch_assoc()) {
                             echo <<< CONTENT
                                 <a href="series.php?s=$row1[id]" class="main-container-25 ratio-4-3">
-                                    <img src="episodes/$row1[poster]">
+                                    <img src="$row1[poster]">
                                     <p>$row1[alt_title]</p>
                                     <p>Premiera: {$row1["brd-start"]}</p>
                                 </a>

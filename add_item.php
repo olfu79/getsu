@@ -272,7 +272,7 @@ ADMIN_SECTION;
                         </div>
                         <div class="form-group form-controls">
                             <div class="form-item submit">
-                                <input type="submit" value="Dodaj serię">
+                                <input type="submit" value="Dodaj odcinek">
                             </div>
                             <div class="form-item reset">
                                 <input type="reset" value="Resetuj">

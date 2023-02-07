@@ -102,7 +102,6 @@ include 'scripts/db_con.php';
                             $ep_number = $res['ep_number'];
                             $isActive = $res['isActive'];
                             $desc = $res['desc'];
-                            $order = $res['order'];
                             $added_date = $res['added_date'];
                             $likes = $res['likes'];
                             $intro_end = $res['intro_end'];
@@ -141,9 +140,14 @@ include 'scripts/db_con.php';
                             $series_desc = $res['desc'];
                             $genre = $res['genre'];
                         }
+                        //check if desc is empty
+                        $epDesc = $desc;
+                        if (empty($epDesc)) {
+                            $epDesc = $series_desc;
+                        }
                         //video exist, create player
                         echo <<< VIDEO_PLAYER
-                            <video id="o-video" class="video-js vjs-big-play-centered vjs-16-9" controls preload="auto" poster="episodes/$poster">
+                            <video id="o-video" class="video-js vjs-big-play-centered vjs-16-9" controls preload="auto" poster="$poster">
                                 <source src="$url" type="video/mp4" />
                                 <p class="vjs-no-js">
                                     To view this video please enable JavaScript, and consider upgrading to a
@@ -157,12 +161,12 @@ VIDEO_PLAYER;
                         include 'scripts/like-counter.php';
                         echo <<< VIDEO_INTERACTIVE
                         <a href="series.php?s=$series_id"><span class="mdi mdi-format-list-numbered"></span></a>
-                        <span class="mdi mdi-download" onclick="download('episodes/$url', '{$alt_title} S{$season}O{$ep_number}')"></span>
+                        <span class="mdi mdi-download" onclick="download('$url', '{$alt_title} S{$season}O{$ep_number}')"></span>
                         <span class="mdi mdi-share" onclick="navigator.clipboard.writeText(window.location.href);"></span>
                     </div>
                     <div class="video-meta">
-                        <h2>$alt_title S{$season}O{$ep_number} - "$title"</h2>
-                        <p>$desc</p>
+                        <h2>$alt_title S{$season} O{$ep_number} - "$title"</h2>
+                        <p>$epDesc</p>
                     </div>
 VIDEO_INTERACTIVE;
                     } else {
@@ -230,8 +234,8 @@ VIDEO_INTERACTIVE;
                         echo <<< NEXT_EP
                             <h2>Kolejny odcinek:</h2>
                             <a class="next-ep-box" href="watch.php?v=$nextEp_id">
-                                <img width="100%" src="episodes/$nextEp_poster">
-                                <div class="next-ep-title">$alt_title S{$nextEp_season}O{$nextEp_num}</div>
+                                <img width="100%" src="$nextEp_poster">
+                                <div class="next-ep-title">$alt_title S{$nextEp_season} O{$nextEp_num}</div>
                             </a>
 NEXT_EP;
                     }

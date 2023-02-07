@@ -78,10 +78,10 @@ include 'scripts/series-check.php';
                         <?php
                         $posters_query = "SELECT `episodes`.`poster` FROM `episodes` WHERE `episodes`.`series_id` = '$series_id'";
                         $result = $con->query($posters_query);
-                        echo "<div class='slide'><img src='episodes/$poster'></div>";
+                        echo "<div class='slide'><img src='$poster'></div>";
                         $imgCount = 1;
                         while ($res = $result->fetch_assoc()) {
-                            echo "<div class='slide'><img src='episodes/$res[poster]'></div>";
+                            echo "<div class='slide'><img src='$res[poster]'></div>";
                             $imgCount++;
                         }
                         $result->free();
