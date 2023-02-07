@@ -9,7 +9,12 @@
 .add-episode-form {
   padding: 2%;
   width: 100%;
+}
+.add-series-form{
   display: block;
+}
+.add-episode-form{
+  display: none;
 }
 h3 {
   font-size: 1.25vw;
@@ -50,6 +55,30 @@ h3 {
 .form-item textarea:focus {
   border: 1px solid #a61c1c;
 }
+.submit {
+  width: 90%;
+}
+.reset {
+  width: 8%;
+}
+.form-controls {
+  margin-top: 2vh;
+}
+.form-item textarea {
+  resize: none;
+}
+.form-item input[type="submit"] {
+  background-color: #a61c1c;
+}
+.regenerate-id-button {
+  font-size: 1.75vw !important;
+  margin-left: 3%;
+}
+.error {
+  font-size: 0.75vw;
+  color: #a61c1c;
+}
+/* series form fields styling */
 .id {
   width: 13%;
 }
@@ -74,26 +103,25 @@ h3 {
 .tags {
   width: 78%;
 }
-.submit {
-  width: 90%;
+/* episode form fields styling */
+.series {
+  width: 85%;
 }
-.reset {
-  width: 8%;
+.ep-title{
+  width: 80%;
 }
-.form-controls {
-  margin-top: 2vh;
+.ep-number{
+  width: 18%;
 }
-.form-item textarea {
-  resize: none;
+.ep-url{
+  width: 60%;
 }
-.form-item input[type="submit"] {
-  background-color: #a61c1c;
+.ep-poster{
+  width: 38%;
 }
-.regenerate-id-button {
-  font-size: 1.75vw !important;
-  margin-left: 3%;
+.intro{
+  width: 10%;
 }
-.error {
-  font-size: 0.75vw;
-  color: #a61c1c;
+#intro-min{
+  text-align: right;
 }

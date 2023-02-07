@@ -100,7 +100,7 @@ ADMIN_SECTION;
                                 while ($row2 = $result2->fetch_assoc()) {
                                     echo <<< CONTENT
                                             <a href="watch.php?v=$episodes_list[$i]" class="main-container-25 ratio-4-3">
-                                                <img src="episodes/$row2[poster]">
+                                                <img src="$row2[poster]">
                                                 <p>$row2[alt_title] - S$row2[season]O$row2[ep_number]</p>
                                             </a>
 CONTENT;
@@ -121,7 +121,7 @@ CONTENT;
                         while ($row = $result->fetch_assoc()) {
                             echo <<< CONTENT
                                 <a href="series.php?s=$row[id]" class="main-container-25 ratio-4-3">
-                                    <img src="episodes/$row[poster]">
+                                    <img src="$row[poster]">
                                     <p>$row[alt_title]</p>
                                 </a>
 CONTENT;
@@ -138,7 +138,7 @@ CONTENT;
                         while ($row = $result->fetch_assoc()) {
                             echo <<< CONTENT
                                 <a href="series.php?s=$row[id]" class="main-container-25 ratio-4-3">
-                                    <img src="episodes/$row[poster]">
+                                    <img src="$row[poster]">
                                     <p>$row[alt_title]</p>
                                 </a>
 CONTENT;
@@ -155,7 +155,7 @@ CONTENT;
                         while ($row = $result->fetch_assoc()) {
                             echo <<< CONTENT
                                 <a href="series.php?s=$row[id]" class="main-container-25 ratio-4-3">
-                                    <img src="episodes/$row[poster]">
+                                    <img src="$row[poster]">
                                     <p>$row[alt_title]</p>
                                 </a>
 CONTENT;

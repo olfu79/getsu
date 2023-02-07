@@ -78,10 +78,10 @@ include 'scripts/series-check.php';
                         <?php
                         $posters_query = "SELECT `episodes`.`poster` FROM `episodes` WHERE `episodes`.`series_id` = '$series_id'";
                         $result = $con->query($posters_query);
-                        echo "<div class='slide'><img src='episodes/$poster'></div>";
+                        echo "<div class='slide'><img src='$poster'></div>";
                         $imgCount = 1;
                         while ($res = $result->fetch_assoc()) {
-                            echo "<div class='slide'><img src='episodes/$res[poster]'></div>";
+                            echo "<div class='slide'><img src='$res[poster]'></div>";
                             $imgCount++;
                         }
                         $result->free();
@@ -121,7 +121,7 @@ SERIES_DATA;
                         <h1>Lista odcinków:</h1>
                         <ol>
                             <?php
-                            $episodes_query = "SELECT `id`, `title` FROM `episodes` WHERE `series_id` = '$series_id' ORDER BY `order` ASC";
+                            $episodes_query = "SELECT `id`, `title` FROM `episodes` WHERE `series_id` = '$series_id' ORDER BY `ep_number` ASC";
                             $result = $con->query($episodes_query);
                             while ($res = $result->fetch_assoc()) {
                                 echo "<a href='watch.php?v=$res[id]'><li>$res[title]</li></a><hr>";
