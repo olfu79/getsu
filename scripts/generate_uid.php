@@ -1,4 +1,6 @@
 <?php
+error_reporting(0);
+ini_set('display_errors', 0);
 include 'db_con.php';
 do {
     $uid = substr(abs(crc32(uniqid())), 0, 9);

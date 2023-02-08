@@ -1,5 +1,6 @@
 <?php
 include 'scripts/isloggedin.php';
+include 'scripts/isadmin.php';
 include 'scripts/db_con.php';
 ?>
 <!DOCTYPE html>
@@ -15,7 +16,7 @@ include 'scripts/db_con.php';
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
     <script src="scripts/add_item-adjustSize.js"></script>
     <script src="scripts/add_item-regenerateId.js"></script>
-    <title>Onifu.pl</title>
+    <title>Getsu</title>
 </head>
 
 <body>
@@ -23,7 +24,7 @@ include 'scripts/db_con.php';
         <div class="left-pane">
             <div class="logo">
                 <a href="index.php">
-                    <img src="logo/onifu-white.png" alt="logo" draggable="false" />
+                    <img src="logo/getsu.png" alt="logo" draggable="false" />
                 </a>
             </div>
             <hr>
@@ -219,6 +220,7 @@ ADMIN_SECTION;
                             <div class="form-item series">
                                 <label>Seria</label>
                                 <select name="series" required>
+                                    <option disabled selected value="">Wybierz serię</option>
                                     <?php
                                     $query = "SELECT `id`, `alt_title`, `season` FROM `series` ORDER BY `alt_title` ASC";
                                     $result = $con->query($query);
@@ -265,7 +267,7 @@ ADMIN_SECTION;
                                     <input type="number" name="seconds" min="0" max="59">
                                 </div>
                             </div>
-                            <div class="form-item intro">
+                            <div class="form-item isVisible">
                                 <label>Publiczny</label>
                                 <input type="checkbox" name="visible" checked>
                             </div>
@@ -287,17 +289,23 @@ ADMIN_SECTION;
     <script>
         $(document).ready(function() {
             $('.add-series-button').click(function() {
-                $('.add-series-form').toggleClass('active').css('display', 'block');
-                $('.add-episode-form').removeClass('active').css('display', 'none');
-                $('.add-series-button').toggleClass('active');
-                $('.add-episode-button').removeClass('active');
+                if (!$(this).hasClass('active')) {
+                    $('.add-series-form').toggleClass('active').css('display', 'block');
+                    $('.add-episode-form').removeClass('active').css('display', 'none');
+                    $('.add-series-button').toggleClass('active');
+                    $('.add-episode-button').removeClass('active');
+                    setSelectSize();
+                }
             });
 
             $('.add-episode-button').click(function() {
-                $('.add-series-form').removeClass('active').css('display', 'none');
-                $('.add-episode-form').toggleClass('active').css('display', 'block');
-                $('.add-series-button').removeClass('active');
-                $('.add-episode-button').toggleClass('active');
+                if (!$(this).hasClass('active')) {
+                    $('.add-series-form').removeClass('active').css('display', 'none');
+                    $('.add-episode-form').toggleClass('active').css('display', 'block');
+                    $('.add-series-button').removeClass('active');
+                    $('.add-episode-button').toggleClass('active');
+                    setSelectSize()
+                }
             });
         });
     </script>

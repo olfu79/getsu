@@ -16,7 +16,7 @@ include 'scripts/series-check.php';
     <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
     <script src="scripts/ptw-handler.js"></script>
 
-    <title>Onifu.pl</title>
+    <title>Getsu</title>
 </head>
 
 <body>
@@ -24,15 +24,15 @@ include 'scripts/series-check.php';
         <div class="left-pane">
             <div class="logo">
                 <a href="index.php">
-                    <img src="logo/onifu-white.png" alt="logo" draggable="false" />
+                    <img src="logo/getsu.png" alt="logo" draggable="false" />
                 </a>
             </div>
             <hr>
             <div class="navbar-left">
-                <a class="active" href="index.php">
+                <a href="index.php">
                     <span class="mdi mdi-compass"></span>Strona Główna
                 </a>
-                <a href="javascript:void(0);" class="dropdown">
+                <a href="javascript:void(0);" class="dropdown active">
                     <span class="mdi mdi-format-list-bulleted-square"></span>Lista anime
                 </a>
                 <div class="dropdown-container">
@@ -40,7 +40,7 @@ include 'scripts/series-check.php';
                     $query = "SELECT `id`, `alt_title` FROM `series` ORDER BY `alt_title` ASC";
                     $result = $con->query($query);
                     while ($row = $result->fetch_assoc()) {
-                        echo "<a href='series.php?s=$row[id]'>$row[alt_title]</a>";
+                        echo "<a href='series.php?s=$row[id]' id='$row[id]'>$row[alt_title]</a>";
                     }
                     $result->free();
                     ?>
@@ -51,6 +51,24 @@ include 'scripts/series-check.php';
                 <a href="coming_soon.php">
                     <span class="mdi mdi-calendar-clock"></span>Nadchodzące!
                 </a>
+                <?php if ($_SESSION['role'] == "admin") {
+                    echo <<< ADMIN_SECTION
+                    <hr>
+                    <a href="add_item.php">
+                        <span class="mdi mdi-plus"></span>Dodaj
+                    </a>
+                    <a href="reports.php">
+                        <span class="mdi mdi-flag"></span>Zgłoszenia
+                    </a>
+                    <a href="manage-content.php">
+                        <span class="mdi mdi-view-dashboard-edit"></span>Zarządzaj zawartością
+                    </a>
+                    <a href="manage-users.php">
+                        <span class="mdi mdi-account-edit"></span>Zarządzaj użytkownikami
+                    </a>
+ADMIN_SECTION;
+                }
+                ?>
             </div>
             <hr>
             <div class="logout">
@@ -119,22 +137,29 @@ SERIES_DATA;
                 <div class="series-right-pane">
                     <div class="series-ep-list">
                         <h1>Lista odcinków:</h1>
-                        <ol>
+                        <ul>
+                            <hr>
                             <?php
-                            $episodes_query = "SELECT `id`, `title` FROM `episodes` WHERE `series_id` = '$series_id' ORDER BY `ep_number` ASC";
+                            $episodes_query = "SELECT `id`, `title`, `ep_number` FROM `episodes` 
+                            WHERE `series_id` = '$series_id' 
+                            AND `isActive` = 1 
+                            ORDER BY `ep_number` ASC";
                             $result = $con->query($episodes_query);
                             while ($res = $result->fetch_assoc()) {
-                                echo "<a href='watch.php?v=$res[id]'><li>$res[title]</li></a><hr>";
+                                echo "<a href='watch.php?v=$res[id]'><li><span class='epNum'>$res[ep_number].</span> $res[title]</li></a><hr>";
                             }
                             $result->free();
                             ?>
-                        </ol>
+                        </ul>
 
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        document.getElementById("<?php echo $series_id; ?>").style.backgroundColor = "#161616";
+    </script>
     <script src="scripts/slideshow.js"></script>
     <script src="scripts/dropdown.js"></script>
 </body>

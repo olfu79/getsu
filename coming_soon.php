@@ -11,7 +11,7 @@ include 'scripts/db_con.php';
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="style/coming-soon.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.1.96/css/materialdesignicons.min.css">
-    <title>Onifu.pl</title>
+    <title>Getsu</title>
 </head>
 
 <body>
@@ -19,7 +19,7 @@ include 'scripts/db_con.php';
         <div class="left-pane">
             <div class="logo">
                 <a href="index.php">
-                    <img src="logo/onifu-white.png" alt="logo" draggable="false" />
+                    <img src="logo/getsu.png" alt="logo" draggable="false" />
                 </a>
             </div>
             <hr>
@@ -46,6 +46,24 @@ include 'scripts/db_con.php';
                 <a class="active" href="coming_soon.php">
                     <span class="mdi mdi-calendar-clock"></span>Nadchodzące!
                 </a>
+                <?php if ($_SESSION['role'] == "admin") {
+                    echo <<< ADMIN_SECTION
+                    <hr>
+                    <a href="add_item.php">
+                        <span class="mdi mdi-plus"></span>Dodaj
+                    </a>
+                    <a href="reports.php">
+                        <span class="mdi mdi-flag"></span>Zgłoszenia
+                    </a>
+                    <a href="manage-content.php">
+                        <span class="mdi mdi-view-dashboard-edit"></span>Zarządzaj zawartością
+                    </a>
+                    <a href="manage-users.php">
+                        <span class="mdi mdi-account-edit"></span>Zarządzaj użytkownikami
+                    </a>
+ADMIN_SECTION;
+                }
+                ?>
             </div>
             <hr>
             <div class="logout">

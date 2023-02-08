@@ -9,6 +9,9 @@ $("#form-addEpisode").validate({
         min: 100000000,
         max: 999999999
       },
+      series: {
+          required: true
+      },
       title: {
         required: true,
         minlength: 2
@@ -40,6 +43,9 @@ $("#form-addEpisode").validate({
         maxlength: "Zły format ID",
         min: "Zły format ID",
         max: "Zły format ID"
+      },
+      series:{
+        required: "To pole jest wymagane"
       },
       title: {
         required: "To pole jest wymagane",

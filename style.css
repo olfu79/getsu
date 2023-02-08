@@ -72,9 +72,12 @@ body{
 .navbar-left a.active {
   padding-left: calc(15% - 5px); 
   border-left: 5px solid #A61C1C;
-  color: white;
   background-color: #161616;
 }
+.navbar-left a.selected {
+  background-color: #161616;
+}
+
 a.active span{
   color: #A61C1C!important;
 }
@@ -85,9 +88,12 @@ a.active span{
 .dropdown-container {
   display: none;
   background-color: #262626;
-  padding-left: 8px;
 }
-
+.dropdown-container a{
+  padding-left: calc(15% - 5px); 
+  border-left: 5px solid #fff;
+  height: 4vh;
+}
 .logout {
   height: 10vh;
   z-index: 900;
