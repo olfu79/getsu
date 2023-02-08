@@ -100,13 +100,13 @@
 .series-ep-list h1{
   text-align: center;
 }
-ol li{
+ul {
+  list-style-type: none;
+}
+ul li{
   padding: 2%;
 }
-ol li::marker {
-  color: #A61C1C;
-}
-hr {
+ul hr {
   display: block;
   border: 0;
   width: 100%;
@@ -114,7 +114,10 @@ hr {
   border-top: 1px solid #0D0D0D;
   height: 1px;
 }
-ol a{
+ul a{
   text-decoration: none;
   color: white;
+}
+.epNum{
+  color: #A61C1C;
 }
