@@ -1,0 +1,45 @@
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    
+    padding: 1vh;
+    text-align: left;
+}
+.series-row{
+    border-bottom: 1px solid #0d0d0d;
+}
+.series-header{
+    background-color: #A61C1C;
+}
+.series-row:hover{
+    background-color: #0d0d0d;
+}
+tr:nth-child(even) {
+    background-color: #161616;
+}
+
+.episodes-container {
+    background-color: #262626;
+    display: none;
+}
+.series_id, .episode_id, .episode_number {
+width: 10%;
+}
+.series_actions, .episode_actions {
+padding: 0.5vh;
+width: 15%;
+align-items: center;
+}
+.actions
+{
+    justify-content: space-evenly;
+    width: 100%;
+    height: 100%;
+}
+.actions-header
+{
+    text-align: center;
+}

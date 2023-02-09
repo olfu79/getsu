@@ -87,6 +87,7 @@ ADMIN_SECTION;
             </div>
             <div class="main flex-column">
                 <h1>Nadchodzące</h1>
+                DODAĆ TU KALENDARZ Z ITEMAMI PO KLIKNIECIU PRZECHODZI NA SERIE. NAJPIERW TRZEBA DODAC SERIE A POTEM PRZY DODAWANIU DO KALENDARZA MOZNA WYBRAC TYLKO TE KTORE MAJA RELEASE DATE NOWSZY NIZ CURRENT_DATE
                 <div class="comingsoon-section">
                     <?php
                     $query1 = "SELECT * FROM `series` WHERE `brd-start` > CURRENT_DATE() ORDER BY `brd-start` ASC";

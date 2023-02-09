@@ -94,7 +94,7 @@ ADMIN_SECTION;
                 <div class="series-left-pane">
                     <div class="slideshow-container">
                         <?php
-                        $posters_query = "SELECT `episodes`.`poster` FROM `episodes` WHERE `episodes`.`series_id` = '$series_id'";
+                        $posters_query = "SELECT `episodes`.`poster` FROM `episodes` WHERE `episodes`.`series_id` = '$series_id' ORDER BY RAND() LIMIT 5";
                         $result = $con->query($posters_query);
                         echo "<div class='slide'><img src='$poster'></div>";
                         $imgCount = 1;
