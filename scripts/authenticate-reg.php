@@ -14,8 +14,8 @@ if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
 if (preg_match('/^[a-zA-Z0-9]+$/', $_POST['username']) == 0) {
     exit('Username is not valid!');
 }
-if (strlen($_POST['password']) > 20 || strlen($_POST['password']) < 5) {
-    exit('Password must be between 5 and 20 characters long!');
+if (strlen($_POST['password']) > 20 || strlen($_POST['password']) < 4) {
+    exit('Password must be between 4 and 20 characters long!');
 }
 if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?')) {
     $uniqid = uniqid();
