@@ -1,0 +1,37 @@
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    
+    padding: 1vh;
+    text-align: left;
+}
+.users-row{
+    border-bottom: 1px solid #0d0d0d;
+}
+.users-header{
+    background-color: #A61C1C;
+}
+tr{
+    background-color: #161616;
+}
+.users_id, .users_role {
+width: 10%;
+}
+.users_actions {
+padding: 0.5vh;
+width: 15%;
+align-items: center;
+}
+.actions
+{
+    justify-content: space-evenly;
+    width: 100%;
+    height: 100%;
+}
+.actions-header
+{
+    text-align: center;
+}

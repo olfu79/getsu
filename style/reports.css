@@ -1,0 +1,40 @@
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    
+    padding: 1vh;
+    text-align: left;
+}
+.comment-row{
+    border-bottom: 1px solid #0d0d0d;
+}
+.comment-header{
+    background-color: #A61C1C;
+}
+tr{
+    background-color: #161616;
+}
+.comment_repId, .comment_reason{
+width: 5%;
+}
+.comment_reported, .comment_reportedBy{
+    width: 10%;
+}
+.comment_actions {
+padding: 0.5vh;
+width: 15%;
+align-items: center;
+}
+.actions
+{
+    justify-content: space-evenly;
+    width: 100%;
+    height: 100%;
+}
+.actions-header
+{
+    text-align: center;
+}

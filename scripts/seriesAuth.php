@@ -2,7 +2,7 @@
 if (isset($_GET['s'])) {
     $sId = $_GET['s'];
 
-    $series_query = "SELECT * FROM `series` WHERE `id` = '$sId'";
+    $series_query = "SELECT * FROM `series` WHERE `id` = '$sId' AND `isActive` = 1";
     $result = $con->query($series_query);
     if ($result->num_rows == 0) {
         header('Location: error.php?e=nie ma takiej serii');

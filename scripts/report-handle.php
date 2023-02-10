@@ -6,6 +6,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $author_id = $_SESSION['id'];
     $reason =  $_POST['reason'];
     $note =  $_POST['note'];;
-    $insertReport_query = "INSERT INTO `comments_reports`(`user_id`, `comment_id`, `reason`, `note`) VALUES ('$author_id','$comment_id', '$reason', '$note')";
+    $insertReport_query = "INSERT INTO `comments_reports`(`user_id`, `comment_id`, `reason`, `note`, `reported_by`) VALUES ('$author_id','$comment_id', '$reason', '$note', '$_SESSION[id]')";
     $result = $con->query($insertReport_query);
 }

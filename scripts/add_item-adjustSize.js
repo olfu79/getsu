@@ -9,6 +9,16 @@ function setSelectSize() {
         $("input[type='checkbox']").height(height);
         $('.series select').height(height);
     }
+    if($('.edit-series-form').length){
+        var height = $("input#form-seriesId").height();
+        $("input[type='date']").height(height);
+        $('.brdtype select').height(height);
+    }
+    if($('.edit-episode-form').length){
+        var height = $("input#form-episodeId").height();
+        $("input[type='checkbox']").height(height);
+        $('.series select').height(height);
+    }
 }
 $(document).ready(function() {
     setSelectSize()

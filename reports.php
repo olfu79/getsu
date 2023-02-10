@@ -3,15 +3,16 @@ include 'scripts/isloggedin.php';
 include 'scripts/db_con.php';
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="style/watchlist.css">
+    <link rel="stylesheet" href="style/reports.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.1.96/css/materialdesignicons.min.css">
-    <title>Project</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Getsu</title>
 </head>
 
 <body>
@@ -40,7 +41,7 @@ include 'scripts/db_con.php';
                     $result->free();
                     ?>
                 </div>
-                <a class="active" href="watchlist.php">
+                <a href="watchlist.php">
                     <span class="mdi mdi-playlist-play"></span>Do obejrzenia
                 </a>
                 <a href="coming_soon.php">
@@ -86,26 +87,56 @@ ADMIN_SECTION;
                 </div>
             </div>
             <div class="main flex-column">
-                <h1>Do obejrzenia</h1>
-                <div class="ptw-section">
+                <h1>Zgłoszone komentarze</h1>
+                <div class="browse-section">
                     <?php
-                    $query1 = "SELECT * FROM `series` INNER JOIN `plan_to_watch` ON `plan_to_watch`.`series_id` = `series`.`id` WHERE `plan_to_watch`.`user_id` = $_SESSION[id]";
-                    if ($result1 = $con->query($query1)) {
-                        while ($row1 = $result1->fetch_assoc()) {
-                            echo <<< CONTENT
-                                <a href="series.php?s=$row1[id]" class="main-container-25 ratio-4-3">
-                                    <img src="$row1[poster]">
-                                    <p>$row1[alt_title]</p>
-                                </a>
-CONTENT;
+                    $reportedCommentsData_query = "SELECT `comments_reports`.`id`,`comments_reports`.`user_id`,`reported`.`username` as user_username,`comments_reports`.`comment_id`,`comments_reports`.`reason`,`comments_reports`.`note`,`comments_reports`.`reported_by`,`reportedby`.`username` as reported_by_username, `comments`.`content` 
+                    FROM `comments_reports` 
+                    INNER JOIN `accounts` as `reported` ON `reported`.`id` = `comments_reports`.`user_id`
+                    INNER JOIN `comments` ON `comments`.`id` = `comments_reports`.`comment_id`
+                    INNER JOIN `accounts` as `reportedby` ON `reportedby`.`id` = `comments_reports`.`reported_by`
+                    ORDER BY `comments_reports`.`id`
+                    ";
+                    $result = $con->query($reportedCommentsData_query);
+
+                    if ($result->num_rows > 0) {
+                        $output = "<table>
+                                    <tr class='comment-header'>
+                                        <th>ID</th>
+                                        <th>Zgłoszony</th>
+                                        <th>Powód</th>
+                                        <th>Komentarz</th>
+                                        <th>Notatka</th>
+                                        <th>Przez</th>
+                                        <th class='actions-header'>Akcje</th>
+                                    </tr>";
+                        while ($commentsRow = $result->fetch_assoc()) {
+                            $output .= "<tr class='comment-row' data-comment-id='$commentsRow[comment_id]'>
+                                            <td class='comment_repId'>{$commentsRow["id"]}</td>
+                                            <td class='comment_reported'>{$commentsRow["user_username"]}</td>
+                                            <td class='comment_reason'>{$commentsRow["reason"]}</td>
+                                            <td class='comment_content'>{$commentsRow["content"]}</td>
+                                            <td class='comment_note'>{$commentsRow["note"]}</td>
+                                            <td class='comment_reportedBy'>{$commentsRow["reported_by_username"]}</td>
+                                            <td class='comment_actions'>
+                                                <div class='actions flex v-mid'>
+                                                    <a href='scripts/manage-reports-actions.php?u=&action=delete'><span class='mdi mdi-trash-can-outline'></span></a>
+                                                </div>
+                                            </td>
+                                        </tr>";
                         }
+                        $output .= "</table>";
+                    } else {
+                        $output = "Nie znaleziono żadnych zgłoszeń.";
                     }
-                    $result1->free();
+                    echo $output;
                     ?>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+    </script>
     <script src="scripts/dropdown.js"></script>
 </body>
 

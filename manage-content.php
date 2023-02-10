@@ -25,7 +25,7 @@ include 'scripts/db_con.php';
             </div>
             <hr>
             <div class="navbar-left">
-                <a class="active" href="index.php">
+                <a href="index.php">
                     <span class="mdi mdi-compass"></span>Strona Główna
                 </a>
                 <a href="javascript:void(0);" class="dropdown">
@@ -33,7 +33,7 @@ include 'scripts/db_con.php';
                 </a>
                 <div class="dropdown-container">
                     <?php
-                    $query = "SELECT `id`, `alt_title` FROM `series` ORDER BY `alt_title` ASC";
+                    $query = "SELECT `id`, `alt_title` FROM `series` WHERE `isActive` = '1' ORDER BY `alt_title` ASC";
                     $result = $con->query($query);
                     while ($row = $result->fetch_assoc()) {
                         echo "<a href='series.php?s=$row[id]'>$row[alt_title]</a>";
@@ -90,7 +90,7 @@ ADMIN_SECTION;
                 <h1>Zarządzaj zawartością</h1>
                 <div class="browse-section">
                     <?php
-                    $seriesData_query = "SELECT `id`, `alt_title` FROM `series` ORDER BY `alt_title`";
+                    $seriesData_query = "SELECT `id`, `alt_title`, `isActive` FROM `series` ORDER BY `alt_title`";
                     $result = $con->query($seriesData_query);
 
                     if ($result->num_rows > 0) {
@@ -100,21 +100,27 @@ ADMIN_SECTION;
                                         <th>Nazwa serii</th>
                                         <th class='actions-header'>Akcje</th>
                                     </tr>";
-                        while ($row = $result->fetch_assoc()) {
-                            $seriesId = $row["id"];
-                            $output .= "<tr class='series-row'>
-                                            <td class='series_id'>{$row["id"]}</td>
-                                            <td class='series_title'>{$row["alt_title"]}</td>
+                        while ($seriesRow = $result->fetch_assoc()) {
+                            $seriesId = $seriesRow["id"];
+                            $output .= "<tr class='series-row' data-series-id='$seriesId'>
+                                            <td class='series_id'>{$seriesRow["id"]}</td>
+                                            <td class='series_title'>{$seriesRow["alt_title"]}</td>
                                             <td class='series_actions'>
-                                                <div class='actions flex v-mid'>
-                                                    <span class='mdi mdi-eye-outline'></span>
-                                                    <span class='mdi mdi-text-box-edit-outline'></span>
-                                                    <span class='mdi mdi-trash-can-outline'></span>
-                                                </div>
-                                            </td>
-                                        </tr>";
-                            $spisodesData_query = "SELECT `id`, `title`, `ep_number` FROM `episodes` WHERE `series_id` = '$seriesId' ORDER BY `ep_number` ASC";
-                            $episodesResult = $con->query($spisodesData_query);
+                                                <div class='actions flex v-mid'>";
+                            if ($seriesRow['isActive'] == 1) {
+
+                                $output .= "<a href='series.php?s={$seriesId}'><span class='mdi mdi-open-in-new'></span></a>
+                                            <a href='scripts/manage-content-actions.php?s={$seriesId}&action=hide'><span class='mdi mdi-eye-outline'></span></a>";
+                            } else if ($seriesRow['isActive'] == 0) {
+                                $output .= "<a href='scripts/manage-content-actions.php?s={$seriesId}&action=show'><span class='mdi mdi-eye-off-outline'></span></a>";
+                            }
+                            $output .= "<a href='scripts/manage-content-actions.php?s={$seriesId}&action=edit'><span class='mdi mdi-text-box-edit-outline'></span></a>
+                                        <a href='scripts/manage-content-actions.php?s={$seriesId}&action=delete'><span class='mdi mdi-trash-can-outline'></span></a>
+                                    </div>
+                                </td>
+                            </tr>";
+                            $episodesData_query = "SELECT `id`, `title`, `ep_number`, `isActive` FROM `episodes` WHERE `series_id` = '$seriesId' ORDER BY `ep_number` ASC";
+                            $episodesResult = $con->query($episodesData_query);
                             if ($episodesResult->num_rows > 0) {
                                 $output .= "<tr class='episodes-container'>
                                                 <td colspan='3'>
@@ -126,22 +132,28 @@ ADMIN_SECTION;
                                                             <th class='actions-header'>Akcje</th>
                                                         </tr>";
                                 while ($episodeRow = $episodesResult->fetch_assoc()) {
-                                    $output .= "<tr class='episodes-row'>
-                                                    <td class='episode_id'>{$episodeRow["id"]}</td>
+                                    $episodeId = $episodeRow["id"];
+                                    $output .= "<tr class='episodes-row' data-episode-id='$episodeId'>
+                                                    <td class='episode_id'>{$episodeId}</td>
                                                     <td class='episode_number'>{$episodeRow["ep_number"]}</td>
                                                     <td class='episode_title'>{$episodeRow["title"]}</td>
                                                     <td class='episode_actions'>
-                                                        <div class='actions flex v-mid'>
-                                                            <span class='mdi mdi-eye-outline'></span>
-                                                            <span class='mdi mdi-text-box-edit-outline'></span>
-                                                            <span class='mdi mdi-trash-can-outline'></span>
-                                                        </div>
-                                                    </td>
-                                                </tr>";
+                                                        <div class='actions flex v-mid'>";
+                                    if ($episodeRow['isActive'] == 1) {
+                                        $output .= "<a href='watch.php?v={$episodeId}'><span class='mdi mdi-open-in-new'></span></a>
+                                                    <a href='scripts/manage-content-actions.php?e={$episodeId}&action=hide'><span class='mdi mdi-eye-outline'></span></a>";
+                                    } else if ($episodeRow['isActive'] == 0) {
+                                        $output .= "<a href='scripts/manage-content-actions.php?e={$episodeId}&action=show'><span class='mdi mdi-eye-off-outline'></span></a>";
+                                    }
+                                    $output .= "<a href='scripts/manage-content-actions.php?e={$episodeId}&action=edit'><span class='mdi mdi-text-box-edit-outline'></span></a>
+                                                <a href='scripts/manage-content-actions.php?e={$episodeId}&action=delete'><span class='mdi mdi-trash-can-outline'></span></a>
+                                            </div>
+                                        </td>
+                                    </tr>";
                                 }
                                 $output .= "</table></td></tr>";
                             } else {
-                                $output .= "<tr class='episodes-row'><td colspan='2'>No episodes found</td></tr>";
+                                $output .= "<tr class='episodes-container'><td colspan='3'>Ta seria nie ma żadnych odcinków</td></tr>";
                             }
                         }
                         $output .= "</table>";
