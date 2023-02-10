@@ -1,0 +1,124 @@
+.edit-series-button,
+.edit-episode-button {
+  width: 50%;
+  font-size: 1em;
+  padding: 1% 2%;
+  cursor: pointer;
+}
+.edit-series-form,
+.edit-episode-form {
+  padding: 2%;
+  width: 100%;
+}
+h3 {
+  font-size: 1.25vw;
+}
+.active {
+  background-color: #161616;
+}
+.form-group {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.form-item {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1vh;
+}
+.form-item label:first-child {
+  font-size: 1vw;
+  padding-left: 1vh;
+  padding-bottom: 0.5vh;
+}
+.form-item input,
+.form-item select,
+.form-item textarea {
+  background-color: #303030;
+  border: 1px solid #303030;
+  color: white;
+  font-size: 1.2vw;
+  font-family: inherit;
+  padding: 1vh;
+  outline: none;
+  width: 100%;
+}
+.form-item input:focus,
+.form-item select:focus,
+.form-item textarea:focus {
+  border: 1px solid #a61c1c;
+}
+.submit {
+  width: 90%;
+}
+.reset {
+  width: 8%;
+}
+.form-controls {
+  margin-top: 2vh;
+}
+.form-item textarea {
+  resize: none;
+}
+.form-item input[type="submit"] {
+  background-color: #a61c1c;
+}
+.regenerate-id-button {
+  font-size: 1.75vw !important;
+  margin-left: 3%;
+}
+.error {
+  font-size: 0.75vw;
+  color: #a61c1c;
+}
+/* series form fields styling */
+.id {
+  width: 13%;
+}
+.altname {
+  width: 85%;
+}
+.fullname,
+.genre,
+.desc {
+  width: 100%;
+}
+.season,
+.epcount,
+.brdtype,
+.brdstart,
+.brdend {
+  width: 19%;
+}
+.poster {
+  width: 20%;
+}
+.tags {
+  width: 78%;
+}
+/* episode form fields styling */
+.series {
+  width: 85%;
+}
+.ep-title{
+  width: 80%;
+}
+.ep-number{
+  width: 18%;
+}
+.ep-url{
+  width: 60%;
+}
+.ep-poster{
+  width: 38%;
+}
+.intro{
+  width: 10%;
+}
+.isVisible label{
+  padding-left: 0!important;
+}
+#intro-min{
+  text-align: right;
+}

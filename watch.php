@@ -2,7 +2,6 @@
 include 'scripts/isloggedin.php';
 include 'scripts/db_con.php';
 include 'scripts/episodeAuth.php';
-//dodac sprawdzenie czy v jest poprawne
 ?>
 <!DOCTYPE html>
 <html lang="pl">
@@ -47,7 +46,7 @@ include 'scripts/episodeAuth.php';
                 </a>
                 <div class="dropdown-container">
                     <?php
-                    $query = "SELECT `id`, `alt_title` FROM `series` ORDER BY `alt_title` ASC";
+                    $query = "SELECT `id`, `alt_title` FROM `series` WHERE `isActive` = '1' ORDER BY `alt_title` ASC";
                     $result = $con->query($query);
                     while ($row = $result->fetch_assoc()) {
                         echo "<a href='series.php?s=$row[id]'>$row[alt_title]</a>";
@@ -231,7 +230,6 @@ VIDEO_INTERACTIVE;
                 </div>
                 <div class="suggested">
                     <?php
-                    //$nextEp_query = "SELECT `episodes`.`id`, `episodes`.`poster`, `series`.`season`, `episodes`.`ep_number` FROM `episodes` INNER JOIN `series` ON `series`.`id` = `episodes`.`series_id` WHERE `series`.`id` = (SELECT `episodes`.`series_id` from `episodes` WHERE `episodes`.`id` = $id) AND `episodes`.`ep_number` = (SELECT `episodes`.`ep_number` from `episodes` WHERE `episodes`.`id` = $id) + 1;";
                     $nextEp_query = "SELECT `episodes`.`id`, `episodes`.`poster`, `series`.`season`, `episodes`.`ep_number`
                     FROM `episodes`
                     INNER JOIN `series` ON `series`.`id` = `episodes`.`series_id`

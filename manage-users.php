@@ -3,15 +3,16 @@ include 'scripts/isloggedin.php';
 include 'scripts/db_con.php';
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="style/watchlist.css">
+    <link rel="stylesheet" href="style/manage-users.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.1.96/css/materialdesignicons.min.css">
-    <title>Project</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Getsu</title>
 </head>
 
 <body>
@@ -40,7 +41,7 @@ include 'scripts/db_con.php';
                     $result->free();
                     ?>
                 </div>
-                <a class="active" href="watchlist.php">
+                <a href="watchlist.php">
                     <span class="mdi mdi-playlist-play"></span>Do obejrzenia
                 </a>
                 <a href="coming_soon.php">
@@ -86,26 +87,50 @@ ADMIN_SECTION;
                 </div>
             </div>
             <div class="main flex-column">
-                <h1>Do obejrzenia</h1>
-                <div class="ptw-section">
+                <h1>Zarządzaj użytkownikami</h1>
+                <div class="browse-section">
                     <?php
-                    $query1 = "SELECT * FROM `series` INNER JOIN `plan_to_watch` ON `plan_to_watch`.`series_id` = `series`.`id` WHERE `plan_to_watch`.`user_id` = $_SESSION[id]";
-                    if ($result1 = $con->query($query1)) {
-                        while ($row1 = $result1->fetch_assoc()) {
-                            echo <<< CONTENT
-                                <a href="series.php?s=$row1[id]" class="main-container-25 ratio-4-3">
-                                    <img src="$row1[poster]">
-                                    <p>$row1[alt_title]</p>
-                                </a>
-CONTENT;
+                    $usersData_query = "SELECT `id`, `username`, `email`, `role` FROM `accounts` ORDER BY `id`";
+                    $result = $con->query($usersData_query);
+
+                    if ($result->num_rows > 0) {
+                        $output = "<table>
+                                    <tr class='users-header'>
+                                        <th>ID</th>
+                                        <th>Nazwa użytkownika</th>
+                                        <th>Email</th>
+                                        <th>Rola</th>
+                                        <th class='actions-header'>Akcje</th>
+                                    </tr>";
+                        while ($usersRow = $result->fetch_assoc()) {
+                            $userId = $usersRow["id"];
+                            $output .= "<tr class='users-row' data-users-id='$userId'>
+                                            <td class='users_id'>{$usersRow["id"]}</td>
+                                            <td class='users_username'>{$usersRow["username"]}</td>
+                                            <td class='users_email'>{$usersRow["email"]}</td>
+                                            <td class='users_role'>{$usersRow["role"]}</td>
+                                            <td class='users_actions'>
+                                                <div class='actions flex v-mid'>
+                                                    <a href='scripts/manage-users-actions.php?u={$userId}&action=reset'><span class='mdi mdi-lock-reset'></span></a>
+                                                    <a href='scripts/manage-users-actions.php?u={$userId}&action=edit'><span class='mdi mdi-text-box-edit-outline'></span></a>
+                                                    <a href='scripts/manage-users-actions.php?u={$userId}&action=block'><span class='mdi mdi-account-cancel'></span></a>
+                                                    <a href='scripts/manage-users-actions.php?u={$userId}&action=delete'><span class='mdi mdi-trash-can-outline'></span></a>
+                                                </div>
+                                            </td>
+                                        </tr>";
                         }
+                        $output .= "</table>";
+                    } else {
+                        $output = "Nie znaleziono żadnych użytkowników.";
                     }
-                    $result1->free();
+                    echo $output;
                     ?>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+    </script>
     <script src="scripts/dropdown.js"></script>
 </body>
 

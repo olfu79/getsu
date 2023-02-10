@@ -1,7 +1,7 @@
 <?php
 include 'scripts/isloggedin.php';
 include 'scripts/db_con.php';
-include 'scripts/series-check.php';
+include 'scripts/seriesAuth.php';
 ?>
 <!DOCTYPE html>
 <html lang="pl">
@@ -37,7 +37,7 @@ include 'scripts/series-check.php';
                 </a>
                 <div class="dropdown-container">
                     <?php
-                    $query = "SELECT `id`, `alt_title` FROM `series` ORDER BY `alt_title` ASC";
+                    $query = "SELECT `id`, `alt_title` FROM `series` WHERE `isActive` = '1' ORDER BY `alt_title` ASC";
                     $result = $con->query($query);
                     while ($row = $result->fetch_assoc()) {
                         echo "<a href='series.php?s=$row[id]' id='$row[id]'>$row[alt_title]</a>";
