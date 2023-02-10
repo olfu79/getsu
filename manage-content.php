@@ -56,7 +56,7 @@ include 'scripts/db_con.php';
                     <a href="reports.php">
                         <span class="mdi mdi-flag"></span>Zgłoszenia
                     </a>
-                    <a href="manage-content.php">
+                    <a class="active" href="manage-content.php">
                         <span class="mdi mdi-view-dashboard-edit"></span>Zarządzaj zawartością
                     </a>
                     <a href="manage-users.php">

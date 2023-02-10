@@ -9,6 +9,7 @@ include 'scripts/db_con.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style/profile.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.1.96/css/materialdesignicons.min.css">
     <title>Getsu</title>
 </head>
@@ -84,12 +85,57 @@ ADMIN_SECTION;
                     <a href="profile.php"><span class="mdi mdi-account-circle"></a>
                 </div>
             </div>
-            <div class="main flex-column">
-                <?php
-                echo "id: $_SESSION[id]<br>
-                    name: $_SESSION[name]<br>
-                    role: $_SESSION[role]<br>"
-                ?>
+            <div class="main">
+                <div class="user-card flex">
+                    <?php
+                    if (empty($_GET['u']) || $_GET['u'] == $_SESSION['id']) {
+                        $getUserData_query = "SELECT * FROM `accounts` WHERE `id` = '$_SESSION[id]'";
+                        $result = $con->query($getUserData_query);
+                        $res = $result->fetch_assoc();
+                        $avatar = "<img class='pfp' src='resources/default.jpg' alt='User Avatar'>";
+                        if ($res['avatar'] != "") {
+                            $avatar = '<img class="pfp" src="data:image/jpeg;base64,' . base64_encode($res['avatar']) . '" alt="User Avatar">';
+                        }
+                        echo <<< USER_DATA
+                        <div class="left flex flex-column">
+                            $avatar
+                            <span class="data-nowrap">Nazwa użytkownika: <b style="white-space: nowrap;">$res[username]</b></span>
+                            <span class="data-nowrap">Email: <b>$res[email]</b></span>
+                            <span class="data-nowrap">Ranga: <b>$res[role]</b></span>
+                            <span class="data-nowrap">Data rejestracji: <b>$res[reg_date]</b></span>
+                        </div>
+                        <div class="right flex flex-column">
+                            $res[description]
+                        </div>
+USER_DATA;
+                    } else {
+                        $getUserData_query = "SELECT * FROM `accounts` WHERE `id` = '$_GET[u]'";
+                        $result = $con->query($getUserData_query);
+                        if ($result->num_rows == 0) {
+                            header('Location: scripts/error.php?e=nie ma takiego uzytkownika');
+                            exit;
+                        } else {
+                            $res = $result->fetch_assoc();
+                            $avatar = "<img class='pfp' src='resources/default.jpg' alt='User Avatar'>";
+                            if ($res['avatar'] != "") {
+                                $avatar = '<img class="pfp" src="data:image/jpeg;base64,' . base64_encode($res['avatar']) . '" alt="User Avatar">';
+                            }
+                            echo <<< USER_DATA
+                            <div class="left flex flex-column">
+                                $avatar
+                                <span class="data-nowrap">Nazwa użytkownika: <b style="white-space: nowrap;">$res[username]</b></span>
+                                <span class="data-nowrap">Email: <b>$res[email]</b></span>
+                                <span class="data-nowrap">Ranga: <b>$res[role]</b></span>
+                                <span class="data-nowrap">Data rejestracji: <b>$res[reg_date]</b></span>
+                            </div>
+                            <div class="right flex flex-column">
+                                $res[description]
+                            </div>
+    USER_DATA;
+                        }
+                    }
+                    ?>
+                </div>
             </div>
         </div>
     </div>

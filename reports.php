@@ -53,7 +53,7 @@ include 'scripts/db_con.php';
                     <a href="add_item.php">
                         <span class="mdi mdi-plus"></span>Dodaj
                     </a>
-                    <a href="reports.php">
+                    <a class="active" href="reports.php">
                         <span class="mdi mdi-flag"></span>Zgłoszenia
                     </a>
                     <a href="manage-content.php">
@@ -113,11 +113,11 @@ ADMIN_SECTION;
                         while ($commentsRow = $result->fetch_assoc()) {
                             $output .= "<tr class='comment-row' data-comment-id='$commentsRow[comment_id]'>
                                             <td class='comment_repId'>{$commentsRow["id"]}</td>
-                                            <td class='comment_reported'>{$commentsRow["user_username"]}</td>
+                                            <td class='comment_reported'><a href='profile.php?u={$commentsRow["user_id"]}'>{$commentsRow["user_username"]}</a></td>
                                             <td class='comment_reason'>{$commentsRow["reason"]}</td>
                                             <td class='comment_content'>{$commentsRow["content"]}</td>
                                             <td class='comment_note'>{$commentsRow["note"]}</td>
-                                            <td class='comment_reportedBy'>{$commentsRow["reported_by_username"]}</td>
+                                            <td class='comment_reportedBy'><a href='profile.php?u={$commentsRow["reported_by"]}'>{$commentsRow["reported_by_username"]}</a></td>
                                             <td class='comment_actions'>
                                                 <div class='actions flex v-mid'>
                                                     <a href='scripts/manage-reports-actions.php?u=&action=delete'><span class='mdi mdi-trash-can-outline'></span></a>

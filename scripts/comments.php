@@ -38,7 +38,7 @@ function show_comments($comments, $parent_id = -1)
                 $html .= '
                 <div class="comment">
                     <div>
-                        <h3 class="name">' . htmlspecialchars($res['username'], ENT_QUOTES) . '</h3>
+                        <a href="profile.php?u=' . $comment['author_id'] . '"><h3 class="name">' . htmlspecialchars($res['username'], ENT_QUOTES) . '</h3></a>
                         <span class="date">' . time_elapsed_string($comment['submit_date']) . '</span>
                     </div>
                     <p class="content">' . nl2br(htmlspecialchars($comment['content'], ENT_QUOTES)) . '</p>

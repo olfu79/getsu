@@ -18,14 +18,14 @@ tr{
     background-color: #161616;
 }
 .comment_repId, .comment_reason{
-width: 5%;
+    max-width: 5%;
 }
 .comment_reported, .comment_reportedBy{
-    width: 10%;
+    max-width: 10%;
 }
 .comment_actions {
 padding: 0.5vh;
-width: 15%;
+max-width: 15%;
 align-items: center;
 }
 .actions
@@ -37,4 +37,8 @@ align-items: center;
 .actions-header
 {
     text-align: center;
+}
+.comment_reported a, .comment_reportedBy a{
+    color: white;
+    text-decoration: none;
 }

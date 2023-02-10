@@ -59,7 +59,7 @@ include 'scripts/db_con.php';
                     <a href="manage-content.php">
                         <span class="mdi mdi-view-dashboard-edit"></span>Zarządzaj zawartością
                     </a>
-                    <a href="manage-users.php">
+                    <a class="active" href="manage-users.php">
                         <span class="mdi mdi-account-edit"></span>Zarządzaj użytkownikami
                     </a>
 ADMIN_SECTION;
