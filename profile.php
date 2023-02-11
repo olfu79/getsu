@@ -133,12 +133,11 @@ ADMIN_SECTION;
                                 <span class="data-role"><b>$res[role]</b></span>
                             </div>
                             <div class="mid flex flex-column">
-                                <h2>O mnie:</h2>
                                 $rawDesc
                             </div>
                         </div>
                         <div class="right flex flex-column">
-                                <h2>Statystyki:</h2>
+                                <h2>Statystyki</h2>
                                 <p>Ilość komentarzy: <span class="stats-data">$comments_count</span></p>
                                 <p>Ilość polubień: <span class="stats-data">$likes_count</span></p>
                                 <p>Ulubiona seria: <span class="stats-data">$favourite_series</span></p>
@@ -194,12 +193,12 @@ USER_DATA;
                                 <span class="data-role"><b>$res[role]</b></span>
                             </div>
                             <div class="mid flex flex-column">
-                                <h2>O mnie:</h2>
+                                <h2>O mnie</h2>
                                 $rawDesc
                             </div>
                         </div>
                         <div class="right flex flex-column">
-                            <h2>Statystyki:</h2>
+                            <h2>Statystyki</h2>
                             <p>Ilość komentarzy: <span class="stats-data">$comments_count</span></p>
                             <p>Ilość polubień: <span class="stats-data">$likes_count</span></p>
                             <p>Ulubiona seria: <span class="stats-data">$favourite_series</span></p>

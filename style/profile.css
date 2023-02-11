@@ -13,12 +13,15 @@
 .mid{
     width: 70%;
     height: 100%;
-    padding: 0 1%;
+    padding: 0 2%;
     overflow-y: scroll;
     scrollbar-width: none;
 }
 .mid::-webkit-scrollbar{
     display: none;
+}
+.mid h2{
+    text-align: center;
 }
 .right{
     width: 35%;
@@ -26,6 +29,9 @@
     margin-left: 1%;
     padding: 2%;
     background-color: #161616;
+}
+.right h2{
+    text-align: center;
 }
 .pfp{
     width: 100%;
