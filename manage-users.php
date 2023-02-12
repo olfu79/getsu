@@ -12,6 +12,7 @@ include 'scripts/db_con.php';
     <link rel="stylesheet" href="style/manage-users.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.1.96/css/materialdesignicons.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="icon" type="image/png" href="logo/favicon.png" />
     <title>Getsu</title>
 </head>
 
@@ -80,6 +81,7 @@ ADMIN_SECTION;
                     <a onclick="history.back()" class="nav-top-back"><span class="mdi mdi-chevron-left"></span></a>
                     <a onclick="history.forward()" class="nav-top-forward"><span class="mdi mdi-chevron-right"></span></a>
                     <input type="search" name="search" placeholder="Search...">
+                    <a onclick="" class="nav-top-filter"><span class="mdi mdi-filter-variant"></span></a>
                 </div>
                 <div class="nav-top-right">
                     <a href="index.php"><span class="mdi mdi-bell"></span></a>
@@ -87,8 +89,8 @@ ADMIN_SECTION;
                 </div>
             </div>
             <div class="main flex-column">
-                <h1>Zarządzaj użytkownikami</h1>
-                <div class="browse-section">
+                <div class="users-section">
+                    <h1>Zarządzaj użytkownikami</h1>
                     <?php
                     $usersData_query = "SELECT `id`, `username`, `email`, `role` FROM `accounts` ORDER BY `id`";
                     $result = $con->query($usersData_query);
@@ -115,6 +117,40 @@ ADMIN_SECTION;
                                                     <a href='scripts/manage-users-actions.php?u={$userId}&action=edit'><span class='mdi mdi-text-box-edit-outline'></span></a>
                                                     <a href='scripts/manage-users-actions.php?u={$userId}&action=block'><span class='mdi mdi-account-cancel'></span></a>
                                                     <a href='scripts/manage-users-actions.php?u={$userId}&action=delete'><span class='mdi mdi-trash-can-outline'></span></a>
+                                                </div>
+                                            </td>
+                                        </tr>";
+                        }
+                        $output .= "</table>";
+                    } else {
+                        $output = "Nie znaleziono żadnych użytkowników.";
+                    }
+                    echo $output;
+                    ?>
+                    <h2>Zbanowani</h2>
+                    <?php
+                    $usersData_query = "SELECT `id`, `username`, `email`, `role` FROM `banned` ORDER BY `id`";
+                    $result = $con->query($usersData_query);
+
+                    if ($result->num_rows > 0) {
+                        $output = "<table>
+                                    <tr class='users-header'>
+                                        <th>ID</th>
+                                        <th>Nazwa użytkownika</th>
+                                        <th>Email</th>
+                                        <th>Rola</th>
+                                        <th class='actions-header'>Akcje</th>
+                                    </tr>";
+                        while ($usersRow = $result->fetch_assoc()) {
+                            $userId = $usersRow["id"];
+                            $output .= "<tr class='users-row' data-users-id='$userId'>
+                                            <td class='users_id'>{$usersRow["id"]}</td>
+                                            <td class='users_username'>{$usersRow["username"]}</td>
+                                            <td class='users_email'>{$usersRow["email"]}</td>
+                                            <td class='users_role'>{$usersRow["role"]}</td>
+                                            <td class='users_actions'>
+                                                <div class='actions flex v-mid'>
+                                                    <a href='scripts/manage-users-actions.php?u={$userId}&action=unban'><span class='mdi mdi-account-lock-open'></span></a>
                                                 </div>
                                             </td>
                                         </tr>";

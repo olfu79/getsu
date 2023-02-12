@@ -11,6 +11,7 @@ include 'scripts/db_con.php';
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="style/browse-style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.1.96/css/materialdesignicons.min.css">
+    <link rel="icon" type="image/png" href="logo/favicon.png" />
     <title>Getsu</title>
 </head>
 
@@ -79,6 +80,7 @@ ADMIN_SECTION;
                     <a onclick="history.back()" class="nav-top-back"><span class="mdi mdi-chevron-left"></span></a>
                     <a onclick="history.forward()" class="nav-top-forward"><span class="mdi mdi-chevron-right"></span></a>
                     <input type="search" name="search" placeholder="Search...">
+                    <a onclick="" class="nav-top-filter"><span class="mdi mdi-filter-variant"></span></a>
                 </div>
                 <div class="nav-top-right">
                     <a href="index.php"><span class="mdi mdi-bell"></span></a>
@@ -95,7 +97,7 @@ ADMIN_SECTION;
                         $episodes_list = explode(";", $row1['last_watched']);
                         $history_count = count($episodes_list) > 4 ? 4 : count($episodes_list);
                         for ($i = 0; $i < $history_count; $i++) {
-                            $query2 = "SELECT `series`.`alt_title`, `episodes`.`poster`, `series`.`season`, `episodes`.`ep_number` FROM `episodes` INNER JOIN `series` ON `series`.`id` = `episodes`.`series_id` WHERE `episodes`.`id`=$episodes_list[$i]";
+                            $query2 = "SELECT `series`.`alt_title`, `episodes`.`poster`, `series`.`season`, `episodes`.`ep_number` FROM `episodes` INNER JOIN `series` ON `series`.`id` = `episodes`.`series_id` WHERE `episodes`.`id`='$episodes_list[$i]' LIMIT 4";
                             if ($result2 = $con->query($query2)) {
                                 while ($row2 = $result2->fetch_assoc()) {
                                     echo <<< CONTENT
@@ -116,7 +118,7 @@ CONTENT;
                 <h1>Losowo wybrane</h1>
                 <div class="browse-section">
                     <?php
-                    $query = "SELECT * FROM `series` ORDER BY RAND();";
+                    $query = "SELECT * FROM `series` ORDER BY RAND() LIMIT 4";
                     if ($result = $con->query($query)) {
                         while ($row = $result->fetch_assoc()) {
                             echo <<< CONTENT
@@ -133,7 +135,7 @@ CONTENT;
                 <h1>Ostatnio dodane</h1>
                 <div class="browse-section">
                     <?php
-                    $query = "SELECT * FROM `series` ORDER BY `added_date`";
+                    $query = "SELECT * FROM `series` ORDER BY `added_date` DESC LIMIT 4";
                     if ($result = $con->query($query)) {
                         while ($row = $result->fetch_assoc()) {
                             echo <<< CONTENT
@@ -150,7 +152,7 @@ CONTENT;
                 <h1>Przygodowe</h1>
                 <div class="browse-section">
                     <?php
-                    $query = "SELECT * FROM `series` WHERE `genre` LIKE '%przygodowe%' ORDER BY RAND();";
+                    $query = "SELECT * FROM `series` WHERE `genre` LIKE '%przygodowe%' ORDER BY RAND() LIMIT 4";
                     if ($result = $con->query($query)) {
                         while ($row = $result->fetch_assoc()) {
                             echo <<< CONTENT

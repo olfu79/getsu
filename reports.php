@@ -12,6 +12,7 @@ include 'scripts/db_con.php';
     <link rel="stylesheet" href="style/reports.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.1.96/css/materialdesignicons.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="icon" type="image/png" href="logo/favicon.png" />
     <title>Getsu</title>
 </head>
 
@@ -80,6 +81,7 @@ ADMIN_SECTION;
                     <a onclick="history.back()" class="nav-top-back"><span class="mdi mdi-chevron-left"></span></a>
                     <a onclick="history.forward()" class="nav-top-forward"><span class="mdi mdi-chevron-right"></span></a>
                     <input type="search" name="search" placeholder="Search...">
+                    <a onclick="" class="nav-top-filter"><span class="mdi mdi-filter-variant"></span></a>
                 </div>
                 <div class="nav-top-right">
                     <a href="index.php"><span class="mdi mdi-bell"></span></a>
@@ -90,13 +92,12 @@ ADMIN_SECTION;
                 <h1>Zgłoszone komentarze</h1>
                 <div class="browse-section">
                     <?php
-                    $reportedCommentsData_query = "SELECT `comments_reports`.`id`,`comments_reports`.`user_id`,`reported`.`username` as user_username,`comments_reports`.`comment_id`,`comments_reports`.`reason`,`comments_reports`.`note`,`comments_reports`.`reported_by`,`reportedby`.`username` as reported_by_username, `comments`.`content` 
+                    $reportedCommentsData_query = "SELECT `comments_reports`.`id`,`comments_reports`.`user_id`,`reported`.`username` as user_username,`comments_reports`.`comment_id`,`comments_reports`.`reason`,`comments_reports`.`note`,`comments_reports`.`reported_by`,`reportedby`.`username` as reported_by_username, `comments`.`content`, `comments`.`video_id`
                     FROM `comments_reports` 
                     INNER JOIN `accounts` as `reported` ON `reported`.`id` = `comments_reports`.`user_id`
                     INNER JOIN `comments` ON `comments`.`id` = `comments_reports`.`comment_id`
                     INNER JOIN `accounts` as `reportedby` ON `reportedby`.`id` = `comments_reports`.`reported_by`
-                    ORDER BY `comments_reports`.`id`
-                    ";
+                    ORDER BY `comments_reports`.`id`;";
                     $result = $con->query($reportedCommentsData_query);
 
                     if ($result->num_rows > 0) {
@@ -120,7 +121,10 @@ ADMIN_SECTION;
                                             <td class='comment_reportedBy'><a href='profile.php?u={$commentsRow["reported_by"]}'>{$commentsRow["reported_by_username"]}</a></td>
                                             <td class='comment_actions'>
                                                 <div class='actions flex v-mid'>
-                                                    <a href='scripts/manage-reports-actions.php?u=&action=delete'><span class='mdi mdi-trash-can-outline'></span></a>
+                                                    <a href='watch.php?v={$commentsRow["video_id"]}#comments'><span class='mdi mdi-open-in-new'></span></a>
+                                                    <a href='scripts/manage-reports-actions.php?action=delete-comment&id={$commentsRow["comment_id"]}'><span class='mdi mdi-comment-remove'></span></a>
+                                                    <a href='scripts/manage-reports-actions.php?action=delete-report&id={$commentsRow["id"]}'><span class='mdi mdi-trash-can-outline'></span></a>
+                                                    <a href='scripts/manage-reports-actions.php?action=ban&u={$commentsRow["user_id"]}&reason=komentarz/{$commentsRow["reason"]}'><span class='mdi mdi-account-cancel'></span></a>
                                                 </div>
                                             </td>
                                         </tr>";

@@ -15,7 +15,7 @@ include 'scripts/seriesAuth.php';
 
     <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
     <script src="scripts/ptw-handler.js"></script>
-
+    <link rel="icon" type="image/png" href="logo/favicon.png" />
     <title>Getsu</title>
 </head>
 
@@ -84,6 +84,7 @@ ADMIN_SECTION;
                     <a onclick="history.back()" class="nav-top-back"><span class="mdi mdi-chevron-left"></span></a>
                     <a onclick="history.forward()" class="nav-top-forward"><span class="mdi mdi-chevron-right"></span></a>
                     <input type="search" name="search" placeholder="Search...">
+                    <a onclick="" class="nav-top-filter"><span class="mdi mdi-filter-variant"></span></a>
                 </div>
                 <div class="nav-top-right">
                     <a href="index.php"><span class="mdi mdi-bell"></span></a>
