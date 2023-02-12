@@ -13,7 +13,8 @@ if (isset($_SESSION['loggedin'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="style/auth-style.css">
-    <title>Project</title>
+    <link rel="icon" type="image/png" href="logo/favicon.png" />
+    <title>Getsu</title>
 </head>
 
 <body>

@@ -11,6 +11,7 @@ include 'scripts/db_con.php';
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="style/profile.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.1.96/css/materialdesignicons.min.css">
+    <link rel="icon" type="image/png" href="logo/favicon.png" />
     <title>Getsu</title>
 </head>
 
@@ -79,6 +80,7 @@ ADMIN_SECTION;
                     <a onclick="history.back()" class="nav-top-back"><span class="mdi mdi-chevron-left"></span></a>
                     <a onclick="history.forward()" class="nav-top-forward"><span class="mdi mdi-chevron-right"></span></a>
                     <input type="search" name="search" placeholder="Search...">
+                    <a onclick="" class="nav-top-filter"><span class="mdi mdi-filter-variant"></span></a>
                 </div>
                 <div class="nav-top-right">
                     <a href="index.php"><span class="mdi mdi-bell"></span></a>

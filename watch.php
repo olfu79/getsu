@@ -13,6 +13,7 @@ include 'scripts/episodeAuth.php';
     <link rel="stylesheet" href="https://vjs.zencdn.net/7.21.1/video-js.css">
     <link rel="stylesheet" href="style/player-style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.1.96/css/materialdesignicons.min.css">
+    <link rel="icon" type="image/png" href="logo/favicon.png" />
     <title>Getsu</title>
     <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
     <script src="scripts/like-handler.js"></script>
@@ -93,6 +94,7 @@ ADMIN_SECTION;
                     <a onclick="history.back()" class="nav-top-back"><span class="mdi mdi-chevron-left"></span></a>
                     <a onclick="history.forward()" class="nav-top-forward"><span class="mdi mdi-chevron-right"></span></a>
                     <input type="search" name="search" placeholder="Search...">
+                    <a onclick="" class="nav-top-filter"><span class="mdi mdi-filter-variant"></span></a>
                 </div>
                 <div class="nav-top-right">
                     <a href="index.php"><span class="mdi mdi-bell"></span></a>
@@ -181,7 +183,7 @@ VIDEO_PLAYER;
                     </div>
 VIDEO_INTERACTIVE;
                     ?>
-                    <div class="comments"></div>
+                    <div class="comments" id="comments"></div>
 
                     <script>
                         const comments_page_id = '<?php echo $id; ?>';

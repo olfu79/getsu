@@ -36,7 +36,7 @@ function show_comments($comments, $parent_id = -1)
             $res = $result->fetch_assoc();
             if ($comment['parent_id'] == $parent_id) {
                 $html .= '
-                <div class="comment">
+                <div class="comment" id="' . $comment['id'] . '">
                     <div>
                         <a href="profile.php?u=' . $comment['author_id'] . '"><h3 class="name">' . htmlspecialchars($res['username'], ENT_QUOTES) . '</h3></a>
                         <span class="date">' . time_elapsed_string($comment['submit_date']) . '</span>
