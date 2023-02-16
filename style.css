@@ -140,7 +140,7 @@ a.active span{
   z-index: 999;
 }
 .nav-top-left{
-  width: 50%;
+  width: 80%;
   height: 100%;
   display: flex;
   align-items: center;
@@ -167,7 +167,10 @@ a.active span{
   justify-content: right;
   margin-right: calc(15% + 20px);
 }
-.nav-top input[type=search]
+.nav-top form {
+  width: 100%;
+}
+.nav-top form input[type=search]
 {
   color: white;
   margin-left: 2%;

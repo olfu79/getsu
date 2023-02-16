@@ -79,7 +79,9 @@ ADMIN_SECTION;
                 <div class="nav-top-left">
                     <a onclick="history.back()" class="nav-top-back"><span class="mdi mdi-chevron-left"></span></a>
                     <a onclick="history.forward()" class="nav-top-forward"><span class="mdi mdi-chevron-right"></span></a>
-                    <input type="search" name="search" placeholder="Search...">
+                    <form method="GET" action="search.php">
+                        <input type="search" name="search" placeholder="Wyszukaj...">
+                    </form>
                     <a onclick="" class="nav-top-filter"><span class="mdi mdi-filter-variant"></span></a>
                 </div>
                 <div class="nav-top-right">
