@@ -33,7 +33,7 @@ include 'scripts/db_con.php';
                 </a>
                 <div class="dropdown-container">
                     <?php
-                    $query = "SELECT `id`, `alt_title` FROM `series` WHERE `isActive` = '1' ORDER BY `alt_title` ASC";
+                    $query = "SELECT `id`, `alt_title`, `brd-start` FROM `series` WHERE `isActive` = '1' AND `brd-start` <= NOW() ORDER BY `alt_title` ASC";
                     $result = $con->query($query);
                     while ($row = $result->fetch_assoc()) {
                         echo "<a href='series.php?s=$row[id]'>$row[alt_title]</a>";
@@ -120,7 +120,7 @@ CONTENT;
                 <h1>Losowo wybrane</h1>
                 <div class="browse-section">
                     <?php
-                    $query = "SELECT * FROM `series` ORDER BY RAND() LIMIT 4";
+                    $query = "SELECT * FROM `series` WHERE `isActive` = 1 ORDER BY RAND() LIMIT 4";
                     if ($result = $con->query($query)) {
                         while ($row = $result->fetch_assoc()) {
                             echo <<< CONTENT
@@ -137,7 +137,7 @@ CONTENT;
                 <h1>Ostatnio dodane</h1>
                 <div class="browse-section">
                     <?php
-                    $query = "SELECT * FROM `series` ORDER BY `added_date` DESC LIMIT 4";
+                    $query = "SELECT * FROM `series`  WHERE `isActive` = 1  ORDER BY `added_date` DESC LIMIT 4";
                     if ($result = $con->query($query)) {
                         while ($row = $result->fetch_assoc()) {
                             echo <<< CONTENT
@@ -154,7 +154,24 @@ CONTENT;
                 <h1>Przygodowe</h1>
                 <div class="browse-section">
                     <?php
-                    $query = "SELECT * FROM `series` WHERE `genre` LIKE '%przygodowe%' ORDER BY RAND() LIMIT 4";
+                    $query = "SELECT * FROM `series` WHERE `genre` LIKE '%przygodowe%' AND `isActive` = 1 ORDER BY RAND() LIMIT 4";
+                    if ($result = $con->query($query)) {
+                        while ($row = $result->fetch_assoc()) {
+                            echo <<< CONTENT
+                                <a href="series.php?s=$row[id]" class="main-container-25 ratio-4-3">
+                                    <img src="$row[poster]">
+                                    <p>$row[alt_title]</p>
+                                </a>
+CONTENT;
+                        }
+                    }
+                    $result->free();
+                    ?>
+                </div>
+                <h1>Akcja</h1>
+                <div class="browse-section">
+                    <?php
+                    $query = "SELECT * FROM `series` WHERE `genre` LIKE '%akcja%' AND `isActive` = 1 ORDER BY RAND() LIMIT 4";
                     if ($result = $con->query($query)) {
                         while ($row = $result->fetch_assoc()) {
                             echo <<< CONTENT
@@ -170,8 +187,7 @@ CONTENT;
                 </div>
             </div>
         </div>
-    </div>
-    <script src="scripts/dropdown.js"></script>
+        <script src="scripts/dropdown.js"></script>
 </body>
 
 </html>

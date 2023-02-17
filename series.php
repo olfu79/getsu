@@ -37,7 +37,7 @@ include 'scripts/seriesAuth.php';
                 </a>
                 <div class="dropdown-container">
                     <?php
-                    $query = "SELECT `id`, `alt_title` FROM `series` WHERE `isActive` = '1' ORDER BY `alt_title` ASC";
+                    $query = "SELECT `id`, `alt_title`, `brd-start` FROM `series` WHERE `isActive` = '1' AND `brd-start` <= NOW() ORDER BY `alt_title` ASC";
                     $result = $con->query($query);
                     while ($row = $result->fetch_assoc()) {
                         echo "<a href='series.php?s=$row[id]' id='$row[id]'>$row[alt_title]</a>";
@@ -138,10 +138,9 @@ SERIES_DATA;
                     </div>
                 </div>
                 <div class="series-right-pane">
+                    <h1 class="ep-list-header">Lista odcinków:</h1>
                     <div class="series-ep-list">
-                        <h1>Lista odcinków:</h1>
                         <ul>
-                            <hr>
                             <?php
                             $episodes_query = "SELECT `id`, `title`, `ep_number` FROM `episodes` 
                             WHERE `series_id` = '$series_id' 
@@ -162,6 +161,8 @@ SERIES_DATA;
     </div>
     <script>
         document.getElementById("<?php echo $series_id; ?>").style.backgroundColor = "#161616";
+
+        $('.series-ep-list').height($('.series-data').innerHeight() + $('.slideshow-container').innerHeight() - $('.ep-list-header').innerHeight());
     </script>
     <script src="scripts/slideshow.js"></script>
     <script src="scripts/dropdown.js"></script>

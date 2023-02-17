@@ -34,7 +34,8 @@ h3 {
 }
 .form-item input,
 .form-item select,
-.form-item textarea {
+.form-item textarea,
+.cancel {
   background-color: #303030;
   border: 1px solid #303030;
   color: white;
@@ -52,8 +53,16 @@ h3 {
 .submit {
   width: 90%;
 }
-.reset {
+.cancel {
   width: 8%;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+a{
+  text-decoration: none;
+  color: white;
 }
 .form-controls {
   margin-top: 2vh;
@@ -121,4 +130,10 @@ h3 {
 }
 #intro-min{
   text-align: right;
+}
+::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+input[type=checkbox]{
+  filter: grayscale(100%);
 }

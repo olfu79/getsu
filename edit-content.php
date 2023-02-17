@@ -37,7 +37,7 @@ include 'scripts/db_con.php';
                 </a>
                 <div class="dropdown-container">
                     <?php
-                    $query = "SELECT `id`, `alt_title` FROM `series` ORDER BY `alt_title` ASC";
+                    $query = "SELECT `id`, `alt_title`, `brd-start` FROM `series` WHERE `isActive` = '1' AND `brd-start` <= NOW() ORDER BY `alt_title` ASC";
                     $result = $con->query($query);
                     while ($row = $result->fetch_assoc()) {
                         echo "<a href='series.php?s=$row[id]'>$row[alt_title]</a>";
@@ -213,8 +213,8 @@ ADMIN_SECTION;
                                 <div class="form-item submit">
                                     <input type="submit" value="Zapisz informacje">
                                 </div>
-                                <div class="form-item reset">
-                                    <input type="reset" value="Anuluj">
+                                <div class="form-item cancel">
+                                    <a href="manage-content.php">Anuluj</a>
                                 </div>
                             </div>
                         </form>
@@ -319,8 +319,8 @@ SERIES_EDIT_FORM;
                                 <div class="form-item submit">
                                     <input type="submit" value="Zapisz">
                                 </div>
-                                <div class="form-item reset">
-                                    <input type="reset" value="Anuluj">
+                                <div class="form-item cancel">
+                                    <a href="manage-content.php">Anuluj</a>
                                 </div>
                             </div>
                         </form>
