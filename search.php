@@ -33,7 +33,7 @@ include 'scripts/db_con.php';
                 </a>
                 <div class="dropdown-container">
                     <?php
-                    $query = "SELECT `id`, `alt_title` FROM `series` WHERE `isActive` = '1' ORDER BY `alt_title` ASC";
+                    $query = "SELECT `id`, `alt_title`, `brd-start` FROM `series` WHERE `isActive` = '1' AND `brd-start` <= NOW() ORDER BY `alt_title` ASC";
                     $result = $con->query($query);
                     while ($row = $result->fetch_assoc()) {
                         echo "<a href='series.php?s=$row[id]'>$row[alt_title]</a>";
@@ -97,15 +97,15 @@ ADMIN_SECTION;
                 $search_term = $con->real_escape_string($_GET['search']);
 
                 // Search for series based on LEVENSHTEIN_RATIO
-                $series_query = "SELECT id, title, alt_title, poster, LEVENSHTEIN_RATIO(title, '$search_term') as title_similarity, 
+                $series_query = "SELECT id, title, alt_title, poster, isActive, LEVENSHTEIN_RATIO(title, '$search_term') as title_similarity, 
                   LEVENSHTEIN_RATIO(alt_title, '$search_term') as alt_title_similarity,
                   LEVENSHTEIN_RATIO(tags, '$search_term') as tags_similarity
                   FROM series 
-                  WHERE 
-                  (title LIKE '%$search_term%' OR alt_title LIKE '%$search_term%' OR tags LIKE '%$search_term%') 
+                  WHERE isActive = 1 AND
+                  ((title LIKE '%$search_term%' OR alt_title LIKE '%$search_term%' OR tags LIKE '%$search_term%') 
                   OR (LEVENSHTEIN_RATIO(title, '$search_term') >= 0.7 
                       OR LEVENSHTEIN_RATIO(alt_title, '$search_term') >= 0.7 
-                      OR LEVENSHTEIN_RATIO(tags, '$search_term') >= 0.7) 
+                      OR LEVENSHTEIN_RATIO(tags, '$search_term') >= 0.7))
                   ORDER BY 
                   (CASE
                     WHEN title LIKE '$search_term%' THEN 1
@@ -129,17 +129,17 @@ ADMIN_SECTION;
                                     <p>$series_row[alt_title]</p>
                                 </div>
                             </div>
-                        </a>";
+                        </a><br>";
                     }
                 }
                 // loop through the series results
 
 
                 // Search for episodes based on LEVENSHTEIN_RATIO
-                $episode_query = "SELECT episodes.id, episodes.title, episodes.poster, episodes.ep_number, series.season, episodes.poster, series.alt_title, LEVENSHTEIN_RATIO(episodes.title, '$search_term') as title_similarity
+                $episode_query = "SELECT episodes.id, episodes.title, episodes.poster, episodes.ep_number, episodes.isActive, series.season, episodes.poster, series.alt_title, LEVENSHTEIN_RATIO(episodes.title, '$search_term') as title_similarity
                     FROM episodes
                     INNER JOIN series ON series.id = episodes.series_id
-                    WHERE episodes.title LIKE '%$search_term%' OR series.alt_title LIKE '%$search_term%' OR LEVENSHTEIN_RATIO(episodes.title, '$search_term') >= 0.7 OR LEVENSHTEIN_RATIO(series.alt_title, '$search_term') >= 0.7
+                    WHERE episodes.isActive = 1 AND (episodes.title LIKE '%$search_term%' OR series.alt_title LIKE '%$search_term%' OR LEVENSHTEIN_RATIO(episodes.title, '$search_term') >= 0.7 OR LEVENSHTEIN_RATIO(series.alt_title, '$search_term') >= 0.7)
                     ORDER BY episodes.ep_number";
                 // execute the episode query
                 $episode_result = $con->query($episode_query);

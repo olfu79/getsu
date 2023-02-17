@@ -128,3 +128,9 @@ h3 {
 #intro-min{
   text-align: right;
 }
+::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+input[type=checkbox]{
+  filter: grayscale(100%);
+}

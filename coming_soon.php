@@ -12,6 +12,8 @@ include 'scripts/db_con.php';
     <link rel="stylesheet" href="style/coming-soon.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.1.96/css/materialdesignicons.min.css">
     <link rel="icon" type="image/png" href="logo/favicon.png" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="scripts/calendar.js"></script>
     <title>Getsu</title>
 </head>
 
@@ -33,7 +35,7 @@ include 'scripts/db_con.php';
                 </a>
                 <div class="dropdown-container">
                     <?php
-                    $query = "SELECT `id`, `alt_title` FROM `series` WHERE `isActive` = '1' ORDER BY `alt_title` ASC";
+                    $query = "SELECT `id`, `alt_title`, `brd-start` FROM `series` WHERE `isActive` = '1' AND `brd-start` <= NOW() ORDER BY `alt_title` ASC";
                     $result = $con->query($query);
                     while ($row = $result->fetch_assoc()) {
                         echo "<a href='series.php?s=$row[id]'>$row[alt_title]</a>";
@@ -91,7 +93,25 @@ ADMIN_SECTION;
             </div>
             <div class="main flex-column">
                 <h1>Nadchodzące</h1>
-                DODAĆ TU KALENDARZ Z ITEMAMI PO KLIKNIECIU PRZECHODZI NA SERIE. NAJPIERW TRZEBA DODAC SERIE A POTEM PRZY DODAWANIU DO KALENDARZA MOZNA WYBRAC TYLKO TE KTORE MAJA RELEASE DATE NOWSZY NIZ CURRENT_DATE
+                <div class="comingsoon-section">
+                    <div id="calendar-container">
+                        <div id="calendar-controls">
+                            <div id="month-back"><span class="mdi mdi-menu-left-outline"></span></div>
+                            <div id="month"></div>
+                            <div id="month-forward"><span class="mdi mdi-menu-right-outline"></span></div>
+                        </div>
+                        <div id="calendar-header">
+                            <div class="day-of-week">Poniedziałek</div>
+                            <div class="day-of-week">Wtorek</div>
+                            <div class="day-of-week">Środa</div>
+                            <div class="day-of-week">Czwartek</div>
+                            <div class="day-of-week">Piątek</div>
+                            <div class="day-of-week">Sobota</div>
+                            <div class="day-of-week">Niedziela</div>
+                        </div>
+                        <div id="calendar"></div>
+                    </div>
+                </div>
                 <div class="comingsoon-section">
                     <?php
                     $query1 = "SELECT * FROM `series` WHERE `brd-start` > CURRENT_DATE() ORDER BY `brd-start` ASC";

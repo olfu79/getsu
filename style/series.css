@@ -6,6 +6,10 @@
     width: 50%;
     padding: 1%;
 }
+.series-right-pane h1{
+  text-align: center;
+  padding: 2% 0;
+}
 .slide {
   display: none
 }
@@ -96,7 +100,25 @@
   width: 100%;
   background-color: #161616;
   list-style-position: inside;
+  overflow-y: scroll;
 }
+
+.series-ep-list::-webkit-scrollbar {
+  width: 10px;
+}
+
+.series-ep-list::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+
+.series-ep-list::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+.series-ep-list::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
 .series-ep-list h1{
   text-align: center;
 }
