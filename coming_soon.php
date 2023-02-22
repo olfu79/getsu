@@ -112,18 +112,44 @@ ADMIN_SECTION;
                         <div id="calendar"></div>
                     </div>
                 </div>
-                <div class="comingsoon-section">
+                <div class="comingsoon-section flex-column">
                     <?php
                     $query1 = "SELECT * FROM `series` WHERE `brd-start` > CURRENT_DATE() ORDER BY `brd-start` ASC";
                     if ($result1 = $con->query($query1)) {
+                        $previous_month = null;
+                        $months = array(
+                            1 => 'Styczeń',
+                            2 => 'Luty',
+                            3 => 'Marzec',
+                            4 => 'Kwiecień',
+                            5 => 'Maj',
+                            6 => 'Czerwiec',
+                            7 => 'Lipiec',
+                            8 => 'Sierpień',
+                            9 => 'Wrzesień',
+                            10 => 'Październik',
+                            11 => 'Listopad',
+                            12 => 'Grudzień'
+                        );
+
                         while ($row1 = $result1->fetch_assoc()) {
-                            echo <<< CONTENT
-                                <a href="series.php?s=$row1[id]" class="main-container-25 ratio-4-3">
-                                    <img src="$row1[poster]">
-                                    <p>$row1[alt_title]</p>
-                                    <p>Premiera: {$row1["brd-start"]}</p>
-                                </a>
-CONTENT;
+                            $current_month_num = date('n', strtotime($row1['brd-start']));
+                            $current_month = $months[$current_month_num];
+                            if ($current_month !== $previous_month) {
+                                echo "<h3>$current_month:</h3>";
+                                $previous_month = $current_month;
+                            }
+                            echo "<a href='series.php?s=$row1[id]'>
+                                <div class='upcoming-item flex flex-row'>
+                                    <img src='$row1[poster]'>
+                                    <div class='upcoming-data'>
+                                        <h4>$row1[title]</h4>
+                                        <p>Orginalny tytuł: <i>$row1[alt_title]</i></p>
+                                        <p>Sezon: $row1[season]</p>
+                                        <p>Odcinków: $row1[ep_count]</p>
+                                    </div>
+                                </div>
+                            </a><br>";
                         }
                     }
                     $result1->free();

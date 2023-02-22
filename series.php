@@ -140,29 +140,37 @@ SERIES_DATA;
                 <div class="series-right-pane">
                     <h1 class="ep-list-header">Lista odcinków:</h1>
                     <div class="series-ep-list">
-                        <ul>
-                            <?php
-                            $episodes_query = "SELECT `id`, `title`, `ep_number` FROM `episodes` 
+                        <?php
+                        $episodes_query = "SELECT `id`, `title`, `ep_number` FROM `episodes` 
                             WHERE `series_id` = '$series_id' 
                             AND `isActive` = 1 
                             ORDER BY `ep_number` ASC";
-                            $result = $con->query($episodes_query);
+                        $result = $con->query($episodes_query);
+                        if ($result->num_rows > 0) {
+                            echo "<ul>";
                             while ($res = $result->fetch_assoc()) {
                                 echo "<a href='watch.php?v=$res[id]'><li><span class='epNum'>$res[ep_number].</span> $res[title]</li></a><hr>";
                             }
-                            $result->free();
-                            ?>
-                        </ul>
+                            echo "</ul>";
+                        } else {
+                            echo "<p class='no-episodes'>Brak odcinków<p>";
+                        }
 
+                        $result->free();
+                        ?>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <script>
-        document.getElementById("<?php echo $series_id; ?>").style.backgroundColor = "#161616";
-
-        $('.series-ep-list').height($('.series-data').innerHeight() + $('.slideshow-container').innerHeight() - $('.ep-list-header').innerHeight());
+        $(document).ready(function() {
+            var seriesElement = $("#<?php echo $series_id; ?>");
+            if (seriesElement.length) {
+                seriesElement.css("background-color", "#161616");
+            }
+            $('.series-ep-list').height($('.series-data').innerHeight() + $('.slideshow-container').innerHeight() - $('.ep-list-header').innerHeight());
+        });
     </script>
     <script src="scripts/slideshow.js"></script>
     <script src="scripts/dropdown.js"></script>
