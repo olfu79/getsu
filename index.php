@@ -126,7 +126,7 @@ CONTENT;
                 <h1>Losowo wybrane</h1>
                 <div class="browse-section">
                     <?php
-                    $query = "SELECT * FROM `series` WHERE `isActive` = 1 ORDER BY RAND() LIMIT 4";
+                    $query = "SELECT `series`.`id`, `series`.`title`, `series`.`alt_title`, `series`.`season`, `series`.`poster`, `series`.`desc`, `series`.`genre`, `series`.`added_date`, `series`.`brd-type`, `series`.`brd-start`, `series`.`brd-end`, `series`.`ep_count`, `series`.`isActive`, `series`.`tags` FROM `series` INNER JOIN `episodes` on `episodes`.`series_id` = `series`.`id` WHERE `series`.`isActive` = 1 GROUP BY `series`.`id` HAVING COUNT(`episodes`.`id`) > 0 ORDER BY RAND() LIMIT 4;";
                     if ($result = $con->query($query)) {
                         while ($row = $result->fetch_assoc()) {
                             echo <<< CONTENT
@@ -143,7 +143,7 @@ CONTENT;
                 <h1>Ostatnio dodane</h1>
                 <div class="browse-section">
                     <?php
-                    $query = "SELECT * FROM `series`  WHERE `isActive` = 1  ORDER BY `added_date` DESC LIMIT 4";
+                    $query = "SELECT `series`.`id`, `series`.`title`, `series`.`alt_title`, `series`.`season`, `series`.`poster`, `series`.`desc`, `series`.`genre`, `series`.`added_date`, `series`.`brd-type`, `series`.`brd-start`, `series`.`brd-end`, `series`.`ep_count`, `series`.`isActive`, `series`.`tags` FROM `series` INNER JOIN `episodes` on `episodes`.`series_id` = `series`.`id` WHERE `series`.`isActive` = 1 GROUP BY `series`.`id` HAVING COUNT(`episodes`.`id`) > 0 ORDER BY `series`.`added_date` DESC LIMIT 4;";
                     if ($result = $con->query($query)) {
                         while ($row = $result->fetch_assoc()) {
                             echo <<< CONTENT
@@ -160,7 +160,7 @@ CONTENT;
                 <h1>Przygodowe</h1>
                 <div class="browse-section">
                     <?php
-                    $query = "SELECT * FROM `series` WHERE `genre` LIKE '%przygodowe%' AND `isActive` = 1 ORDER BY RAND() LIMIT 4";
+                    $query = "SELECT `series`.`id`, `series`.`title`, `series`.`alt_title`, `series`.`season`, `series`.`poster`, `series`.`desc`, `series`.`genre`, `series`.`added_date`, `series`.`brd-type`, `series`.`brd-start`, `series`.`brd-end`, `series`.`ep_count`, `series`.`isActive`, `series`.`tags` FROM `series` INNER JOIN `episodes` on `episodes`.`series_id` = `series`.`id` WHERE `genre` LIKE '%przygodowe%' AND `series`.`isActive` = 1 GROUP BY `series`.`id` HAVING COUNT(`episodes`.`id`) > 0 ORDER BY RAND() LIMIT 4";
                     if ($result = $con->query($query)) {
                         while ($row = $result->fetch_assoc()) {
                             echo <<< CONTENT
@@ -177,7 +177,7 @@ CONTENT;
                 <h1>Akcja</h1>
                 <div class="browse-section">
                     <?php
-                    $query = "SELECT * FROM `series` WHERE `genre` LIKE '%akcja%' AND `isActive` = 1 ORDER BY RAND() LIMIT 4";
+                    $query = "SELECT `series`.`id`, `series`.`title`, `series`.`alt_title`, `series`.`season`, `series`.`poster`, `series`.`desc`, `series`.`genre`, `series`.`added_date`, `series`.`brd-type`, `series`.`brd-start`, `series`.`brd-end`, `series`.`ep_count`, `series`.`isActive`, `series`.`tags` FROM `series` INNER JOIN `episodes` on `episodes`.`series_id` = `series`.`id` WHERE `genre` LIKE '%akcja%' AND `series`.`isActive` = 1 GROUP BY `series`.`id` HAVING COUNT(`episodes`.`id`) > 0 ORDER BY RAND() LIMIT 4";
                     if ($result = $con->query($query)) {
                         while ($row = $result->fetch_assoc()) {
                             echo <<< CONTENT
