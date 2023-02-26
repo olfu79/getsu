@@ -96,12 +96,18 @@ ADMIN_SECTION;
                     $query1 = "SELECT * FROM `series` INNER JOIN `plan_to_watch` ON `plan_to_watch`.`series_id` = `series`.`id` WHERE `plan_to_watch`.`user_id` = $_SESSION[id]";
                     if ($result1 = $con->query($query1)) {
                         while ($row1 = $result1->fetch_assoc()) {
-                            echo <<< CONTENT
-                                <a href="series.php?s=$row1[id]" class="main-container-25 ratio-4-3">
-                                    <img src="$row1[poster]">
-                                    <p>$row1[alt_title]</p>
-                                </a>
-CONTENT;
+                            echo "<a href='series.php?s=$row1[id]'>
+                            <div class='ptw-item flex flex-row'>
+                                <img src='$row1[poster]'>
+                                <div class='ptw-data'>
+                                    <h4>$row1[title]</h4>
+                                    <p>Orginalny tytuł: <i>$row1[alt_title]</i></p>
+                                    <p>Premiera: {$row1["brd-start"]}</p>
+                                    <p>Sezon: $row1[season]</p>
+                                    <p>Odcinków: $row1[ep_count]</p>
+                                </div>
+                            </div>
+                        </a><br>";
                         }
                     }
                     $result1->free();
