@@ -1,33 +1,47 @@
 <?php
 require_once 'isloggedin.php';
 require_once 'isadmin.php';
-require_once 'db_con.php'; ///////////////////here
+require_once 'db_con.php';
 if (!empty($_GET["action"])) {
     if (!empty($_GET['u']) && !empty($_GET['reason']) && $_GET['action'] == "ban") {
         $getUserData_query = "SELECT * FROM `accounts` WHERE `id` = '$_GET[u]'";
         $result = $con->query($getUserData_query)->fetch_assoc();
         if ($result['role'] != "user") {
-            header('Location: ../reports.php?e=cantbanadm');
+            header('Location: ../manage-users.php?e=cantbanadm');
             exit;
         }
         $ban_query = "INSERT INTO `banned`(`id`, `username`, `password`, `email`, `role`, `description`, `avatar`, `reg_date`, `reason`) VALUES ('$result[id]', '$result[username]', '$result[password]', '$result[email]', '$result[role]', '$result[description]', '$result[avatar]', '$result[reg_date]', '$_GET[reason]')";
         $removeUser_query = "DELETE FROM `accounts` WHERE `id` = '$_GET[u]'";
         if ($con->query($ban_query) && $con->query($removeUser_query)) {
-            header('Location: ../reports.php?s=banned');
+            header('Location: ../manage-users.php?s=banned');
             exit;
         }
     }
-    if (!empty($_GET['id']) && $_GET['action'] == "delete-commenhgjt") {
-        $deleteComment_query = "DELETE FROM `comments` WHERE `id` = '$_GET[id]'";
-        if ($con->query($deleteComment_query)) {
-            header('Location: ../reports.php?s=delcom');
+    if (!empty($_GET['u']) && $_GET['action'] == "unban") {
+        $getUserData_query = "SELECT * FROM `banned` WHERE `id` = '$_GET[u]'";
+        $result = $con->query($getUserData_query)->fetch_assoc();
+        $unban_query = "INSERT INTO `accounts`(`id`, `username`, `password`, `email`, `role`, `description`, `avatar`, `reg_date`) VALUES ('$result[id]', '$result[username]', '$result[password]', '$result[email]', '$result[role]', '$result[description]', '$result[avatar]', '$result[reg_date]')";
+        $addUser_query = "DELETE FROM `banned` WHERE `id` = '$_GET[u]'";
+        if ($con->query($unban_query) && $con->query($addUser_query)) {
+            header('Location: ../manage-users.php?s=unbanned');
             exit;
         }
     }
-    if (!empty($_GET['id']) && $_GET['action'] == "delete-repghjghjort") {
-        $deleteReport_query = "DELETE FROM `comments_reports` WHERE `id` = '$_GET[id]'";
-        if ($con->query($deleteReport_query)) {
-            header('Location: ../reports.php?s=delrep');
+    if (!empty($_GET['u']) && $_GET['action'] == "reset") {
+        $resetPassword_query = "UPDATE `accounts` SET `resetPassword`=1 WHERE  `id` = '$_GET[u]'";
+        if ($con->query($resetPassword_query)) {
+            header('Location: ../manage-users.php?s=sresetrequest');
+            exit;
+        }
+    }
+    if (!empty($_GET['u']) && $_GET['action'] == "edit") {
+        header('Location: ../edit-profile.php');
+        exit;
+    }
+    if (!empty($_GET['u']) && $_GET['action'] == "delete") {
+        $deleteAccount_query = "DELETE FROM `accounts` WHERE `id` = '$_GET[u]'";
+        if ($con->query($deleteAccount_query)) {
+            header('Location: ../manage-users.php?s=sdeluser');
             exit;
         }
     }

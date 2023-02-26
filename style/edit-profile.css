@@ -1,0 +1,76 @@
+.edit-profile-wrapper{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.user-card{
+    background-color: #161616;
+    width: 64%;
+    overflow: hidden;
+    max-height: 70vh;
+    padding: 2%;
+}
+.left{
+    width: 30%;
+    height: 100%;
+    padding-right: 1%
+}
+.mid{
+    width: 70%;
+    padding: 0 2%;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+.mid::-webkit-scrollbar{
+    display: none;
+}
+.mid h2{
+    text-align: center;
+}
+.right{
+    width: 35%;
+    max-height: 70vh;
+    margin-left: 1%;
+    padding: 2%;
+    background-color: #161616;
+}
+.right h2{
+    text-align: center;
+}
+.pfp{
+    width: 100%;
+    aspect-ratio: 1/1;
+    border: 5px solid white;
+    margin-bottom: 7%;
+}
+.data-username{
+    font-size: 1.5em;
+    text-align: center;
+}
+.data-role{
+    color: #A61C1C;
+    text-align: center;
+}
+img {
+    max-height: 70vh;
+}
+.stats-data{
+    color: #A61C1C;
+    float: right;
+}
+textarea{
+    width: 100%;
+    height: 100%;
+    background-color: #262626;
+    color: white;
+    border: none;
+    font-family: 'Axios Pro', sans-serif;
+    line-height: 1.5;
+    resize: none;
+    outline: none;
+    padding: 2%;
+}
+.mid p{
+    text-align: right;
+    font-size: 0.75vw;
+}

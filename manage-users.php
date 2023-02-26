@@ -121,7 +121,7 @@ ADMIN_SECTION;
                                                 <div class='actions flex v-mid'>
                                                     <a href='scripts/manage-users-actions.php?u={$userId}&action=reset'><span class='mdi mdi-lock-reset'></span></a>
                                                     <a href='scripts/manage-users-actions.php?u={$userId}&action=edit'><span class='mdi mdi-text-box-edit-outline'></span></a>
-                                                    <a href='scripts/manage-users-actions.php?u={$userId}&action=block'><span class='mdi mdi-account-cancel'></span></a>
+                                                    <a href='scripts/manage-users-actions.php?u={$userId}&action=ban&reason=panel'><span class='mdi mdi-account-cancel'></span></a>
                                                     <a href='scripts/manage-users-actions.php?u={$userId}&action=delete'><span class='mdi mdi-trash-can-outline'></span></a>
                                                 </div>
                                             </td>
@@ -135,7 +135,7 @@ ADMIN_SECTION;
                     ?>
                     <h2>Zbanowani</h2>
                     <?php
-                    $usersData_query = "SELECT `id`, `username`, `email`, `role` FROM `banned` ORDER BY `id`";
+                    $usersData_query = "SELECT `id`, `username`, `email`, `role`, `reason` FROM `banned` ORDER BY `id`";
                     $result = $con->query($usersData_query);
 
                     if ($result->num_rows > 0) {
@@ -145,6 +145,7 @@ ADMIN_SECTION;
                                         <th>Nazwa użytkownika</th>
                                         <th>Email</th>
                                         <th>Rola</th>
+                                        <th>Powód</th>
                                         <th class='actions-header'>Akcje</th>
                                     </tr>";
                         while ($usersRow = $result->fetch_assoc()) {
@@ -154,6 +155,7 @@ ADMIN_SECTION;
                                             <td class='users_username'>{$usersRow["username"]}</td>
                                             <td class='users_email'>{$usersRow["email"]}</td>
                                             <td class='users_role'>{$usersRow["role"]}</td>
+                                            <td class='users_reason'>{$usersRow["reason"]}</td>
                                             <td class='users_actions'>
                                                 <div class='actions flex v-mid'>
                                                     <a href='scripts/manage-users-actions.php?u={$userId}&action=unban'><span class='mdi mdi-account-lock-open'></span></a>

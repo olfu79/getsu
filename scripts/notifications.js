@@ -103,6 +103,10 @@ $(document).ready(function() {
             noty.setText('Pomyślnie zbanowano użytkownika!', true);
             noty.show();
         }
+        if (eParam === 'unbanned') {
+            noty.setText('Pomyślnie odbanowano użytkownika!', true);
+            noty.show();
+        }
         if (eParam === 'delcom') {
             noty.setText('Pomyślnie usunięto komentarz!', true);
             noty.show();
@@ -141,6 +145,14 @@ $(document).ready(function() {
         }
         if (eParam === 'supdated') {
             noty.setText('Pomyślnie uaktualniono serię!', true);
+            noty.show();
+        }
+        if (eParam === 'sresetrequest') {
+            noty.setText('Pomyślnie zresetowano hasło użytkownika!', true);
+            noty.show();
+        }
+        if (eParam === 'sdeluser') {
+            noty.setText('Pomyślnie usunięto użytkownika!', true);
             noty.show();
         }
     }
