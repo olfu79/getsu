@@ -1,7 +1,7 @@
 <?php
 require_once 'isloggedin.php';
 require_once 'isadmin.php';
-require_once 'db_con.php';
+require_once 'db_con.php'; ///////////////////here
 if (!empty($_GET["action"])) {
     if (!empty($_GET['u']) && !empty($_GET['reason']) && $_GET['action'] == "ban") {
         $getUserData_query = "SELECT * FROM `accounts` WHERE `id` = '$_GET[u]'";
