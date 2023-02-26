@@ -4,7 +4,7 @@ $query->bind_param('ii', $series_id, $_SESSION['id']);
 $query->execute();
 $result = $query->get_result();
 if ($result->num_rows > 0) {
-    echo "<span class='mdi mdi-playlist-check ptw-button' data-series-id='$series_id'></span>";
+    echo "<span class='mdi mdi-playlist-check series-added ptw-button' data-series-id='$series_id'></span>";
 } else {
-    echo "<span class='mdi mdi-playlist-plus ptw-button' data-series-id='$series_id'></span>";
+    echo "<span class='mdi mdi-playlist-plus series-toadd ptw-button' data-series-id='$series_id'></span>";
 }

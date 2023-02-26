@@ -27,6 +27,11 @@ include 'scripts/episodeAuth.php';
     <link href="https://cdn.jsdelivr.net/npm/@silvermine/videojs-chromecast@1.2.0/dist/silvermine-videojs-chromecast.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@silvermine/videojs-chromecast@1.2.0/dist/silvermine-videojs-chromecast.min.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
+
+    <link href="node_modules/noty/lib/noty.css" rel="stylesheet">
+    <link href="node_modules/noty/lib/themes/relax.css" rel="stylesheet">
+    <script src="node_modules/noty/lib/noty.js" type="text/javascript"></script>
+    <script type="text/javascript" src="scripts/notifications.js"></script>
 </head>
 
 <body>
@@ -91,7 +96,7 @@ ADMIN_SECTION;
         <div class="right-pane">
             <div class="nav-top">
                 <div class="nav-top-left">
-                    <a onclick="history.back()" class="nav-top-back"><span class="mdi mdi-chevron-left"></span></a>
+                    <a onclick="history.back();" class="nav-top-back"><span class="mdi mdi-chevron-left"></span></a>
                     <a onclick="history.forward()" class="nav-top-forward"><span class="mdi mdi-chevron-right"></span></a>
                     <form method="GET" action="search.php">
                         <input type="search" name="search" placeholder="Wyszukaj...">
@@ -176,8 +181,8 @@ VIDEO_PLAYER;
                     include 'scripts/like-counter.php';
                     echo <<< VIDEO_INTERACTIVE
                         <a href="series.php?s=$series_id"><span class="mdi mdi-format-list-numbered"></span></a>
-                        <span class="mdi mdi-download" onclick="download('$url', '{$alt_title} S{$season}O{$ep_number}'); return false;"></span>
-                        <span class="mdi mdi-share" onclick="navigator.clipboard.writeText(window.location.href);"></span>
+                        <span class="mdi mdi-download download" onclick="download('$url', '{$alt_title} S{$season}O{$ep_number}'); return false;"></span>
+                        <span class="mdi mdi-share share" onclick="navigator.clipboard.writeText(window.location.href);"></span>
                     </div>
                     <div class="video-meta">
                         <h2>$alt_title S{$season} O{$ep_number} - "$title"</h2>

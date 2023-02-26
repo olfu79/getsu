@@ -5,7 +5,7 @@ if (isset($_GET['s'])) {
     $series_query = "SELECT * FROM `series` WHERE `id` = '$sId' AND `isActive` = 1";
     $result = $con->query($series_query);
     if ($result->num_rows == 0) {
-        header('Location: error.php?e=nie ma takiej serii');
+        header('Location: index.php?e=seriesnotexist');
         exit;
     } else {
         $res = $result->fetch_assoc();
@@ -23,6 +23,6 @@ if (isset($_GET['s'])) {
     }
     $result->free();
 } else {
-    header('Location: error.php?e=nie podano nawet id serii');
+    header('Location: index.php?e=error');
     exit;
 }

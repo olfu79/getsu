@@ -10,8 +10,14 @@ include 'scripts/db_con.php';
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="style/browse-style.css">
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.1.96/css/materialdesignicons.min.css">
     <link rel="icon" type="image/png" href="logo/favicon.png" />
+
+    <link href="node_modules/noty/lib/noty.css" rel="stylesheet">
+    <link href="node_modules/noty/lib/themes/relax.css" rel="stylesheet">
+    <script src="node_modules/noty/lib/noty.js" type="text/javascript"></script>
+    <script type="text/javascript" src="scripts/notifications.js"></script>
     <title>Getsu</title>
 </head>
 

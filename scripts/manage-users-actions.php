@@ -17,14 +17,14 @@ if (!empty($_GET["action"])) {
             exit;
         }
     }
-    if (!empty($_GET['id']) && $_GET['action'] == "delete-comment") {
+    if (!empty($_GET['id']) && $_GET['action'] == "delete-commenhgjt") {
         $deleteComment_query = "DELETE FROM `comments` WHERE `id` = '$_GET[id]'";
         if ($con->query($deleteComment_query)) {
             header('Location: ../reports.php?s=delcom');
             exit;
         }
     }
-    if (!empty($_GET['id']) && $_GET['action'] == "delete-report") {
+    if (!empty($_GET['id']) && $_GET['action'] == "delete-repghjghjort") {
         $deleteReport_query = "DELETE FROM `comments_reports` WHERE `id` = '$_GET[id]'";
         if ($con->query($deleteReport_query)) {
             header('Location: ../reports.php?s=delrep');
