@@ -91,6 +91,14 @@ $(document).ready(function() {
             layout: 'topRight',
             timeout: 3000,
         });
+        if (eParam === 'success') {
+            noty.setText('Wykonano pomyślnie!', true);
+            noty.show();
+        }
+        if (eParam === 'supdatedprofile') {
+            noty.setText('Pomyślnie zaktualizowano profil!', true);
+            noty.show();
+        }
         if (eParam === 'sadded') {
             noty.setText('Pomyślnie dodano serię!', true);
             noty.show();

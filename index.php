@@ -18,6 +18,7 @@ include 'scripts/db_con.php';
     <link href="node_modules/noty/lib/themes/relax.css" rel="stylesheet">
     <script src="node_modules/noty/lib/noty.js" type="text/javascript"></script>
     <script type="text/javascript" src="scripts/notifications.js"></script>
+
     <title>Getsu</title>
 </head>
 

@@ -1,3 +1,10 @@
+.profile-wrapper{
+    display: flex;
+    justify-content: space-between;
+    max-height: 70vh;
+    width: 100%;
+    overflow: auto;
+}
 .user-card{
     background-color: #161616;
     width: 64%;
@@ -53,4 +60,17 @@ img {
 .stats-data{
     color: #A61C1C;
     float: right;
+}
+.edit{
+    text-decoration: none;
+    text-align: center;
+    margin-top: 1%;
+    background-color: #a61c1c;
+    border: 1px solid #303030;
+    color: white;
+    font-size: 1.2vw;
+    font-family: inherit;
+    padding: 1vh;
+    outline: none;
+    width: 100%;
 }

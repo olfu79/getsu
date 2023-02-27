@@ -1,18 +1,20 @@
 .edit-profile-wrapper{
     display: flex;
-    flex-wrap: wrap;
     justify-content: space-between;
+    max-height: 70vh;
+    overflow: auto;
 }
 .user-card{
     background-color: #161616;
     width: 64%;
     overflow: hidden;
-    max-height: 70vh;
+    flex: 1;
     padding: 2%;
+    min-height: 55vh;
 }
 .left{
     width: 30%;
-    height: 100%;
+    flex: 1;
     padding-right: 1%
 }
 .mid{
@@ -73,4 +75,38 @@ textarea{
 .mid p{
     text-align: right;
     font-size: 0.75vw;
+}
+.input_container {
+    margin: 3% 0;
+}
+
+input[type=file]::file-selector-button {
+    background-color: #fff;
+    color: #000;
+    border: 0px;
+    border-right: 1px solid #e5e5e5;
+    padding: 10px 15px;
+    margin-right: 20px;
+    transition: .5s;
+    overflow: none;
+}
+
+input[type=file]::file-selector-button:hover {
+    background-color: #eee;
+    border: 0px;
+    border-right: 1px solid #e5e5e5;
+}
+#desc-area{
+    margin-top: 1%;
+}
+button[type="submit"] {
+    margin-top: 1%;
+    background-color: #a61c1c;
+    border: 1px solid #303030;
+    color: white;
+    font-size: 1.2vw;
+    font-family: inherit;
+    padding: 1vh;
+    outline: none;
+    width: 100%;
 }

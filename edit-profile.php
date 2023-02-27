@@ -138,13 +138,17 @@ ADMIN_SECTION;
                         echo <<< USER_DATA
                         <div class="user-card flex">
                             <div class="left flex flex-column">
+                                Edytuj zdjęcie:
+                                <div class="input_container">
+                                    <input type="file" id="fileUpload" accept="image/png, image/jpeg">
+                                </div>
                                 $avatar
-                                <input type="file" id="image-upload" accept="image/png, image/jpeg">
                                 <span class="data-username"><b>$res[username]</b></span>
                                 <span class="data-role"><b>$res[role]</b></span>
                             </div>
                             <div class="mid flex flex-column">
-                                <textarea maxlength="1024" class="desc-area">
+                                Edytuj opis:
+                                <textarea maxlength="1024" id="desc-area">
                                     $res[description]
                                 </textarea>
                                 <p><span id="charCount">0</span>/1024</p>
@@ -203,28 +207,41 @@ USER_DATA;
                             echo <<< USER_DATA
                         <div class="user-card flex">
                             <div class="left flex flex-column">
+                                Edytuj zdjęcie:
+                                <div class="input_container">
+                                    <input type="file" id="fileUpload" accept="image/png, image/jpeg">
+                                </div>
                                 $avatar
                                 <span class="data-username"><b>$res[username]</b></span>
                                 <span class="data-role"><b>$res[role]</b></span>
                             </div>
                             <div class="mid flex flex-column">
-                                <h2>O mnie</h2>
-                                $res[description]
+                                Edytuj opis:
+                                <textarea maxlength="1024" id="desc-area">
+                                    $res[description]
+                                </textarea>
+                                <p><span id="charCount">0</span>/1024</p>
                             </div>
                         </div>
                         <div class="right flex flex-column">
-                            <h2>Statystyki</h2>
-                            <p>Ilość komentarzy: <span class="stats-data">$comments_count</span></p>
-                            <p>Ilość polubień: <span class="stats-data">$likes_count</span></p>
-                            <p>Ulubiona seria: <span class="stats-data">$favourite_series</span></p>
-                            <p>Data rejestracji <span class="stats-data">$reg_date</span></p>
-                            <p>Dni od rejestracji: <span class="stats-data">$days_from_register</span></p>
+                                <h2>Statystyki</h2>
+                                <p>Ilość komentarzy: <span class="stats-data">$comments_count</span></p>
+                                <p>Ilość polubień: <span class="stats-data">$likes_count</span></p>
+                                <p>Ulubiona seria: <span class="stats-data">$favourite_series</span></p>
+                                <p>Data rejestracji <span class="stats-data">$reg_date</span></p>
+                                <p>Dni od rejestracji: <span class="stats-data">$days_from_register</span></p>
                         </div>
-    USER_DATA;
+USER_DATA;
                         }
+                    }
+                    if (isset($_GET['u'])) {
+                        $uid = $_GET['u'];
+                    } else {
+                        $uid = $_SESSION['id'];
                     }
                     ?>
                 </div>
+                <button type="submit" id="save-changes">Zapisz</button>
             </div>
         </div>
     </div>
@@ -236,6 +253,31 @@ USER_DATA;
                 $('#charCount').text(charCount);
             });
             $('.desc-area').trigger('input');
+
+            document.getElementById('save-changes').addEventListener('click', function() {
+                var file = document.getElementById('fileUpload').files[0];
+                var description = document.getElementById('desc-area').value || 'Brak opisu.';
+                var uid = '<?php echo $uid; ?>';
+                var formData = new FormData();
+                formData.append('file', file);
+                formData.append('description', description);
+                formData.append('uid', uid);
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', 'scripts/save-profile-data.php', true);
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        if (xhr.responseText === 'success') {
+                            window.location.href = "profile.php?u=" + uid + "?s=supdatedprofile";
+                        } else {
+                            window.location.href = "profile.php?e=error";
+                        }
+                    } else {
+                        window.location.href = "profile.php?e=error";
+                    }
+                };
+                xhr.send(formData);
+            });
+
         });
     </script>
 </body>

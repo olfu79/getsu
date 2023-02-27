@@ -35,7 +35,7 @@ if (!empty($_GET["action"])) {
         }
     }
     if (!empty($_GET['u']) && $_GET['action'] == "edit") {
-        header('Location: ../edit-profile.php');
+        header("Location: ../edit-profile.php?u=$_GET[u]");
         exit;
     }
     if (!empty($_GET['u']) && $_GET['action'] == "delete") {
