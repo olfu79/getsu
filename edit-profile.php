@@ -9,16 +9,14 @@ include 'scripts/db_con.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="style/profile.css">
+    <link rel="stylesheet" href="style/edit-profile.css">
     <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.1.96/css/materialdesignicons.min.css">
     <link rel="icon" type="image/png" href="logo/favicon.png" />
-
     <link href="node_modules/noty/lib/noty.css" rel="stylesheet">
     <link href="node_modules/noty/lib/themes/relax.css" rel="stylesheet">
     <script src="node_modules/noty/lib/noty.js" type="text/javascript"></script>
     <script type="text/javascript" src="scripts/notifications.js"></script>
-
     <title>Getsu</title>
 </head>
 
@@ -96,14 +94,15 @@ ADMIN_SECTION;
                     <a href="profile.php"><span class="mdi mdi-account-circle"></a>
                 </div>
             </div>
-            <div class="main">
-                <div class="profile-wrapper">
+            <div class="main flex-column">
+                <h1>Edycja profilu</h1>
+                <div class="edit-profile-wrapper">
                     <?php
+                    //edytuje siebie
                     if (empty($_GET['u']) || $_GET['u'] == $_SESSION['id']) {
                         $getUserData_query = "SELECT * FROM `accounts` WHERE `id` = '$_SESSION[id]'";
                         $result = $con->query($getUserData_query);
                         $res = $result->fetch_assoc();
-                        $rawDesc = nl2br(htmlspecialchars($res['description']));
                         $avatar = "<img class='pfp' src='resources/default.jpg' alt='User Avatar'>";
                         if ($res['avatar'] != "") {
                             $avatar = '<img class="pfp" src="data:image/jpeg;base64,' . base64_encode($res['avatar']) . '" alt="User Avatar">';
@@ -139,12 +138,20 @@ ADMIN_SECTION;
                         echo <<< USER_DATA
                         <div class="user-card flex">
                             <div class="left flex flex-column">
+                                Edytuj zdjęcie:
+                                <div class="input_container">
+                                    <input type="file" id="fileUpload" accept="image/png, image/jpeg">
+                                </div>
                                 $avatar
                                 <span class="data-username"><b>$res[username]</b></span>
                                 <span class="data-role"><b>$res[role]</b></span>
                             </div>
                             <div class="mid flex flex-column">
-                                $rawDesc
+                                Edytuj opis:
+                                <textarea maxlength="1024" id="desc-area">
+                                    $res[description]
+                                </textarea>
+                                <p><span id="charCount">0</span>/1024</p>
                             </div>
                         </div>
                         <div class="right flex flex-column">
@@ -156,7 +163,8 @@ ADMIN_SECTION;
                                 <p>Dni od rejestracji: <span class="stats-data">$days_from_register</span></p>
                         </div>
 USER_DATA;
-                    } else {
+                    } //edytuje kogos
+                    else if ($_GET['u'] != $_SESSION['id'] && $_SESSION['role'] == "admin") {
                         $getUserData_query = "SELECT * FROM `accounts` WHERE `id` = '$_GET[u]'";
                         $result = $con->query($getUserData_query);
                         if ($result->num_rows == 0) {
@@ -199,36 +207,79 @@ USER_DATA;
                             echo <<< USER_DATA
                         <div class="user-card flex">
                             <div class="left flex flex-column">
+                                Edytuj zdjęcie:
+                                <div class="input_container">
+                                    <input type="file" id="fileUpload" accept="image/png, image/jpeg">
+                                </div>
                                 $avatar
                                 <span class="data-username"><b>$res[username]</b></span>
                                 <span class="data-role"><b>$res[role]</b></span>
                             </div>
                             <div class="mid flex flex-column">
-                                <h2>O mnie</h2>
-                                $rawDesc
+                                Edytuj opis:
+                                <textarea maxlength="1024" id="desc-area">
+                                    $res[description]
+                                </textarea>
+                                <p><span id="charCount">0</span>/1024</p>
                             </div>
                         </div>
                         <div class="right flex flex-column">
-                            <h2>Statystyki</h2>
-                            <p>Ilość komentarzy: <span class="stats-data">$comments_count</span></p>
-                            <p>Ilość polubień: <span class="stats-data">$likes_count</span></p>
-                            <p>Ulubiona seria: <span class="stats-data">$favourite_series</span></p>
-                            <p>Data rejestracji <span class="stats-data">$reg_date</span></p>
-                            <p>Dni od rejestracji: <span class="stats-data">$days_from_register</span></p>
+                                <h2>Statystyki</h2>
+                                <p>Ilość komentarzy: <span class="stats-data">$comments_count</span></p>
+                                <p>Ilość polubień: <span class="stats-data">$likes_count</span></p>
+                                <p>Ulubiona seria: <span class="stats-data">$favourite_series</span></p>
+                                <p>Data rejestracji <span class="stats-data">$reg_date</span></p>
+                                <p>Dni od rejestracji: <span class="stats-data">$days_from_register</span></p>
                         </div>
-    USER_DATA;
+USER_DATA;
                         }
+                    }
+                    if (isset($_GET['u'])) {
+                        $uid = $_GET['u'];
+                    } else {
+                        $uid = $_SESSION['id'];
                     }
                     ?>
                 </div>
-                <?php
-                if (empty($_GET['u']) || $_GET['u'] == $_SESSION['id']) echo "<a class='edit' href='edit-profile.php'>Edytuj</a>";
-
-                ?>
+                <button type="submit" id="save-changes">Zapisz</button>
             </div>
         </div>
     </div>
     <script src="scripts/dropdown.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.desc-area').on('input', function() {
+                var charCount = $(this).val().length;
+                $('#charCount').text(charCount);
+            });
+            $('.desc-area').trigger('input');
+
+            document.getElementById('save-changes').addEventListener('click', function() {
+                var file = document.getElementById('fileUpload').files[0];
+                var description = document.getElementById('desc-area').value || 'Brak opisu.';
+                var uid = '<?php echo $uid; ?>';
+                var formData = new FormData();
+                formData.append('file', file);
+                formData.append('description', description);
+                formData.append('uid', uid);
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', 'scripts/save-profile-data.php', true);
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        if (xhr.responseText === 'success') {
+                            window.location.href = "profile.php?u=" + uid + "?s=supdatedprofile";
+                        } else {
+                            window.location.href = "profile.php?e=error";
+                        }
+                    } else {
+                        window.location.href = "profile.php?e=error";
+                    }
+                };
+                xhr.send(formData);
+            });
+
+        });
+    </script>
 </body>
 
 </html>

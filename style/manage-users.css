@@ -20,7 +20,7 @@ th, td {
 tr{
     background-color: #161616;
 }
-.users_id, .users_role {
+.users_id, .users_role, .users_reason {
     max-width: 10%;
 }
 .users_actions {

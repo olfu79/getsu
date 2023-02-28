@@ -9,8 +9,10 @@ $(document).ready(function() {
                 var response = JSON.parse(response);
                 if(response.status == "added"){
                     $('.ptw-button').removeClass('mdi-playlist-plus').addClass('mdi-playlist-check');
+                    $('.ptw-button').removeClass('series-toadd').addClass('series-added');
                 }else if(response.status == "removed"){
                     $('.ptw-button').removeClass('mdi-playlist-check').addClass('mdi-playlist-plus');
+                    $('.ptw-button').removeClass('series-added').addClass('series-toadd');
                 }
                 else{
                     console.log("error");

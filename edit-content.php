@@ -98,7 +98,7 @@ ADMIN_SECTION;
                     $seriesData_query = "SELECT * FROM `series` WHERE `id` = '$_GET[s]'";
                     $result = $con->query($seriesData_query);
                     if ($result->num_rows == 0) {
-                        header('Location: error.php?e=nie ma takiej serii');
+                        header('Location: manage-content.php?e=seriesnotexist');
                         exit;
                     } else {
                         $res = $result->fetch_assoc();
@@ -226,7 +226,7 @@ SERIES_EDIT_FORM;
                     $seriesData_query = "SELECT * FROM `episodes` WHERE `id` = '$_GET[e]'";
                     $result = $con->query($seriesData_query);
                     if ($result->num_rows == 0) {
-                        header('Location: error.php?e=nie ma takiego odcinka');
+                        header('Location: manage-content.php?e=episodenotexist');
                         exit;
                     } else {
                         $res = $result->fetch_assoc();
@@ -329,7 +329,7 @@ SERIES_EDIT_FORM;
 EPISODE_EDIT_FORM;
                     }
                 } else {
-                    header('Location: error.php?e=nie podano elementu do edycji');
+                    header('Location: manage-content.php?e=error');
                     exit;
                 }
                 ?>

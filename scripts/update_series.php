@@ -1,9 +1,15 @@
 <?php
 require_once('db_con.php');
 if (empty($_POST['id']) || empty($_POST['altname']) || empty($_POST['fullname']) || empty($_POST['season']) || empty($_POST['epcount']) || empty($_POST['brdtype']) || empty($_POST['brdstart']) || empty($_POST['brdend']) || empty($_POST['genre']) || empty($_POST['desc']) || empty($_POST['poster'])) {
-    header('Location: error.php?e=brakuje danych ser');
+    header('Location: ../manage-content.php?e=sdatamissing');
     exit;
 } else {
+    $checkIfExist_query = "SELECT * FROM `series` WHERE `series`.`id` = '$_POST[id]'";
+    $result = $con->query($checkIfExist_query);
+    if ($result->num_rows == 0) {
+        header('Location: ../manage-content.php?e=seriesnotexist');
+        exit;
+    }
     $genres = $_POST['genre'];
     $genre_string = "";
     foreach ($genres as $genre) {
@@ -24,7 +30,7 @@ if (empty($_POST['id']) || empty($_POST['altname']) || empty($_POST['fullname'])
                                 WHERE `id` = '$_POST[id]'
                                 ";
     if ($con->query($addSeries_query)) {
-        header('Location: ../manage-content.php?s=sucupdt ser');
+        header('Location: ../manage-content.php?s=supdated');
         exit;
     } else {
         header('Location: ../manage-content.php?e=error');
