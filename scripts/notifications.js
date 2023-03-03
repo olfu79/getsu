@@ -82,6 +82,41 @@ $(document).ready(function() {
             noty.setTimeout(4500);
             noty.show();
         }
+        if (eParam === 'wrngpass') {
+            noty.setText('Zły login lub hasło!', true);
+            noty.setTimeout(false);
+            noty.show();
+        }
+        if (eParam === 'missingdata') {
+            noty.setText('Uzupełnij wszystkie dane w formularzu!', true);
+            noty.setTimeout(false);
+            noty.show();
+        }
+        if (eParam === 'invalidemail') {
+            noty.setText('Nieprawidłowy adres email!', true);
+            noty.setTimeout(false);
+            noty.show();
+        }
+        if (eParam === 'invalidusername') {
+            noty.setText('Nieprawidłowa nazwa użytkownika!', true);
+            noty.setTimeout(false);
+            noty.show();
+        }
+        if (eParam === 'passwordwrnglength') {
+            noty.setText('Hasło musi mieć minimum 6 znaków a maximum 20!', true);
+            noty.setTimeout(false);
+            noty.show();
+        }
+        if (eParam === 'usernameexist') {
+            noty.setText('Hasło musi mieć minimum 6 znaków a maximum 20!', true);
+            noty.setTimeout(false);
+            noty.show();
+        }
+        if (eParam === 'passwordwrnglength') {
+            noty.setText('Ta nazwa użytkownika jest już zajęta! Wybierz inną.', true);
+            noty.setTimeout(false);
+            noty.show();
+        }
     }
     if(eParam = searchParams.get('s')){
         var noty = new Noty({
@@ -161,6 +196,11 @@ $(document).ready(function() {
         }
         if (eParam === 'sdeluser') {
             noty.setText('Pomyślnie usunięto użytkownika!', true);
+            noty.show();
+        }
+        if (eParam === 'sreg') {
+            noty.setText('Pomyślnie stworzono konto! Zaloguj się używając wcześniej podanych danych', true);
+            noty.setTimeout(false);
             noty.show();
         }
     }
