@@ -33,7 +33,7 @@ if (isset($_SESSION['loggedin'])) {
                 <h1>LOGIN</h1>
                 <form method="post" action="scripts/authenticate-log.php" id="form-login">
                     <div class="form-container">
-                        <label for="username">Nazwa użytkownika</label>
+                        <label for="username">Nazwa użytkownika lub email</label>
                         <input type="text" name="username" placeholder="Nazwa użytkownika" class="username" required>
                     </div>
                     <div class="form-container">
