@@ -117,6 +117,11 @@ $(document).ready(function() {
             noty.setTimeout(false);
             noty.show();
         }
+        if (eParam === 'emailexist') {
+            noty.setText('Ten email już istnieje.', true);
+            noty.setTimeout(false);
+            noty.show();
+        }
     }
     if(eParam = searchParams.get('s')){
         var noty = new Noty({

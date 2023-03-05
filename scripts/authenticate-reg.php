@@ -31,6 +31,15 @@ if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?'
         header('Location: ../register.php?e=usernameexist');
         exit;
     } else {
+        if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE email = ?')) {
+            $stmt->bind_param('s', $_POST['email']);
+            $stmt->execute();
+            $stmt->store_result();
+            if ($stmt->num_rows > 0) {
+                header('Location: ../register.php?e=emailexist');
+                exit;
+            }
+        }
         if ($stmt = $con->prepare('INSERT INTO accounts (username, password, email) VALUES (?, ?, ?)')) {
             $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
             $stmt->bind_param('sss', $_POST['username'], $password, $_POST['email']);
