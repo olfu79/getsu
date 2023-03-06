@@ -1,3 +1,8 @@
 konwerter url.html
 node_modules
 google-api
+vendor
+composer.json
+composer.lock
+package.json
+package-lock.json
