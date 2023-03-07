@@ -29,12 +29,6 @@ if (isset($_GET['code'])) {
             header('Location: index.php');
             exit;
         } else {
-            $get_user = $con->query("SELECT `id`, `email` FROM `accounts` WHERE `email`='$email'");
-            $result = $get_user->fetch_assoc();
-            if ($get_user->num_rows > 0) {
-                header('Location: login.php?e=emailexist');
-                exit;
-            }
             $insert = $con->Query("INSERT INTO `accounts`(`google_id`,`username`,`email`) VALUES('$id','$full_name','$email')"); //$profile_pic
             if ($insert) {
                 $get_user = $con->query("SELECT `google_id`, `id`, `username`, `role` FROM `accounts` WHERE `google_id`='$id'");
@@ -52,11 +46,11 @@ if (isset($_GET['code'])) {
                     exit;
                 }
             } else {
-                echo "Location: login.php?e=error";
-                exit;
+                echo "Sign up failed!(Something went wrong).";
             }
         }
     } else {
-        echo "Location: ../login.php?e=error";
+        header('Location: login.php');
+        exit;
     }
 }
