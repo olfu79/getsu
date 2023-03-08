@@ -105,7 +105,11 @@ ADMIN_SECTION;
                         $res = $result->fetch_assoc();
                         $avatar = "<img class='pfp' src='resources/default.jpg' alt='User Avatar'>";
                         if ($res['avatar'] != "") {
-                            $avatar = '<img class="pfp" src="data:image/jpeg;base64,' . base64_encode($res['avatar']) . '" alt="User Avatar">';
+                            $avatar = '<img class="pfp" src="' . $res['avatar'] . '" alt="User Avatar">';
+                        }
+                        $role = 'użytkownik';
+                        if ($res['role'] == "admin") {
+                            $role = 'administrator';
                         }
 
                         //stats
@@ -138,19 +142,17 @@ ADMIN_SECTION;
                         echo <<< USER_DATA
                         <div class="user-card flex">
                             <div class="left flex flex-column">
-                                Edytuj zdjęcie:
+                                Edytuj URL zdjęcia:
                                 <div class="input_container">
-                                    <input type="file" id="fileUpload" accept="image/png, image/jpeg">
+                                    <input type="text" id="fileUpload"  value="$res[avatar]">
                                 </div>
                                 $avatar
                                 <span class="data-username"><b>$res[username]</b></span>
-                                <span class="data-role"><b>$res[role]</b></span>
+                                <span class="data-role"><b>$role</b></span>
                             </div>
                             <div class="mid flex flex-column">
                                 Edytuj opis:
-                                <textarea maxlength="1024" id="desc-area">
-                                    $res[description]
-                                </textarea>
+                                <textarea maxlength="1024" id="desc-area">$res[description]</textarea>
                                 <p><span id="charCount">0</span>/1024</p>
                             </div>
                         </div>
@@ -175,7 +177,11 @@ USER_DATA;
                             $rawDesc = nl2br(htmlspecialchars($res['description']));
                             $avatar = "<img class='pfp' src='resources/default.jpg' alt='User Avatar'>";
                             if ($res['avatar'] != "") {
-                                $avatar = '<img class="pfp" src="data:image/jpeg;base64,' . base64_encode($res['avatar']) . '" alt="User Avatar">';
+                                $avatar = '<img class="pfp" src="' . $res['avatar'] . '" alt="User Avatar">';
+                            }
+                            $role = 'użytkownik';
+                            if ($res['role'] == "admin") {
+                                $role = 'administrator';
                             }
                             //stats
                             $result = $con->query("SELECT COUNT(*)as `ilosc_kom` FROM `comments` WHERE `author_id` = '$res[id]';")->fetch_assoc();
@@ -207,19 +213,17 @@ USER_DATA;
                             echo <<< USER_DATA
                         <div class="user-card flex">
                             <div class="left flex flex-column">
-                                Edytuj zdjęcie:
+                                Edytuj URL zdjęcia:
                                 <div class="input_container">
-                                    <input type="file" id="fileUpload" accept="image/png, image/jpeg">
+                                    <input type="text" id="fileUpload" value="$res[avatar]">
                                 </div>
                                 $avatar
                                 <span class="data-username"><b>$res[username]</b></span>
-                                <span class="data-role"><b>$res[role]</b></span>
+                                <span class="data-role"><b>$role</b></span>
                             </div>
                             <div class="mid flex flex-column">
                                 Edytuj opis:
-                                <textarea maxlength="1024" id="desc-area">
-                                    $res[description]
-                                </textarea>
+                                <textarea maxlength="1024" id="desc-area">$res[description]</textarea>
                                 <p><span id="charCount">0</span>/1024</p>
                             </div>
                         </div>
@@ -255,11 +259,11 @@ USER_DATA;
             $('.desc-area').trigger('input');
 
             document.getElementById('save-changes').addEventListener('click', function() {
-                var file = document.getElementById('fileUpload').files[0];
+                var url = document.getElementById('fileUpload').value || '';
                 var description = document.getElementById('desc-area').value || 'Brak opisu.';
                 var uid = '<?php echo $uid; ?>';
                 var formData = new FormData();
-                formData.append('file', file);
+                formData.append('avatar', url);
                 formData.append('description', description);
                 formData.append('uid', uid);
                 var xhr = new XMLHttpRequest();
@@ -267,7 +271,7 @@ USER_DATA;
                 xhr.onload = function() {
                     if (xhr.status === 200) {
                         if (xhr.responseText === 'success') {
-                            window.location.href = "profile.php?u=" + uid + "?s=supdatedprofile";
+                            window.location.href = "profile.php?u=" + uid + "&s=supdatedprofile";
                         } else {
                             window.location.href = "profile.php?e=error";
                         }

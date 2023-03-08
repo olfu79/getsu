@@ -104,9 +104,12 @@ ADMIN_SECTION;
                         $result = $con->query($getUserData_query);
                         $res = $result->fetch_assoc();
                         $rawDesc = nl2br(htmlspecialchars($res['description']));
+                        if (empty(trim($rawDesc))) {
+                            $rawDesc = "Brak opisu.";
+                        }
                         $avatar = "<img class='pfp' src='resources/default.jpg' alt='User Avatar'>";
                         if ($res['avatar'] != "") {
-                            $avatar = '<img class="pfp" src="data:image/jpeg;base64,' . base64_encode($res['avatar']) . '" alt="User Avatar">';
+                            $avatar = '<img class="pfp" src="' . $res['avatar'] . '" alt="User Avatar">';
                         }
 
                         //stats
@@ -132,6 +135,10 @@ ADMIN_SECTION;
                         } else {
                             $favourite_series = "Brak.";
                         }
+                        $role = 'użytkownik';
+                        if ($res['role'] == "admin") {
+                            $role = 'administrator';
+                        }
                         $result = $con->query("SELECT `id`, `reg_date`, DATEDIFF(CURDATE(), `reg_date`) AS `days_since_registration` FROM `accounts` WHERE `id` = '$res[id]';")->fetch_assoc();
                         $days_from_register = $result['days_since_registration'];
                         $reg_date = $res['reg_date'];
@@ -141,7 +148,7 @@ ADMIN_SECTION;
                             <div class="left flex flex-column">
                                 $avatar
                                 <span class="data-username"><b>$res[username]</b></span>
-                                <span class="data-role"><b>$res[role]</b></span>
+                                <span class="data-role"><b>$role</b></span>
                             </div>
                             <div class="mid flex flex-column">
                                 $rawDesc
@@ -165,6 +172,9 @@ USER_DATA;
                         } else {
                             $res = $result->fetch_assoc();
                             $rawDesc = nl2br(htmlspecialchars($res['description']));
+                            if (empty(trim($rawDesc))) {
+                                $rawDesc = "Brak opisu.";
+                            }
                             $avatar = "<img class='pfp' src='resources/default.jpg' alt='User Avatar'>";
                             if ($res['avatar'] != "") {
                                 $avatar = '<img class="pfp" src="data:image/jpeg;base64,' . base64_encode($res['avatar']) . '" alt="User Avatar">';
@@ -192,6 +202,10 @@ USER_DATA;
                             } else {
                                 $favourite_series = "Brak.";
                             }
+                            $role = 'użytkownik';
+                            if ($res['role'] == "admin") {
+                                $role = 'administrator';
+                            }
                             $result = $con->query("SELECT `id`, `reg_date`, DATEDIFF(CURDATE(), `reg_date`) AS `days_since_registration` FROM `accounts` WHERE `id` = '$res[id]';")->fetch_assoc();
                             $days_from_register = $result['days_since_registration'];
                             $reg_date = $res['reg_date'];
@@ -201,7 +215,7 @@ USER_DATA;
                             <div class="left flex flex-column">
                                 $avatar
                                 <span class="data-username"><b>$res[username]</b></span>
-                                <span class="data-role"><b>$res[role]</b></span>
+                                <span class="data-role"><b>$role</b></span>
                             </div>
                             <div class="mid flex flex-column">
                                 <h2>O mnie</h2>
@@ -223,7 +237,6 @@ USER_DATA;
                 </div>
                 <?php
                 if (empty($_GET['u']) || $_GET['u'] == $_SESSION['id']) echo "<a class='edit' href='edit-profile.php'>Edytuj</a>";
-
                 ?>
             </div>
         </div>
