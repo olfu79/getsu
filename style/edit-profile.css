@@ -80,21 +80,17 @@ textarea{
     margin: 3% 0;
 }
 
-input[type=file]::file-selector-button {
+#fileUpload{
+    width: 100%;
     background-color: #fff;
     color: #000;
     border: 0px;
-    border-right: 1px solid #e5e5e5;
     padding: 10px 15px;
-    margin-right: 20px;
     transition: .5s;
     overflow: none;
 }
-
-input[type=file]::file-selector-button:hover {
-    background-color: #eee;
-    border: 0px;
-    border-right: 1px solid #e5e5e5;
+#fileUpload:focus{
+    outline: none;
 }
 #desc-area{
     margin-top: 1%;

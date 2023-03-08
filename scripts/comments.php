@@ -12,7 +12,7 @@ function time_elapsed_string($datetime, $full = false)
     $string = array('y' => 'rok', 'm' => 'miesiąc', 'w' => 'tygodnie', 'd' => 'dni', 'h' => 'godzin', 'i' => 'minut', 's' => 'sekund');
     foreach ($string as $k => &$v) {
         if ($diff->$k) {
-            $v = $diff->$k . ' ' . $v; // . ($diff->$k > 1 ? 's' : '');
+            $v = $diff->$k . ' ' . $v;
         } else {
             unset($string[$k]);
         }
@@ -31,14 +31,19 @@ function show_comments($comments, $parent_id = -1)
         }
         foreach ($comments as $comment) {
             include 'db_con.php';
-            $getUsername_query = "SELECT `username` FROM `accounts` WHERE `id` = '$comment[author_id]'";
+            $getUsername_query = "SELECT `username`, `avatar` FROM `accounts` WHERE `id` = '$comment[author_id]'";
             $result = $con->query($getUsername_query);
             $res = $result->fetch_assoc();
+            $avatar = "<img src='resources/default.jpg' width='20vw' style='border-radius:20%; margin-right: 1%;'>";
+            if (!empty($res['avatar'])) {
+                $avatar = "<img src='$res[avatar]' width='20vw' style='border-radius:20%; margin-right: 1%;'>";
+            }
             if ($comment['parent_id'] == $parent_id) {
                 $html .= '
                 <div class="comment" id="' . $comment['id'] . '">
-                    <div>
-                        <a href="profile.php?u=' . $comment['author_id'] . '"><h3 class="name">' . htmlspecialchars($res['username'], ENT_QUOTES) . '</h3></a>
+                    <div class="flex flex-row v-mid">'
+                    . $avatar .
+                    '<a href="profile.php?u=' . $comment['author_id'] . '"><h3 class="name">' . htmlspecialchars($res['username'], ENT_QUOTES) . '</h3></a>
                         <span class="date">' . time_elapsed_string($comment['submit_date']) . '</span>
                     </div>
                     <p class="content">' . nl2br(htmlspecialchars($comment['content'], ENT_QUOTES)) . '</p>

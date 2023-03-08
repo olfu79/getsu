@@ -142,9 +142,9 @@ ADMIN_SECTION;
                         echo <<< USER_DATA
                         <div class="user-card flex">
                             <div class="left flex flex-column">
-                                Edytuj zdjęcie:
+                                Edytuj URL zdjęcia:
                                 <div class="input_container">
-                                    <input type="file" id="fileUpload" accept="image/png, image/jpeg">
+                                    <input type="text" id="fileUpload"  value="$res[avatar]">
                                 </div>
                                 $avatar
                                 <span class="data-username"><b>$res[username]</b></span>
@@ -213,9 +213,9 @@ USER_DATA;
                             echo <<< USER_DATA
                         <div class="user-card flex">
                             <div class="left flex flex-column">
-                                Edytuj zdjęcie:
+                                Edytuj URL zdjęcia:
                                 <div class="input_container">
-                                    <input type="file" id="fileUpload" accept="image/png, image/jpeg">
+                                    <input type="text" id="fileUpload" value="$res[avatar]">
                                 </div>
                                 $avatar
                                 <span class="data-username"><b>$res[username]</b></span>
@@ -259,11 +259,11 @@ USER_DATA;
             $('.desc-area').trigger('input');
 
             document.getElementById('save-changes').addEventListener('click', function() {
-                var file = document.getElementById('fileUpload').files[0];
+                var url = document.getElementById('fileUpload').value || '';
                 var description = document.getElementById('desc-area').value || 'Brak opisu.';
                 var uid = '<?php echo $uid; ?>';
                 var formData = new FormData();
-                formData.append('file', file);
+                formData.append('avatar', url);
                 formData.append('description', description);
                 formData.append('uid', uid);
                 var xhr = new XMLHttpRequest();
