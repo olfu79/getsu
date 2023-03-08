@@ -14,7 +14,7 @@ if (isset($_GET['code'])) {
         $id = $con->real_escape_string($google_account_info->id);
         $full_name = $con->real_escape_string(trim($google_account_info->name));
         $email = $con->real_escape_string($google_account_info->email);
-        $profile_pic = $con->real_escape_string($google_account_info->picture);
+        $profile_pic = $con->real_escape_string(str_replace('s96-c', 's1000', $google_account_info->picture));
         $get_user = $con->query("SELECT `google_id`, `id`, `username`, `role` FROM `accounts` WHERE `google_id`='$id'");
         $result = $get_user->fetch_assoc();
         if ($get_user->num_rows > 0) {
@@ -29,7 +29,13 @@ if (isset($_GET['code'])) {
             header('Location: index.php');
             exit;
         } else {
-            $insert = $con->Query("INSERT INTO `accounts`(`google_id`,`username`,`email`) VALUES('$id','$full_name','$email')"); //$profile_pic
+            $get_user = $con->query("SELECT `id`, `email` FROM `accounts` WHERE `email`='$email'");
+            $result = $get_user->fetch_assoc();
+            if ($get_user->num_rows > 0) {
+                header('Location: login.php?e=emailexist');
+                exit;
+            }
+            $insert = $con->Query("INSERT INTO `accounts`(`google_id`,`username`,`email`, `avatar`) VALUES('$id','$full_name','$email', '$profile_pic')");
             if ($insert) {
                 $get_user = $con->query("SELECT `google_id`, `id`, `username`, `role` FROM `accounts` WHERE `google_id`='$id'");
                 $result = $get_user->fetch_assoc();
@@ -46,11 +52,11 @@ if (isset($_GET['code'])) {
                     exit;
                 }
             } else {
-                echo "Sign up failed!(Something went wrong).";
+                header("Location: login.php?e=error");
+                exit;
             }
         }
     } else {
-        header('Location: login.php');
-        exit;
+        header("Location: login.php?e=error");
     }
 }

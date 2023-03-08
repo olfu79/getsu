@@ -13,14 +13,8 @@ $fb = new Facebook\Facebook([
     'app_secret' => '9cc99af630877cd1590258814e8169de',
     'default_graph_version' => 'v11.0',
 ]);
-
-// Define the callback URL
 $redirectUrl = 'http://localhost/getsu/auth/facebook-login.php';
-
-// Define the required Facebook permissions
 $permissions = ['email', 'public_profile'];
-
-// Generate a login URL
 $loginUrl = $fb->getRedirectLoginHelper()->getLoginUrl($redirectUrl, $permissions);
 ?>
 <!DOCTYPE html>
