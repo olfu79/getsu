@@ -276,11 +276,57 @@ VIDEO_INTERACTIVE;
 NEXT_EP;
                     }
                     $result->free();
+
+                    $stmt = $con->prepare("SELECT genre FROM series WHERE id = ?");
+                    $stmt->bind_param("i", $series_id);
+                    $stmt->execute();
+                    $result = $stmt->get_result();
+                    $genre_string = $result->fetch_assoc()['genre'];
+                    $genre_string = rtrim($genre_string, '; '); // remove trailing semicolon and spaces
+                    $genres = explode('; ', $genre_string); // split genre string by semicolon and space
+                    $genres = array_map('trim', $genres); // trim whitespace from each genre
+                    $genres = array_filter($genres); // remove any empty genres
+                    // Pobierz wszystkie serie z bazy danych (z pominięciem serii o podanym ID) wraz z ich gatunkami do tablicy dwuwymiarowej
+                    $stmt = $con->prepare("SELECT id, genre FROM series WHERE id != ?");
+                    $stmt->bind_param("i", $series_id);
+                    $stmt->execute();
+                    $result = $stmt->get_result();
+                    $series_ids = [];
+                    while ($row = $result->fetch_assoc()) {
+                        $series_ids[] = $row['id'];
+                    }
+                    shuffle($series_ids); // przetasuj kolejność ID serii
+                    echo "<h2 style='margin-top:4%;'>Podobne serie:</h2>";
+                    $ile = 0;
+                    // Pobierz tytuły i gatunki serii na podstawie przetasowanych ID i wyświetl informacje o serii, jeśli zawiera przynajmniej jeden wspólny gatunek
+                    foreach ($series_ids as $id) {
+                        $stmt = $con->prepare("SELECT * FROM series WHERE id = ?");
+                        $stmt->bind_param("i", $id);
+                        $stmt->execute();
+                        $result = $stmt->get_result();
+                        $row = $result->fetch_assoc();
+                        $genre_string = $row['genre'];
+                        $genre_string = rtrim($genre_string, '; '); // remove trailing semicolon and spaces
+                        $series_genres = explode('; ', $genre_string); // split genre string by semicolon and space
+                        $series_genres = array_map('trim', $series_genres); // trim whitespace from each genre
+                        $series_genres = array_filter($series_genres); // remove any empty genres
+
+                        if (count(array_intersect($genres, $series_genres)) > 0) {
+                            echo <<< SUGESTED
+                            <a class="sugested-series" href="series.php?s=$id">
+                                <img width="100%" src="{$row['poster']}">
+                                <div class="sugested-title">{$row['alt_title']} S{$row['season']}</div>
+                            </a>
+                            SUGESTED;
+                            $ile++;
+                        }
+                        if ($ile == 3) break;
+                    }
                     ?>
-                    <h2>Podobne serie:</h2> <!-- wybierz ten sam gatunek group by sezon -->
+                    <!-- <h2>Podobne serie:</h2> wybierz ten sam gatunek group by sezon -->
+                    <!-- <div class="sugested-ep-box"></div>
                     <div class="sugested-ep-box"></div>
-                    <div class="sugested-ep-box"></div>
-                    <div class="sugested-ep-box"></div>
+                    <div class="sugested-ep-box"></div> -->
                 </div>
             </div>
         </div>
