@@ -31,21 +31,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: calc(25% - 40px);
+  width: calc(25% - 2vw);
   margin-left: 2%;
-}
-.suggested .sugested-ep-box
-{
-  aspect-ratio: 4 / 3;
-  width: 100%;
-  margin-bottom: 10px;
-  background-color: #161616;
 }
 .suggested a{
   text-decoration: inherit;
   color: white;
 }
-.suggested .next-ep-box{
+.suggested .next-ep-box, .suggested .sugested-series{
   aspect-ratio: 4 / 3;
   width: 100%;
   margin-bottom: 10px;
@@ -55,13 +48,13 @@
   align-items: center;
   padding: 2%;
 }
-.next-ep-title{
+.next-ep-title, .sugested-title{
   flex-grow: 1;
   display: flex;
   align-items: center;
   font-size: 1vw;
 }
-.next-ep-box img{
+.next-ep-box img, .suggested img{
   z-index: 1;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   width: 100%;

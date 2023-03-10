@@ -1,6 +1,7 @@
 <?php
 include 'scripts/isloggedin.php';
 include 'scripts/db_con.php';
+require_once 'vendor/autoload.php';
 ?>
 <!DOCTYPE html>
 <html lang="pl">
@@ -93,73 +94,110 @@ ADMIN_SECTION;
                 <h1>Wyszukiwanie "<span style="color: #A61C1C;"><?php echo $_GET['search'] ?></span>"</h1><br>
 
                 <?php
-                // get the search term from GET request
-                $search_term = $con->real_escape_string($_GET['search']);
+                $noResults = true;
+                $search = $con->real_escape_string($_GET['search']);
 
-                // Search for series based on LEVENSHTEIN_RATIO
-                $series_query = "SELECT id, title, alt_title, poster, isActive, LEVENSHTEIN_RATIO(title, '$search_term') as title_similarity, 
-                  LEVENSHTEIN_RATIO(alt_title, '$search_term') as alt_title_similarity,
-                  LEVENSHTEIN_RATIO(tags, '$search_term') as tags_similarity
-                  FROM series 
-                  WHERE isActive = 1 AND
-                  ((title LIKE '%$search_term%' OR alt_title LIKE '%$search_term%' OR tags LIKE '%$search_term%') 
-                  OR (LEVENSHTEIN_RATIO(title, '$search_term') >= 0.7 
-                      OR LEVENSHTEIN_RATIO(alt_title, '$search_term') >= 0.7 
-                      OR LEVENSHTEIN_RATIO(tags, '$search_term') >= 0.7))
-                  ORDER BY 
-                  (CASE
-                    WHEN title LIKE '$search_term%' THEN 1
-                    WHEN alt_title LIKE '$search_term%' THEN 2
-                    ELSE 3
-                  END),
-                  title_similarity DESC, alt_title_similarity DESC, tags_similarity DESC";
-
-                // execute the series query
+                $series_query = "SELECT * FROM series WHERE isActive = 1";
                 $series_result = $con->query($series_query);
+
+                $series = array();
                 if ($series_result->num_rows > 0) {
+                    while ($row = $series_result->fetch_assoc()) {
+                        $series[] = array(
+                            'alt_title' => $row["alt_title"],
+                            'title' => $row["title"],
+                            'tags' => $row["tags"],
+                            'id' => $row["id"],
+                            'poster' => $row["poster"]
+                        );
+                    }
+                }
+                $options = array(
+                    'keys' => array('alt_title', 'title', 'tags'),
+                    'threshold' => 0.4
+                );
+
+                $fuse = new Fuse\Fuse($series, $options);
+                $results = $fuse->search($search);
+                if (!empty($results)) {
+                    $noResults = false;
                     echo "<h2>Serie:</h2>";
-                    while ($series_row = $series_result->fetch_assoc()) {
-                        // output the series details
+                    foreach ($results as $result) {
                         echo "
-                        <a href='series.php?s=$series_row[id]'>
+                        <a href='series.php?s={$result['item']['id']}'>
                             <div class='search-item flex flex-row'>
-                                <img src='$series_row[poster]'>
+                                <img src='{$result['item']['poster']}'>
                                 <div class='item-data'>
-                                    <h4>$series_row[title]</h4>
-                                    <p>$series_row[alt_title]</p>
+                                    <h4>{$result['item']['title']}</h4>
+                                    <p>{$result['item']['alt_title']}</p>
                                 </div>
                             </div>
                         </a><br>";
                     }
+                } else {
                 }
-                // loop through the series results
+                $episodes_query = "SELECT `episodes`.`id`, `episodes`.`title`, `episodes`.`poster`, `series`.`season`, `episodes`.`ep_number`, `series`.`alt_title`, `series`.`title`as`series_title` FROM episodes JOIN series ON `episodes`.`series_id` = `series`.`id`  WHERE  `episodes`.`isActive` = 1";
+                $episodes_result = $con->query($episodes_query);
 
+                $episodes = array();
+                if ($episodes_result->num_rows > 0) {
+                    while ($row = $episodes_result->fetch_assoc()) {
+                        $episodes[] = array(
+                            'title' => $row["title"],
+                            'alt_title' => $row["alt_title"],
+                            'series_title' => $row["series_title"],
+                            'id' => $row["id"],
+                            'poster' => $row["poster"],
+                            'season' => $row["season"],
+                            'ep_number' => $row["ep_number"],
+                        );
+                    }
+                }
+                $options = array(
+                    'keys' => array('title', 'alt_title', 'title'),
+                    'threshold' => 0.4
+                );
 
-                // Search for episodes based on LEVENSHTEIN_RATIO
-                $episode_query = "SELECT episodes.id, episodes.title, episodes.poster, episodes.ep_number, episodes.isActive, series.season, episodes.poster, series.alt_title, LEVENSHTEIN_RATIO(episodes.title, '$search_term') as title_similarity
-                    FROM episodes
-                    INNER JOIN series ON series.id = episodes.series_id
-                    WHERE episodes.isActive = 1 AND (episodes.title LIKE '%$search_term%' OR series.alt_title LIKE '%$search_term%' OR LEVENSHTEIN_RATIO(episodes.title, '$search_term') >= 0.7 OR LEVENSHTEIN_RATIO(series.alt_title, '$search_term') >= 0.7)
-                    ORDER BY episodes.ep_number";
-                // execute the episode query
-                $episode_result = $con->query($episode_query);
-
-                // loop through the episode results and output them
-                if ($episode_result->num_rows > 0) {
+                $fuse = new Fuse\Fuse($episodes, $options);
+                $results = $fuse->search($search);
+                if (!empty($results)) {
+                    $noResults = false;
                     echo "<h2>Odcinki:</h2>";
-                    while ($episode_row = $episode_result->fetch_assoc()) {
+                    foreach ($results as $result) {
                         echo "
-                        <a href='watch.php?v={$episode_row["id"]}'>
-                            <div class='search-item flex flex-row'>
-                                <img src='$episode_row[poster]'>
-                                <div class='item-data'>
-                                    <h4>$episode_row[alt_title] S$episode_row[season] O$episode_row[ep_number]</h4>
-                                    <p>$episode_row[title]</p>
-                                </div>
-                            </div>
-                        </a><br>";
+                         <a href='watch.php?v={$result['item']['id']}'>
+                             <div class='search-item flex flex-row'>
+                                 <img src='{$result['item']['poster']}'>
+                                 <div class='item-data'>
+                                     <h4>{$result['item']['alt_title']} S{$result['item']['season']} O{$result['item']['ep_number']}</h4>
+                                     <p>{$result['item']['title']}</p>
+                                 </div>
+                             </div>
+                         </a><br>";
                     }
                 }
+
+                if ($noResults) {
+                    echo "<div class='noResults flex flex-row v-mid h-mid'>";
+                    echo "<p>Brak wyników</p>";
+                    echo "</div>";
+                }
+                // // loop through the episode results and output them
+                // if ($episode_result->num_rows > 0) {
+                //     echo "<h2>Odcinki:</h2>";
+                //     while ($episode_row = $episode_result->fetch_assoc()) {
+                //         echo "
+                //         <a href='watch.php?v={$episode_row["id"]}'>
+                //             <div class='search-item flex flex-row'>
+                //                 <img src='$episode_row[poster]'>
+                //                 <div class='item-data'>
+                //                     <h4>$episode_row[alt_title] S$episode_row[season] O$episode_row[ep_number]</h4>
+                //                     <p>$episode_row[title]</p>
+                //                 </div>
+                //             </div>
+                //         </a><br>";
+                //     }
+                // }
                 ?>
             </div>
         </div>
