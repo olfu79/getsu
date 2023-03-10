@@ -1,4 +1,5 @@
 <?php
+require 'vendor/autoload.php';
 session_start();
 if (isset($_SESSION['loggedin'])) {
     header('Location: index.php');
@@ -7,15 +8,8 @@ if (isset($_SESSION['loggedin'])) {
 require_once 'scripts/db_con.php';
 require 'google-api/vendor/autoload.php';
 require_once 'auth/google-login.php';
-require 'vendor/autoload.php';
-$fb = new Facebook\Facebook([
-    'app_id' => '525836883062613',
-    'app_secret' => '9cc99af630877cd1590258814e8169de',
-    'default_graph_version' => 'v11.0',
-]);
-$redirectUrl = 'http://localhost/getsu/auth/facebook-login.php';
-$permissions = ['email', 'public_profile'];
-$loginUrl = $fb->getRedirectLoginHelper()->getLoginUrl($redirectUrl, $permissions);
+require_once 'auth/facebook-login.php';
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
