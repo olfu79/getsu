@@ -3,7 +3,7 @@ include 'scripts/isloggedin.php';
 include 'scripts/db_con.php';
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 
 <head>
     <meta charset="UTF-8">
@@ -51,16 +51,16 @@ include 'scripts/db_con.php';
                     echo <<< ADMIN_SECTION
                     <hr>
                     <a href="add_item.php">
-                        <span class="mdi mdi-plus"></span>Dodaj
+                        <span class="mdi mdi-plus"></span><span class="menu-title">Dodaj</span>
                     </a>
                     <a href="reports.php">
-                        <span class="mdi mdi-flag"></span>Zgłoszenia
+                        <span class="mdi mdi-flag"></span><span class="menu-title">Zgłoszenia</span>
                     </a>
                     <a href="manage-content.php">
-                        <span class="mdi mdi-view-dashboard-edit"></span>Zarządzaj zawartością
+                        <span class="mdi mdi-view-dashboard-edit"></span><span class="menu-title">Zarządzaj zawartością</span>
                     </a>
                     <a href="manage-users.php">
-                        <span class="mdi mdi-account-edit"></span>Zarządzaj użytkownikami
+                        <span class="mdi mdi-account-edit"></span><span class="menu-title">Zarządzaj użytkownikami</span>
                     </a>
 ADMIN_SECTION;
                 }
@@ -68,8 +68,12 @@ ADMIN_SECTION;
             </div>
             <hr>
             <div class="logout">
+                <a href="contact.php">
+                    <span class="mdi mdi-message"></span><span class="menu-title">Kontakt</span>
+                </a>
+                <hr>
                 <a href="scripts/logout.php">
-                    <span class="mdi mdi-logout"></span>Log Out
+                    <span class="mdi mdi-logout"></span><span class="menu-title">Log out</span>
                 </a>
             </div>
         </div>

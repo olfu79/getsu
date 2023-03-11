@@ -1,8 +1,9 @@
 <?php
 $client = new Google_Client();
-$client->setClientId('802212988337-o44ofop2oatohdm31ospavmnjm1p8hj0.apps.googleusercontent.com');
-$client->setClientSecret('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');
-$client->setRedirectUri('http://localhost/getsu/login.php');
+require_once './scripts/google_con.php';
+$client->setClientId($clientId);
+$client->setClientSecret($secret);
+$client->setRedirectUri($redirect);
 $client->addScope("email");
 $client->addScope("profile");
 if (isset($_GET['code'])) {

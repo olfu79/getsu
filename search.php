@@ -52,16 +52,16 @@ require_once 'vendor/autoload.php';
                     echo <<< ADMIN_SECTION
                     <hr>
                     <a href="add_item.php">
-                        <span class="mdi mdi-plus"></span>Dodaj
+                        <span class="mdi mdi-plus"></span><span class="menu-title">Dodaj</span>
                     </a>
                     <a href="reports.php">
-                        <span class="mdi mdi-flag"></span>Zgłoszenia
+                        <span class="mdi mdi-flag"></span><span class="menu-title">Zgłoszenia</span>
                     </a>
                     <a href="manage-content.php">
-                        <span class="mdi mdi-view-dashboard-edit"></span>Zarządzaj zawartością
+                        <span class="mdi mdi-view-dashboard-edit"></span><span class="menu-title">Zarządzaj zawartością</span>
                     </a>
                     <a href="manage-users.php">
-                        <span class="mdi mdi-account-edit"></span>Zarządzaj użytkownikami
+                        <span class="mdi mdi-account-edit"></span><span class="menu-title">Zarządzaj użytkownikami</span>
                     </a>
 ADMIN_SECTION;
                 }
@@ -69,8 +69,12 @@ ADMIN_SECTION;
             </div>
             <hr>
             <div class="logout">
+                <a href="contact.php">
+                    <span class="mdi mdi-message"></span><span class="menu-title">Kontakt</span>
+                </a>
+                <hr>
                 <a href="scripts/logout.php">
-                    <span class="mdi mdi-logout"></span>Log Out
+                    <span class="mdi mdi-logout"></span><span class="menu-title">Log out</span>
                 </a>
             </div>
         </div>
@@ -136,6 +140,7 @@ ADMIN_SECTION;
                     }
                 } else {
                 }
+                echo "<span class='mobile-divider'></span>";
                 $episodes_query = "SELECT `episodes`.`id`, `episodes`.`title`, `episodes`.`poster`, `series`.`season`, `episodes`.`ep_number`, `series`.`alt_title`, `series`.`title`as`series_title` FROM episodes JOIN series ON `episodes`.`series_id` = `series`.`id`  WHERE  `episodes`.`isActive` = 1";
                 $episodes_result = $con->query($episodes_query);
 
@@ -157,7 +162,6 @@ ADMIN_SECTION;
                     'keys' => array('title', 'alt_title', 'title'),
                     'threshold' => 0.4
                 );
-
                 $fuse = new Fuse\Fuse($episodes, $options);
                 $results = $fuse->search($search);
                 if (!empty($results)) {
@@ -182,22 +186,6 @@ ADMIN_SECTION;
                     echo "<p>Brak wyników</p>";
                     echo "</div>";
                 }
-                // // loop through the episode results and output them
-                // if ($episode_result->num_rows > 0) {
-                //     echo "<h2>Odcinki:</h2>";
-                //     while ($episode_row = $episode_result->fetch_assoc()) {
-                //         echo "
-                //         <a href='watch.php?v={$episode_row["id"]}'>
-                //             <div class='search-item flex flex-row'>
-                //                 <img src='$episode_row[poster]'>
-                //                 <div class='item-data'>
-                //                     <h4>$episode_row[alt_title] S$episode_row[season] O$episode_row[ep_number]</h4>
-                //                     <p>$episode_row[title]</p>
-                //                 </div>
-                //             </div>
-                //         </a><br>";
-                //     }
-                // }
                 ?>
             </div>
         </div>

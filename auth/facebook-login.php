@@ -1,9 +1,5 @@
 <?php
-$fb = new Facebook\Facebook([
-    'app_id' => '525836883062613',
-    'app_secret' => '9cc99af630877cd1590258814e8169de',
-    'default_graph_version' => 'v2.5',
-]);
+include './scripts/facebook_con.php';
 
 $helper = $fb->getRedirectLoginHelper();
 $permissions = ['email'];

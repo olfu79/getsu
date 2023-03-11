@@ -8,11 +8,11 @@ if (isset($_SESSION['loggedin'])) {
 require_once 'scripts/db_con.php';
 require 'google-api/vendor/autoload.php';
 require_once 'auth/google-login.php';
-require_once 'auth/facebook-login.php';
+//require_once 'auth/facebook-login.php';
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 
 <head>
     <meta charset="UTF-8">
@@ -52,9 +52,10 @@ require_once 'auth/facebook-login.php';
                     </div>
                     <div class="trd-login">
                         <input type="submit" value="Login">
-                        <a href="<?php echo $loginUrl; ?>">
+                        <!-- <a href="<?php //echo $loginUrl; 
+                                        ?>">
                             <div class="facebook-login"></div>
-                        </a>
+                        </a> -->
                         <a href="<?php echo $client->createAuthUrl(); ?>">
                             <div class="google-login"></div>
                         </a>

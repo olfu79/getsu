@@ -3,7 +3,7 @@ include 'scripts/isloggedin.php';
 include 'scripts/db_con.php';
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 
 <head>
     <meta charset="UTF-8">
@@ -53,16 +53,16 @@ include 'scripts/db_con.php';
                     echo <<< ADMIN_SECTION
                     <hr>
                     <a href="add_item.php">
-                        <span class="mdi mdi-plus"></span>Dodaj
+                        <span class="mdi mdi-plus"></span><span class="menu-title">Dodaj</span>
                     </a>
                     <a href="reports.php">
-                        <span class="mdi mdi-flag"></span>Zgłoszenia
+                        <span class="mdi mdi-flag"></span><span class="menu-title">Zgłoszenia</span>
                     </a>
                     <a href="manage-content.php">
-                        <span class="mdi mdi-view-dashboard-edit"></span>Zarządzaj zawartością
+                        <span class="mdi mdi-view-dashboard-edit"></span><span class="menu-title">Zarządzaj zawartością</span>
                     </a>
                     <a href="manage-users.php">
-                        <span class="mdi mdi-account-edit"></span>Zarządzaj użytkownikami
+                        <span class="mdi mdi-account-edit"></span><span class="menu-title">Zarządzaj użytkownikami</span>
                     </a>
 ADMIN_SECTION;
                 }
@@ -70,8 +70,12 @@ ADMIN_SECTION;
             </div>
             <hr>
             <div class="logout">
+                <a href="contact.php">
+                    <span class="mdi mdi-message"></span><span class="menu-title">Kontakt</span>
+                </a>
+                <hr>
                 <a href="scripts/logout.php">
-                    <span class="mdi mdi-logout"></span>Log Out
+                    <span class="mdi mdi-logout"></span><span class="menu-title">Log out</span>
                 </a>
             </div>
         </div>
@@ -101,18 +105,18 @@ ADMIN_SECTION;
                             <div id="month-forward"><span class="mdi mdi-menu-right-outline"></span></div>
                         </div>
                         <div id="calendar-header">
-                            <div class="day-of-week">Poniedziałek</div>
-                            <div class="day-of-week">Wtorek</div>
-                            <div class="day-of-week">Środa</div>
-                            <div class="day-of-week">Czwartek</div>
-                            <div class="day-of-week">Piątek</div>
-                            <div class="day-of-week">Sobota</div>
-                            <div class="day-of-week">Niedziela</div>
+                            <div class="day-of-week"><span>Poniedziałek</span></div>
+                            <div class="day-of-week"><span>Wtorek</span></div>
+                            <div class="day-of-week"><span>Środa</span></div>
+                            <div class="day-of-week"><span>Czwartek</span></div>
+                            <div class="day-of-week"><span>Piątek</span></div>
+                            <div class="day-of-week"><span>Sobota</span></div>
+                            <div class="day-of-week"><span>Niedziela</span></div>
                         </div>
                         <div id="calendar"></div>
                     </div>
                 </div>
-                <div class="comingsoon-section flex-column">
+                <div class="comingsoon-section comingsoon-list flex-column">
                     <?php
                     $query1 = "SELECT * FROM `series` WHERE `brd-start` > CURRENT_DATE() ORDER BY `brd-start` ASC";
                     if ($result1 = $con->query($query1)) {
@@ -136,7 +140,7 @@ ADMIN_SECTION;
                             $current_month_num = date('n', strtotime($row1['brd-start']));
                             $current_month = $months[$current_month_num];
                             if ($current_month !== $previous_month) {
-                                echo "<h3>$current_month:</h3>";
+                                echo "<h3 class='month-name'>$current_month:</h3>";
                                 $previous_month = $current_month;
                             }
                             echo "<a href='series.php?s=$row1[id]'>
