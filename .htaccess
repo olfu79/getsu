@@ -1,4 +1,8 @@
+# Remove .php extension from URL
 RewriteEngine On
-RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ 404.php [L,QSA]
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^(.*)$ $1.php [L]
+
+# Redirect to custom 404 page
+ErrorDocument 404 /getsu/404.php

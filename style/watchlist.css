@@ -62,11 +62,24 @@
   margin-bottom: 1%;
 }
 
-@media (max-width: 767px) {
+@media screen and (max-width: 768px) {
   .ptw-section {
     flex-direction: column;
-}
-    .ptw-item {
-        flex-basis: 100%;
-    }
+  }
+  .ptw-section a{
+    width: 100%;
+  }
+  .ptw-item {
+    flex-basis: 100%;
+    flex-direction: column!important;
+    height: auto;
+    width: 100%;
+  }
+  .ptw-item img{
+    width: 100%;
+  }
+  .ptw-data{
+    font-size: 4vw;
+    padding: 2%;
+  }
 }

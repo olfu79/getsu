@@ -4,9 +4,13 @@ if (isset($_SESSION['loggedin'])) {
     header('Location: index.php');
     exit;
 }
+require_once 'scripts/db_con.php';
+require 'google-api/vendor/autoload.php';
+require_once 'auth/google-login.php';
+//require_once 'auth/facebook-login.php';
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 
 <head>
     <meta charset="UTF-8">
@@ -50,10 +54,11 @@ if (isset($_SESSION['loggedin'])) {
                     </div>
                     <div class="trd-login">
                         <input type="submit" value="Rejestracja">
-                        <a href="http://www.google.com">
-                            <div class="facebook-login"></div>
-                        </a>
-                        <a href="http://www.google.com">
+                        <!-- <a href="<?php //echo $loginUrl; 
+                                        ?>">
+                                        <div class="facebook-login"></div>
+                                    </a> -->
+                        <a href="<?php echo $client->createAuthUrl(); ?>">
                             <div class="google-login"></div>
                         </a>
                     </div>

@@ -11,7 +11,7 @@ include 'scripts/episodeAuth.php';
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://vjs.zencdn.net/7.21.1/video-js.css">
-    <link rel="stylesheet" href="style/player-style.css">
+    <link rel="stylesheet" href="style/watch.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.1.96/css/materialdesignicons.min.css">
     <link rel="icon" type="image/png" href="logo/favicon.png" />
     <title>Getsu</title>
@@ -45,41 +45,41 @@ include 'scripts/episodeAuth.php';
             <hr>
             <div class="navbar-left">
                 <a href="index.php">
-                    <span class="mdi mdi-compass"></span>Strona Główna
+                    <span class="mdi mdi-compass"></span><span class="menu-title">Strona Główna</span>
                 </a>
                 <a href="javascript:void(0);" class="dropdown">
-                    <span class="mdi mdi-format-list-bulleted-square"></span>Lista anime
+                    <span class="mdi mdi-format-list-bulleted-square"></span><span class="menu-title">Lista anime</span>
                 </a>
                 <div class="dropdown-container">
                     <?php
                     $query = "SELECT `id`, `alt_title`, `brd-start` FROM `series` WHERE `isActive` = '1' AND `brd-start` <= NOW() ORDER BY `alt_title` ASC";
                     $result = $con->query($query);
                     while ($row = $result->fetch_assoc()) {
-                        echo "<a href='series.php?s=$row[id]'>$row[alt_title]</a>";
+                        echo "<a href='series.php?s=$row[id]' id='$row[id]'>$row[alt_title]</a>";
                     }
                     $result->free();
                     ?>
                 </div>
                 <a href="watchlist.php">
-                    <span class="mdi mdi-playlist-play"></span>Do obejrzenia
+                    <span class="mdi mdi-playlist-play"></span><span class="menu-title">Do obejrzenia</span>
                 </a>
                 <a href="coming_soon.php">
-                    <span class="mdi mdi-calendar-clock"></span>Nadchodzące!
+                    <span class="mdi mdi-calendar-clock"></span><span class="menu-title">Nadchodzące!</span>
                 </a>
                 <?php if ($_SESSION['role'] == "admin") {
                     echo <<< ADMIN_SECTION
                     <hr>
                     <a href="add_item.php">
-                        <span class="mdi mdi-plus"></span>Dodaj
+                        <span class="mdi mdi-plus"></span><span class="menu-title">Dodaj</span>
                     </a>
                     <a href="reports.php">
-                        <span class="mdi mdi-flag"></span>Zgłoszenia
+                        <span class="mdi mdi-flag"></span><span class="menu-title">Zgłoszenia</span>
                     </a>
                     <a href="manage-content.php">
-                        <span class="mdi mdi-view-dashboard-edit"></span>Zarządzaj zawartością
+                        <span class="mdi mdi-view-dashboard-edit"></span><span class="menu-title">Zarządzaj zawartością</span>
                     </a>
                     <a href="manage-users.php">
-                        <span class="mdi mdi-account-edit"></span>Zarządzaj użytkownikami
+                        <span class="mdi mdi-account-edit"></span><span class="menu-title">Zarządzaj użytkownikami</span>
                     </a>
 ADMIN_SECTION;
                 }
@@ -87,8 +87,12 @@ ADMIN_SECTION;
             </div>
             <hr>
             <div class="logout">
+                <a href="contact.php">
+                    <span class="mdi mdi-message"></span><span class="menu-title">Kontakt</span>
+                </a>
+                <hr>
                 <a href="scripts/logout.php">
-                    <span class="mdi mdi-logout"></span>Log Out
+                    <span class="mdi mdi-logout"></span><span class="menu-title">Log out</span>
                 </a>
             </div>
         </div>
@@ -96,7 +100,7 @@ ADMIN_SECTION;
         <div class="right-pane">
             <div class="nav-top">
                 <div class="nav-top-left">
-                    <a onclick="history.back();" class="nav-top-back"><span class="mdi mdi-chevron-left"></span></a>
+                    <a onclick="history.back()" class="nav-top-back"><span class="mdi mdi-chevron-left"></span></a>
                     <a onclick="history.forward()" class="nav-top-forward"><span class="mdi mdi-chevron-right"></span></a>
                     <form method="GET" action="search.php">
                         <input type="search" name="search" placeholder="Wyszukaj...">
@@ -104,8 +108,8 @@ ADMIN_SECTION;
                     <a onclick="" class="nav-top-filter"><span class="mdi mdi-filter-variant"></span></a>
                 </div>
                 <div class="nav-top-right">
-                    <a href="index.php"><span class="mdi mdi-bell"></span></a>
-                    <a href="profile.php"><span class="mdi mdi-account-circle"></a>
+                    <a href="index.php" class="nav-top-notifications"><span class="mdi mdi-bell"></span></a>
+                    <a href="profile.php" class="nav-top-profile"><span class="mdi mdi-account-circle"></a>
                 </div>
             </div>
             <div class="main">
@@ -323,10 +327,6 @@ NEXT_EP;
                         if ($ile == 3) break;
                     }
                     ?>
-                    <!-- <h2>Podobne serie:</h2> wybierz ten sam gatunek group by sezon -->
-                    <!-- <div class="sugested-ep-box"></div>
-                    <div class="sugested-ep-box"></div>
-                    <div class="sugested-ep-box"></div> -->
                 </div>
             </div>
         </div>
@@ -355,7 +355,14 @@ NEXT_EP;
             </form>
         </div>
     </div>
-
+    <script>
+        $(document).ready(function() {
+            var seriesElement = $("#<?php echo $series_id; ?>");
+            if (seriesElement.length) {
+                seriesElement.css("background-color", "#161616");
+            }
+        });
+    </script>
     <script>
         var options;
         options = {

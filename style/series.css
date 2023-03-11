@@ -147,3 +147,31 @@ ul a{
   text-align: center;
   padding: 8%;
 }
+@media screen and (max-width: 768px) {
+  .main{
+    flex-direction: column!important;
+  }
+  .series-left-pane{
+    width: 100%;
+  }
+  .series-right-pane{
+    width: 100%;
+    height: 40vh;
+  }
+  .series-data{
+    font-size: 3vw;
+    height: 20vh;
+    overflow-y: scroll;
+  }
+  .series-data h2{
+    padding-right: 5%;
+    font-size: 5vw;
+  }
+  .ep-list-header{
+    display: none;
+  }
+  .series-ep-list{
+    height: 100%!important;
+    font-size: 4vw;
+  }
+}

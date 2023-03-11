@@ -9,7 +9,7 @@ include 'scripts/db_con.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="style/browse-style.css">
+    <link rel="stylesheet" href="style/browse.css">
     <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.1.96/css/materialdesignicons.min.css">
     <link rel="icon" type="image/png" href="logo/favicon.png" />
@@ -33,10 +33,10 @@ include 'scripts/db_con.php';
             <hr>
             <div class="navbar-left">
                 <a class="active" href="index.php">
-                    <span class="mdi mdi-compass"></span>Strona Główna
+                    <span class="mdi mdi-compass"></span><span class="menu-title">Strona Główna</span>
                 </a>
                 <a href="javascript:void(0);" class="dropdown">
-                    <span class="mdi mdi-format-list-bulleted-square"></span>Lista anime
+                    <span class="mdi mdi-format-list-bulleted-square"></span><span class="menu-title">Lista anime</span>
                 </a>
                 <div class="dropdown-container">
                     <?php
@@ -49,25 +49,25 @@ include 'scripts/db_con.php';
                     ?>
                 </div>
                 <a href="watchlist.php">
-                    <span class="mdi mdi-playlist-play"></span>Do obejrzenia
+                    <span class="mdi mdi-playlist-play"></span><span class="menu-title">Do obejrzenia</span>
                 </a>
                 <a href="coming_soon.php">
-                    <span class="mdi mdi-calendar-clock"></span>Nadchodzące!
+                    <span class="mdi mdi-calendar-clock"></span><span class="menu-title">Nadchodzące!</span>
                 </a>
                 <?php if ($_SESSION['role'] == "admin") {
                     echo <<< ADMIN_SECTION
                     <hr>
                     <a href="add_item.php">
-                        <span class="mdi mdi-plus"></span>Dodaj
+                        <span class="mdi mdi-plus"></span><span class="menu-title">Dodaj</span>
                     </a>
                     <a href="reports.php">
-                        <span class="mdi mdi-flag"></span>Zgłoszenia
+                        <span class="mdi mdi-flag"></span><span class="menu-title">Zgłoszenia</span>
                     </a>
                     <a href="manage-content.php">
-                        <span class="mdi mdi-view-dashboard-edit"></span>Zarządzaj zawartością
+                        <span class="mdi mdi-view-dashboard-edit"></span><span class="menu-title">Zarządzaj zawartością</span>
                     </a>
                     <a href="manage-users.php">
-                        <span class="mdi mdi-account-edit"></span>Zarządzaj użytkownikami
+                        <span class="mdi mdi-account-edit"></span><span class="menu-title">Zarządzaj użytkownikami</span>
                     </a>
 ADMIN_SECTION;
                 }
@@ -75,8 +75,12 @@ ADMIN_SECTION;
             </div>
             <hr>
             <div class="logout">
+                <a href="contact.php">
+                    <span class="mdi mdi-message"></span><span class="menu-title">Kontakt</span>
+                </a>
+                <hr>
                 <a href="scripts/logout.php">
-                    <span class="mdi mdi-logout"></span>Log Out
+                    <span class="mdi mdi-logout"></span><span class="menu-title">Log out</span>
                 </a>
             </div>
         </div>
@@ -92,8 +96,8 @@ ADMIN_SECTION;
                     <a onclick="" class="nav-top-filter"><span class="mdi mdi-filter-variant"></span></a>
                 </div>
                 <div class="nav-top-right">
-                    <a href="index.php"><span class="mdi mdi-bell"></span></a>
-                    <a href="profile.php"><span class="mdi mdi-account-circle"></a>
+                    <a href="index.php" class="nav-top-notifications"><span class="mdi mdi-bell"></span></a>
+                    <a href="profile.php" class="nav-top-profile"><span class="mdi mdi-account-circle"></a>
                 </div>
             </div>
             <div class="main flex-column">

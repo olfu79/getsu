@@ -23,3 +23,37 @@ a{
 .noResults{
     margin-top: 3%;
 }
+.mobile-divider{
+    display: none;
+}
+@media screen and (max-width: 768px) {
+    .search-item {
+      flex-basis: 100%;
+      flex-direction: column!important;
+      height: auto;
+      width: 100%;
+    }
+    .search-item img{
+      width: 100%;
+    }
+    .search-data{
+      font-size: 4vw;
+      padding: 2%;
+    }
+    .search-item h4{
+        font-size: 5vw;
+    }
+    .search-item p{
+        font-size: 4vw;
+    }
+    h2{
+        font-size: 5vw;
+    }
+    .noResults{
+        font-size: 5vw;
+    }
+    .mobile-divider{
+        display: block;
+        height: 3vh;
+    }
+  }

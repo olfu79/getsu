@@ -96,14 +96,14 @@ a.active span{
   height: auto;
 }
 .logout {
-  height: 10vh;
+  height: 20vh;
   z-index: 900;
 }
 .logout a {
   display: flex;
   flex-direction: row;
   align-items: center;
-  height: 100%;
+  height: 8vh;
   width: 100%;
   padding-left: 15%;
   text-decoration: none;
@@ -249,4 +249,96 @@ h1
 }
 .flex-row{
   flex-direction: row!important;
+}
+.nav-top-filter, .nav-top-notifications{
+  display: none!important;
+}
+
+@media screen and (max-width: 768px) {
+  .wrapper{
+    height: 100vh;
+  }
+  .left-pane{
+    width: 15vw;
+    height: 100vh;
+    flex-direction: column;
+  }
+  .left-pane hr{
+    display: none;
+  }
+  .logo {
+    padding: 20% 5% 5% 5%;
+  }
+  .logo a img{
+      content: url("logo/favicon.png");
+  }
+  .pane-divider{
+    display: none;
+  }
+  .nav-top-forward, .nav-top-back, .nav-top-filter, .nav-top-notifications{
+    display: none!important;
+  }
+  .navbar-left{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .navbar-left a{
+    height: 15%;
+    flex-direction: column;
+    justify-content: center;
+    padding-left:0!important;
+  }
+  .navbar-left a span{
+    margin-right: 0;
+  }
+  .nav-top-left{
+    width: 70%;
+  }
+  .nav-top-right{
+    width: auto;
+    margin-right: 0;
+  }
+  .active{
+    border: none!important;
+  }
+  .mdi{
+    font-size: 6vw!important;
+  }
+  .menu-title{
+    display: none;
+  }
+  .logout{
+    width: 100%;
+  }
+  .logout a{
+    padding-left: 0;
+    flex-direction: column;
+  }
+  .logout a span{
+    margin-right: 0;
+  }
+  .main{
+    margin-top: 10vh;
+  }
+  h1{
+    font-size: 5vw;
+  }
+  .dropdown-container{
+    position: fixed;
+    height: 100%;
+    width: 85vw;
+    left: 15vw;
+    overflow-y: scroll;
+    justify-content: normal;
+    padding-bottom: 20%;
+    box-shadow: inset 7px 0 9px -7px rgba(0,0,0,0.4);
+  }
+  .dropdown-container a{
+    height: 7vh;
+    width: 100%;
+    font-size: 3vw;
+    border: none;
+  }
 }

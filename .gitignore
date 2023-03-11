@@ -6,3 +6,6 @@ composer.json
 composer.lock
 package.json
 package-lock.json
+scripts/db_con.php
+scripts/google_con.php
+scripts/facebook_con.php
