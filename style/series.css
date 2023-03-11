@@ -162,6 +162,11 @@ ul a{
     font-size: 3vw;
     height: 20vh;
     overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .series-data::-webkit-scrollbar {
+    display: none;
   }
   .series-data h2{
     padding-right: 5%;

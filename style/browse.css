@@ -38,7 +38,7 @@
 }
 @media screen and (max-width: 768px) {
   .browse-section{
-    height: 22vh;
+    height: 25vh;
     width: 80vw;
     overflow-x: scroll;
     justify-content: normal;
