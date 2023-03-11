@@ -21,8 +21,8 @@ $(document).ready(function() {
     });
     $(document).on('click', '.series-added', function() {
         var noty = new Noty({
-            text: 'Dodano serię do obejrzenia',
-            type: 'error',
+            text: 'Usunięto serię z listy do obejrzenia',
+            type: 'info',
             theme: 'relax',
             layout: 'topRight',
             timeout: 3000,
@@ -31,8 +31,8 @@ $(document).ready(function() {
     });
     $(document).on('click', '.series-toadd', function() {
         var noty = new Noty({
-            text: 'Usunięto serię z listy do obejrzenia',
-            type: 'error',
+            text: 'Dodano serię do obejrzenia',
+            type: 'info',
             theme: 'relax',
             layout: 'topRight',
             timeout: 3000,
