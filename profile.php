@@ -75,7 +75,7 @@ ADMIN_SECTION;
             </div>
             <hr>
             <div class="logout">
-                <a href="contact.php">
+                <a href="https://discord.gg/nQb7GDaPyn" target="_blank">
                     <span class="mdi mdi-message"></span><span class="menu-title">Kontakt</span>
                 </a>
                 <hr>
