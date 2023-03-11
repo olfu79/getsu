@@ -106,3 +106,30 @@ button[type="submit"] {
     outline: none;
     width: 100%;
 }
+@media screen and (max-width: 768px) {
+    .edit-profile-wrapper{
+        flex-direction: column;
+        justify-content: normal;
+        max-height: 80vh;
+    }
+    .user-card{
+        width: 100%;
+        max-height: 70%;
+    }
+    .data-username{
+        overflow-wrap: break-word;
+        font-size: 4vw;
+    }
+    .data-role{
+        font-size: 3vw;
+    }
+    .mid, .left, .mid p{
+        font-size: 3vw;
+    }
+    .right{
+        display: none;
+    }
+    .main a, #save-changes{
+        font-size: 4vw; 
+    }
+}
