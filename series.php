@@ -14,7 +14,7 @@ include 'scripts/seriesAuth.php';
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.1.96/css/materialdesignicons.min.css">
 
     <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
-    <script src="scripts/ptw-handler.js"></script>
+    <script src="scripts/ptw-js-handler.js"></script>
     <link rel="icon" type="image/png" href="logo/favicon.png" />
 
     <link href="node_modules/noty/lib/noty.css" rel="stylesheet">
