@@ -60,7 +60,7 @@ errorpage1;
                     <span class="mdi mdi-calendar-clock"></span><span class="menu-title">Nadchodzące!</span>
                 </a>
 errorpage2;
-            if ($_SESSION['role'] == "admin") {
+            if ($_SESSION['role'] == "admin" || $_SESSION['role'] == "mod") {
                 echo <<< ADMIN_SECTION
                 <hr>
                 <a href="add_item.php">

@@ -39,6 +39,10 @@ if (!empty($_GET["action"])) {
         exit;
     }
     if (!empty($_GET['u']) && $_GET['action'] == "delete") {
+        if ($_SESSION['role'] != "admin") {
+            header('Location: ../manage-users.php?e=unauthorized');
+            exit;
+        }
         $deleteAccount_query = "DELETE FROM `accounts` WHERE `id` = '$_GET[u]'";
         if ($con->query($deleteAccount_query)) {
             header('Location: ../manage-users.php?s=sdeluser');

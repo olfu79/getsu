@@ -54,7 +54,7 @@ include 'scripts/db_con.php';
                 <a href="coming_soon.php">
                     <span class="mdi mdi-calendar-clock"></span><span class="menu-title">Nadchodzące!</span>
                 </a>
-                <?php if ($_SESSION['role'] == "admin") {
+                <?php if ($_SESSION['role'] == "admin" || $_SESSION['role'] == "mod") {
                     echo <<< ADMIN_SECTION
                     <hr>
                     <a href="add_item.php">

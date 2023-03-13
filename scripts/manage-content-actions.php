@@ -24,6 +24,10 @@ if (!empty($_GET["s"])) {
         exit;
     }
     if (!empty($_GET['action']) && $_GET['action'] == "delete") {
+        if ($_SESSION['role'] != "admin") {
+            header('Location: ../manage-content.php?e=unauthorized');
+            exit;
+        }
         $delete_query = "DELETE FROM `series` WHERE `id` = '$_GET[s]'";
         if ($con->query($delete_query)) {
             header('Location: ../manage-content.php?s=sdeleted');
@@ -51,6 +55,10 @@ if (!empty($_GET["e"])) {
         exit;
     }
     if (!empty($_GET['action']) && $_GET['action'] == "delete") {
+        if ($_SESSION['role'] != "admin") {
+            header('Location: ../manage-content.php?e=unauthorized');
+            exit;
+        }
         $delete_query = "DELETE FROM `episodes` WHERE `id` = '$_GET[e]'";
         if ($con->query($delete_query)) {
             header('Location: ../manage-content.php?s=edeleted');

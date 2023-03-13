@@ -53,6 +53,10 @@ $(document).ready(function() {
             noty.setText('Nieznany błąd!', true);
             noty.show();
         }
+        if (eParam === 'unauthorized') {
+            noty.setText('Brak uprawnień!', true);
+            noty.show();
+        }
         if (eParam === 'sdatamissing') {
             noty.setText('Brak danych serii, nie dodano do bazy!', true);
             noty.show();
